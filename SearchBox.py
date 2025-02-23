@@ -63,11 +63,10 @@ def easyToolTipWidget(html):
     return foo
 
 
-def SearchBoxFunction():
+def SearchBoxFunction(mw):
     import SearchBoxLight
 
     global wax, sea, tbr
-    mw = Gui.getMainWindow()
 
     if mw:
         if sea is None:
