@@ -114,8 +114,10 @@ help() {
 
 # Main function ------------------------------------------------------------------------------------
 
+# LUPDATE="C:/Program Files/FreeCAD 1.0/bin/Lib/site-packages/PySide6/lupdate" # from Qt6
 LUPDATE=/usr/lib/qt6/bin/lupdate # from Qt6
 # LUPDATE=lupdate                  # from Qt5
+# LRELEASE="C:/Program Files/FreeCAD 1.0/bin/Lib/site-packages/PySide6/lrelease" # from Qt6
 LRELEASE=/usr/lib/qt6/bin/lrelease # from Qt6
 # LRELEASE=lrelease                 # from Qt5
 WB="SearchBar"

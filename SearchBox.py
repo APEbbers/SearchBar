@@ -27,6 +27,7 @@ from PySide.QtWidgets import (
     QVBoxLayout,
     QApplication,
     QListWidget,
+    QWidgetAction,
 )
 from PySide.QtGui import (
     QIcon,
@@ -55,6 +56,42 @@ def easyToolTipWidget(html):
     foo.setAlignment(Qt.AlignmentFlag.AlignTop)
     foo.setText(html)
     return foo
+
+
+def SearchBoxFunction():
+    import SearchBoxLight
+
+    global wax, sea, tbr
+    mw = Gui.getMainWindow()
+
+    if mw:
+        if sea is None:
+            sea = SearchBoxLight.SearchBoxLight(
+                getItemGroups=lambda: __import__("GetItemGroups").getItemGroups(),
+                getToolTip=lambda groupId, setParent: __import__("GetItemGroups").getToolTip(groupId, setParent),
+                getItemDelegate=lambda: __import__("IndentedItemDelegate").IndentedItemDelegate(),
+            )
+            sea.resultSelected.connect(
+                lambda index, groupId: __import__("GetItemGroups").onResultSelected(index, groupId)
+            )
+
+        if wax is None:
+            wax = QWidgetAction(None)
+            wax.setWhatsThis(
+                translate(
+                    "SearchBar",
+                    "Use this search bar to find tools, document objects, preferences and more",
+                )
+            )
+
+        sea.setWhatsThis(
+            translate(
+                "SearchBar",
+                "Use this search bar to find tools, document objects, preferences and more",
+            )
+        )
+        wax.setDefaultWidget(sea)
+    return wax
 
 
 class SearchBox(QLineEdit):
@@ -91,9 +128,7 @@ class SearchBox(QLineEdit):
         self.getItemGroups = getItemGroups
         self.getToolTip = getToolTip
         self.itemGroups = None  # Will be initialized by calling getItemGroups() the first time the search box gains focus, through focusInEvent and refreshItemGroups
-        self.maxVisibleRows = (
-            maxVisibleRows  # TODO: use this to compute the correct height
-        )
+        self.maxVisibleRows = maxVisibleRows  # TODO: use this to compute the correct height
         # Create proxy model
         self.proxyModel = QIdentityProxyModel()
         # Filtered model to which items are manually added. Store it as a property of the object instead of a local variable, to prevent grbage collection.
@@ -105,9 +140,7 @@ class SearchBox(QLineEdit):
         self.listView.setWindowFlag(Qt.WindowType.FramelessWindowHint)
         self.listView.setSelectionMode(self.listView.SelectionMode.SingleSelection)
         self.listView.setModel(self.proxyModel)
-        self.listView.setItemDelegate(
-            getItemDelegate()
-        )  # https://stackoverflow.com/a/65930408/324969
+        self.listView.setItemDelegate(getItemDelegate())  # https://stackoverflow.com/a/65930408/324969
         self.listView.setMouseTracking(True)
         # make the QListView non-editable
         self.listView.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
@@ -137,18 +170,10 @@ class SearchBox(QLineEdit):
         # Note: should probably use the eventFilter method instead...
         wdgctx = Qt.ShortcutContext.WidgetShortcut
 
-        QShortcut(
-            QKeySequence(Qt.Key.Key_Down), self, context=wdgctx
-        ).activated.connect(self.listDown)
-        QShortcut(QKeySequence(Qt.Key.Key_Up), self, context=wdgctx).activated.connect(
-            self.listUp
-        )
-        QShortcut(
-            QKeySequence(Qt.Key.Key_PageDown), self, context=wdgctx
-        ).activated.connect(self.listPageDown)
-        QShortcut(
-            QKeySequence(Qt.Key.Key_PageUp), self, context=wdgctx
-        ).activated.connect(self.listPageUp)
+        QShortcut(QKeySequence(Qt.Key.Key_Down), self, context=wdgctx).activated.connect(self.listDown)
+        QShortcut(QKeySequence(Qt.Key.Key_Up), self, context=wdgctx).activated.connect(self.listUp)
+        QShortcut(QKeySequence(Qt.Key.Key_PageDown), self, context=wdgctx).activated.connect(self.listPageDown)
+        QShortcut(QKeySequence(Qt.Key.Key_PageUp), self, context=wdgctx).activated.connect(self.listPageUp)
 
         # Home and End do not work, for some reason.
         # QShortcut(QKeySequence.MoveToEndOfDocument, self, context = wdgctx).activated.connect(self.listEnd)
@@ -156,25 +181,13 @@ class SearchBox(QLineEdit):
         # QShortcut(QKeySequence(Qt.Key.Key_End), self, context = wdgctx).activated.connect(self.listEnd)
         # QShortcut(QKeySequence('Home'), self, context = wdgctx).activated.connect(self.listStart)
 
-        QShortcut(
-            QKeySequence(Qt.Key.Key_Enter), self, context=wdgctx
-        ).activated.connect(self.listAccept)
-        QShortcut(
-            QKeySequence(Qt.Key.Key_Return), self, context=wdgctx
-        ).activated.connect(self.listAccept)
-        QShortcut(QKeySequence("Ctrl+Return"), self, context=wdgctx).activated.connect(
-            self.listAcceptToggle
-        )
-        QShortcut(QKeySequence("Ctrl+Enter"), self, context=wdgctx).activated.connect(
-            self.listAcceptToggle
-        )
-        QShortcut(QKeySequence("Ctrl+Space"), self, context=wdgctx).activated.connect(
-            self.listAcceptToggle
-        )
+        QShortcut(QKeySequence(Qt.Key.Key_Enter), self, context=wdgctx).activated.connect(self.listAccept)
+        QShortcut(QKeySequence(Qt.Key.Key_Return), self, context=wdgctx).activated.connect(self.listAccept)
+        QShortcut(QKeySequence("Ctrl+Return"), self, context=wdgctx).activated.connect(self.listAcceptToggle)
+        QShortcut(QKeySequence("Ctrl+Enter"), self, context=wdgctx).activated.connect(self.listAcceptToggle)
+        QShortcut(QKeySequence("Ctrl+Space"), self, context=wdgctx).activated.connect(self.listAcceptToggle)
 
-        QShortcut(
-            QKeySequence(Qt.Key.Key_Escape), self, context=wdgctx
-        ).activated.connect(self.listCancel)
+        QShortcut(QKeySequence(Qt.Key.Key_Escape), self, context=wdgctx).activated.connect(self.listCancel)
 
         # Initialize the model with the full list (assuming the text() is empty)
         # self.proxyFilterModel(self.text()) # This is done by refreshItemGroups on focusInEvent, because the initial loading from cache can take time
@@ -221,9 +234,7 @@ class SearchBox(QLineEdit):
                 [
                     QStandardItem(
                         genericToolIcon,
-                        translate(
-                            "SearchBar", "Please wait, loading results from cache…"
-                        ),
+                        translate("SearchBar", "Please wait, loading results from cache…"),
                     ),
                     QStandardItem("0"),
                     QStandardItem("-1"),
@@ -275,17 +286,11 @@ class SearchBox(QLineEdit):
 
     @staticmethod
     def proxyListPageDown(self):
-        self.movementKey(
-            lambda current, nbRows: min(
-                current + max(1, self.maxVisibleRows / 2), nbRows - 1
-            )
-        )
+        self.movementKey(lambda current, nbRows: min(current + max(1, self.maxVisibleRows / 2), nbRows - 1))
 
     @staticmethod
     def proxyListPageUp(self):
-        self.movementKey(
-            lambda current, nbRows: max(current - max(1, self.maxVisibleRows / 2), 0)
-        )
+        self.movementKey(lambda current, nbRows: max(current - max(1, self.maxVisibleRows / 2), 0))
 
     @staticmethod
     def proxyListEnd(self):
@@ -422,9 +427,7 @@ class SearchBox(QLineEdit):
         def getScreenPosition(widget):
             geo = widget.geometry()
             parent = widget.parent()
-            parentPos = (
-                getScreenPosition(parent) if parent is not None else QPoint(0, 0)
-            )
+            parentPos = getScreenPosition(parent) if parent is not None else QPoint(0, 0)
             return QPoint(geo.x() + parentPos.x(), geo.y() + parentPos.y())
 
         pos = getScreenPosition(self)

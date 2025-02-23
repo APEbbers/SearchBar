@@ -1,41 +1,48 @@
 import os
 import FreeCAD as App
+import StyleMapping
 
 # Define the translation
 translate = App.Qt.translate
 
 
 def loadAllWorkbenches():
-    from PySide import QtGui
-    import FreeCADGui
+    from PySide.QtGui import QLabel
+    from PySide.QtCore import Qt, SIGNAL, Signal, QObject, QThread, QSize
+    from PySide.QtGui import QIcon, QPixmap, QAction, QGuiApplication
+    import FreeCADGui as Gui
 
-    activeWorkbench = FreeCADGui.activeWorkbench().name()
-    lbl = QtGui.QLabel(translate("SearchBar", "Loading workbench … (…/…)"))
+    activeWorkbench = Gui.activeWorkbench().name()
+    lbl = QLabel(translate("SearchBar", "Loading workbench … (…/…)"))
+    lbl.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+
+    # Get the stylesheet from the main window and use it for this form
+    lbl.setStyleSheet("background-color: " + StyleMapping.ReturnStyleItem("Background_Color") + ";")
+
+    # Get the main window from FreeCAD
+    mw = Gui.getMainWindow()
+    # Center the widget
+    cp = QGuiApplication.screenAt(mw.pos()).geometry().center()
+    lbl.move(cp)
+
     lbl.show()
-    lst = FreeCADGui.listWorkbenches()
+    lst = Gui.listWorkbenches()
     for i, wb in enumerate(lst):
-        msg = (
-            translate("SearchBar", "Loading workbench ")
-            + wb
-            + " ("
-            + str(i)
-            + "/"
-            + str(len(lst))
-            + ")"
-        )
+        msg = translate("SearchBar", "Loading workbench ") + wb + " (" + str(i) + "/" + str(len(lst)) + ")"
         print(msg)
         lbl.setText(msg)
         geo = lbl.geometry()
         geo.setSize(lbl.sizeHint())
         lbl.setGeometry(geo)
         lbl.repaint()
-        FreeCADGui.updateGui()  # Probably slower with this, because it redraws the entire GUI with all tool buttons changed etc. but allows the label to actually be updated, and it looks nice and gives a quick overview of all the workbenches…
+        Gui.updateGui()  # Probably slower with this, because it redraws the entire GUI with all tool buttons changed etc. but allows the label to actually be updated, and it looks nice and gives a quick overview of all the workbenches…
         try:
-            FreeCADGui.activateWorkbench(wb)
-        except:
+            Gui.activateWorkbench(wb)
+        except Exception:
             pass
     lbl.hide()
-    FreeCADGui.activateWorkbench(activeWorkbench)
+    Gui.activateWorkbench(activeWorkbench)
+    return
 
 
 def cachePath():
