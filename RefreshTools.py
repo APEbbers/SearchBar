@@ -29,7 +29,7 @@ def loadAllWorkbenches():
     lbl.show()
     lst = Gui.listWorkbenches()
     for i, wb in enumerate(lst):
-        msg = translate("SearchBar", "Loading workbench ") + wb + " (" + str(i) + "/" + str(len(lst)) + ")"
+        msg = translate("SearchBar", "Loading workbench ") + wb + " (" + str(i + 1) + "/" + str(len(lst)) + ")"
         print(msg)
         lbl.setText(msg)
         geo = lbl.geometry()
