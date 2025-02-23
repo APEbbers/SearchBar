@@ -1,7 +1,7 @@
 import os
 import FreeCAD as App
 import FreeCADGui as Gui
-import StyleMapping
+import StyleMapping_SearchBar
 
 # Define the translation
 translate = App.Qt.translate
@@ -18,7 +18,7 @@ def loadAllWorkbenches():
     lbl.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
 
     # Get the stylesheet from the main window and use it for this form
-    lbl.setStyleSheet("background-color: " + StyleMapping.ReturnStyleItem("Background_Color") + ";")
+    lbl.setStyleSheet("background-color: " + StyleMapping_SearchBar.ReturnStyleItem("Background_Color") + ";")
 
     # # Get the main window from FreeCAD
     # mw = Gui.getMainWindow()
