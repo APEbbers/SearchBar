@@ -1,9 +1,9 @@
 import FreeCAD as App
 import FreeCADGui as Gui
 
-from PySide6.QtWidgets import QWidgetAction, QToolBar, QMainWindow, QWidget, QDialog
-from PySide6.QtGui import QCursor, QShortcut, QKeySequence, QAction
-from PySide6.QtCore import Qt
+from PySide.QtWidgets import QWidgetAction, QToolBar, QMainWindow, QWidget, QDialog
+from PySide.QtGui import QCursor, QShortcut, QKeySequence, QAction
+from PySide.QtCore import Qt
 
 # Avoid garbage collection by storing the action in a global variable
 wax = None
@@ -26,6 +26,7 @@ def addToolSearchBox():
     global wax, sea, tbr
     mw = Gui.getMainWindow()
     import SearchBox
+    from PySide.QtWidgets import QToolBar
 
     if mw:
         if sea is None:
@@ -63,42 +64,6 @@ def AddPointerBox():
 
     Dialog.show()
     return
-
-
-def SearchBoxFunction():
-    import SearchBoxLight
-
-    global wax, sea, tbr
-    mw = Gui.getMainWindow()
-
-    if mw:
-        if sea is None:
-            sea = SearchBoxLight.SearchBoxLight(
-                getItemGroups=lambda: __import__("GetItemGroups").getItemGroups(),
-                getToolTip=lambda groupId, setParent: __import__("GetItemGroups").getToolTip(groupId, setParent),
-                getItemDelegate=lambda: __import__("IndentedItemDelegate").IndentedItemDelegate(),
-            )
-            sea.resultSelected.connect(
-                lambda index, groupId: __import__("GetItemGroups").onResultSelected(index, groupId)
-            )
-
-        if wax is None:
-            wax = QWidgetAction(None)
-            wax.setWhatsThis(
-                translate(
-                    "SearchBar",
-                    "Use this search bar to find tools, document objects, preferences and more",
-                )
-            )
-
-        sea.setWhatsThis(
-            translate(
-                "SearchBar",
-                "Use this search bar to find tools, document objects, preferences and more",
-            )
-        )
-        wax.setDefaultWidget(sea)
-    return wax
 
 
 addToolSearchBox()

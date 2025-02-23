@@ -1,5 +1,6 @@
 import os
 import FreeCAD as App
+import FreeCADGui as Gui
 import StyleMapping
 
 # Define the translation
@@ -7,10 +8,10 @@ translate = App.Qt.translate
 
 
 def loadAllWorkbenches():
+    import FreeCADGui as Gui
     from PySide.QtGui import QLabel
     from PySide.QtCore import Qt, SIGNAL, Signal, QObject, QThread, QSize
     from PySide.QtGui import QIcon, QPixmap, QAction, QGuiApplication
-    import FreeCADGui as Gui
 
     activeWorkbench = Gui.activeWorkbench().name()
     lbl = QLabel(translate("SearchBar", "Loading workbench … (…/…)"))
@@ -19,11 +20,11 @@ def loadAllWorkbenches():
     # Get the stylesheet from the main window and use it for this form
     lbl.setStyleSheet("background-color: " + StyleMapping.ReturnStyleItem("Background_Color") + ";")
 
-    # Get the main window from FreeCAD
-    mw = Gui.getMainWindow()
-    # Center the widget
-    cp = QGuiApplication.screenAt(mw.pos()).geometry().center()
-    lbl.move(cp)
+    # # Get the main window from FreeCAD
+    # mw = Gui.getMainWindow()
+    # # Center the widget
+    # cp = QGuiApplication.screenAt(mw.pos()).geometry().center()
+    # lbl.move(cp)
 
     lbl.show()
     lst = Gui.listWorkbenches()
