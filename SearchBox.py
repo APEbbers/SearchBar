@@ -58,42 +58,6 @@ def easyToolTipWidget(html):
     return foo
 
 
-def SearchBoxFunction():
-    import SearchBoxLight
-
-    global wax, sea, tbr
-    mw = Gui.getMainWindow()
-
-    if mw:
-        if sea is None:
-            sea = SearchBoxLight.SearchBoxLight(
-                getItemGroups=lambda: __import__("GetItemGroups").getItemGroups(),
-                getToolTip=lambda groupId, setParent: __import__("GetItemGroups").getToolTip(groupId, setParent),
-                getItemDelegate=lambda: __import__("IndentedItemDelegate").IndentedItemDelegate(),
-            )
-            sea.resultSelected.connect(
-                lambda index, groupId: __import__("GetItemGroups").onResultSelected(index, groupId)
-            )
-
-        if wax is None:
-            wax = QWidgetAction(None)
-            wax.setWhatsThis(
-                translate(
-                    "SearchBar",
-                    "Use this search bar to find tools, document objects, preferences and more",
-                )
-            )
-
-        sea.setWhatsThis(
-            translate(
-                "SearchBar",
-                "Use this search bar to find tools, document objects, preferences and more",
-            )
-        )
-        wax.setDefaultWidget(sea)
-    return wax
-
-
 class SearchBox(QLineEdit):
     # The following block of code is present in the lightweight proxy SearchBoxLight
     """
