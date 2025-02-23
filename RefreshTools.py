@@ -1,41 +1,49 @@
 import os
 import FreeCAD as App
+import FreeCADGui as Gui
+import StyleMapping_SearchBar
 
 # Define the translation
 translate = App.Qt.translate
 
 
 def loadAllWorkbenches():
-    from PySide import QtGui
-    import FreeCADGui
+    import FreeCADGui as Gui
+    from PySide.QtGui import QLabel
+    from PySide.QtCore import Qt, SIGNAL, Signal, QObject, QThread, QSize
+    from PySide.QtGui import QIcon, QPixmap, QAction, QGuiApplication
 
-    activeWorkbench = FreeCADGui.activeWorkbench().name()
-    lbl = QtGui.QLabel(translate("SearchBar", "Loading workbench … (…/…)"))
+    activeWorkbench = Gui.activeWorkbench().name()
+    lbl = QLabel(translate("SearchBar", "Loading workbench … (…/…)"))
+    lbl.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+
+    # Get the stylesheet from the main window and use it for this form
+    lbl.setStyleSheet("background-color: " + StyleMapping_SearchBar.ReturnStyleItem("Background_Color") + ";")
+
+    # # Get the main window from FreeCAD
+    # mw = Gui.getMainWindow()
+    # # Center the widget
+    # cp = QGuiApplication.screenAt(mw.pos()).geometry().center()
+    # lbl.move(cp)
+
     lbl.show()
-    lst = FreeCADGui.listWorkbenches()
+    lst = Gui.listWorkbenches()
     for i, wb in enumerate(lst):
-        msg = (
-            translate("SearchBar", "Loading workbench ")
-            + wb
-            + " ("
-            + str(i)
-            + "/"
-            + str(len(lst))
-            + ")"
-        )
+        msg = translate("SearchBar", "Loading workbench ") + wb + " (" + str(i + 1) + "/" + str(len(lst)) + ")"
         print(msg)
         lbl.setText(msg)
         geo = lbl.geometry()
         geo.setSize(lbl.sizeHint())
         lbl.setGeometry(geo)
         lbl.repaint()
-        FreeCADGui.updateGui()  # Probably slower with this, because it redraws the entire GUI with all tool buttons changed etc. but allows the label to actually be updated, and it looks nice and gives a quick overview of all the workbenches…
+        Gui.updateGui()  # Probably slower with this, because it redraws the entire GUI with all tool buttons changed etc. but allows the label to actually be updated, and it looks nice and gives a quick overview of all the workbenches…
         try:
-            FreeCADGui.activateWorkbench(wb)
-        except:
+            Gui.activateWorkbench(wb)
+        except Exception:
             pass
     lbl.hide()
-    FreeCADGui.activateWorkbench(activeWorkbench)
+    Gui.activateWorkbench(activeWorkbench)
+    return
 
 
 def cachePath():
@@ -91,23 +99,25 @@ def refreshToolbars(doLoadAllWorkbenches=True):
 
 
 def refreshToolsAction():
-    from PySide import QtGui
+    from PySide.QtWidgets import QApplication, QMessageBox
+    from PySide.QtCore import Qt
 
     print("Refresh cached results")
-    fw = QtGui.QApplication.focusWidget()
-    if fw is not None:
-        fw.clearFocus()
-    reply = QtGui.QMessageBox.question(
-        None,
+    msgBox = QMessageBox()
+    msgBox.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+    # Get the main window from FreeCAD
+    mw = Gui.getMainWindow()
+    reply = msgBox.question(
+        mw,
         translate("SearchBar", "Load all workbenches?"),
         translate(
             "SearchBar",
             """Load all workbenches? This can cause FreeCAD to become unstable, and this "reload tools" feature contained a bug that crashed freecad systematically, so please make sure you save your work before. It\'s a good idea to restart FreeCAD after this operation.""",
         ),
-        QtGui.QMessageBox.Yes,
-        QtGui.QMessageBox.No,
+        QMessageBox.Yes,
+        QMessageBox.No,
     )
-    if reply == QtGui.QMessageBox.Yes:
+    if reply == QMessageBox.Yes:
         refreshToolbars()
     else:
         print("cancelled")

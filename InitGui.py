@@ -6,66 +6,34 @@ wax = None
 sea = None
 tbr = None
 
+# Define the translation
+translate = App.Qt.translate
+
 
 def QT_TRANSLATE_NOOP(context, text):
     return text
 
 
 def addToolSearchBox():
-    import FreeCADGui
-    from PySide import QtGui
-    import SearchBoxLight
-
-    # Define the translation
-    translate = App.Qt.translate
-
     global wax, sea, tbr
-    mw = FreeCADGui.getMainWindow()
+    mw = Gui.getMainWindow()
+    import SearchBox
+    from PySide6.QtWidgets import QToolBar
+    from PySide6.QtGui import QShortcut, QKeySequence
+
     if mw:
         if sea is None:
-            sea = SearchBoxLight.SearchBoxLight(
-                getItemGroups=lambda: __import__("GetItemGroups").getItemGroups(),
-                getToolTip=lambda groupId, setParent: __import__(
-                    "GetItemGroups"
-                ).getToolTip(groupId, setParent),
-                getItemDelegate=lambda: __import__(
-                    "IndentedItemDelegate"
-                ).IndentedItemDelegate(),
-            )
-            sea.resultSelected.connect(
-                lambda index, groupId: __import__("GetItemGroups").onResultSelected(
-                    index, groupId
-                )
-            )
-
-        if wax is None:
-            wax = QtGui.QWidgetAction(None)
-            wax.setWhatsThis(
-                translate(
-                    "SearchBar",
-                    "Use this search bar to find tools, document objects, preferences and more",
-                )
-            )
-
-        sea.setWhatsThis(
-            translate(
-                "SearchBar",
-                "Use this search bar to find tools, document objects, preferences and more",
-            )
-        )
-        wax.setDefaultWidget(sea)
-        ##mbr.addWidget(sea)
-        # mbr.addAction(wax)
+            wax = SearchBox.SearchBoxFunction(mw)
         if tbr is None:
-            tbr = QtGui.QToolBar("SearchBar")  # QtGui.QDockWidget()
-            # Include FreeCAD in the name so that one can find windows labeled with FreeCAD easily in window managers which allow search through the list of open windows.
+            tbr = QToolBar("SearchBar")  # QtGui.QDockWidget()
+            # Include FreeCAD in the name so that one can find windows labeled with
+            # FreeCAD easily in window managers which allow search through the list of open windows.
             tbr.setObjectName("SearchBar")
             tbr.addAction(wax)
         mw.addToolBar(tbr)
         tbr.show()
+        return
 
 
 addToolSearchBox()
-import FreeCADGui
-
-FreeCADGui.getMainWindow().workbenchActivated.connect(addToolSearchBox)
+Gui.getMainWindow().workbenchActivated.connect(addToolSearchBox)
