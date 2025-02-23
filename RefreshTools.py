@@ -103,13 +103,12 @@ def refreshToolsAction():
     from PySide.QtCore import Qt
 
     print("Refresh cached results")
-    # fw = QApplication.focusWidget()
-    # if fw is not None:
-    #     fw.clearFocus()
     msgBox = QMessageBox()
     msgBox.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+    # Get the main window from FreeCAD
+    mw = Gui.getMainWindow()
     reply = msgBox.question(
-        None,
+        mw,
         translate("SearchBar", "Load all workbenches?"),
         translate(
             "SearchBar",
