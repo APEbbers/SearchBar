@@ -18,8 +18,8 @@ def addToolSearchBox():
     global wax, sea, tbr
     mw = Gui.getMainWindow()
     import SearchBox
-    from PySide6.QtWidgets import QToolBar
-    from PySide6.QtGui import QShortcut, QKeySequence
+    from PySide.QtWidgets import QToolBar
+    from PySide.QtGui import QShortcut, QKeySequence
 
     if mw:
         if sea is None:
