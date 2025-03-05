@@ -15,7 +15,9 @@ def loadAllWorkbenches():
 
     activeWorkbench = Gui.activeWorkbench().name()
     lbl = QLabel(translate("SearchBar", "Loading workbench … (…/…)"))
-    lbl.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+    lbl.setWindowFlags(Qt.WindowType.Dialog | Qt.WindowType.WindowStaysOnTopHint)
+    lbl.setMinimumSize(200, 20)
+    lbl.setContentsMargins(3, 3, 3, 3)
 
     # Get the stylesheet from the main window and use it for this form
     lbl.setStyleSheet("background-color: " + StyleMapping_SearchBar.ReturnStyleItem("Background_Color") + ";")
@@ -72,7 +74,7 @@ def writeCacheTools():
     import Serialize_SearchBar
 
     itemGroups = Serialize_SearchBar.deserialize(serializedItemGroups)
-    print("SearchBox: Cache has been written.")
+    print("SearchBox: Data file is created.")
     return itemGroups
 
 
@@ -83,7 +85,7 @@ def readCacheTools():
     import Serialize_SearchBar
 
     itemGroups = Serialize_SearchBar.deserialize(serializedItemGroups)
-    print("SearchBox: Tools were loaded from the cache.")
+    print("SearchBox: Tools are loaded.")
     return itemGroups
 
 
@@ -102,7 +104,7 @@ def refreshToolsAction():
     from PySide.QtWidgets import QApplication, QMessageBox
     from PySide.QtCore import Qt
 
-    print("Refresh cached results")
+    print("Refresh data file")
     msgBox = QMessageBox()
     msgBox.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
     # Get the main window from FreeCAD
@@ -112,7 +114,7 @@ def refreshToolsAction():
         translate("SearchBar", "Load all workbenches?"),
         translate(
             "SearchBar",
-            """Load all workbenches? This can cause FreeCAD to become unstable, and this "reload tools" feature contained a bug that crashed freecad systematically, so please make sure you save your work before. It\'s a good idea to restart FreeCAD after this operation.""",
+            """Load all workbenches? This can cause FreeCAD to become unstable. Please make sure you save your work first.\nIt is a advised to restart FreeCAD after this operation.""",
         ),
         QMessageBox.Yes,
         QMessageBox.No,
