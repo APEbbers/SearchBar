@@ -16,7 +16,7 @@ def loadAllWorkbenches():
     activeWorkbench = Gui.activeWorkbench().name()
     lbl = QLabel(translate("SearchBar", "Loading workbench … (…/…)"))
     lbl.setWindowFlags(Qt.WindowType.Dialog | Qt.WindowType.WindowStaysOnTopHint)
-    lbl.setMinimumSize(200, 20)
+    lbl.setMinimumSize(300, 20)
     lbl.setContentsMargins(3, 3, 3, 3)
 
     # Get the stylesheet from the main window and use it for this form
