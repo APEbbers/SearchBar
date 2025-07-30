@@ -18,6 +18,7 @@ def loadAllWorkbenches():
     # Define a QProgressBar as a counter dialog
     progressBar = QProgressBar(minimum=0, value=0)
     progressBar.setWindowFlags(Qt.WindowType.Dialog | Qt.WindowType.WindowStaysOnTopHint)
+    progressBar.setMinimumSize(300, 20)
 
     # Get the stylesheet from the main window and use it for this form
     progressBar.setStyleSheet("background-color: " + StyleMapping_SearchBar.ReturnStyleItem("Background_Color") + ";")
@@ -30,10 +31,12 @@ def loadAllWorkbenches():
 
     progressBar.show()
     lst = Gui.listWorkbenches()
+    progressBar.setMaximum(len(lst)-1)
     for i, wb in enumerate(lst):
         msg = translate("SearchBar", "Loading workbench ") + wb + " (" + str(i + 1) + "/" + str(len(lst)) + ")"
         print(msg)
         progressBar.setFormat(msg)
+        progressBar.setValue(i)
         # geo = lbl.geometry()
         # geo.setSize(lbl.sizeHint())
         # lbl.setGeometry(geo)
