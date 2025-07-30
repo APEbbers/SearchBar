@@ -9,18 +9,18 @@ translate = App.Qt.translate
 
 def loadAllWorkbenches():
     import FreeCADGui as Gui
-    from PySide.QtGui import QLabel
+    from PySide.QtWidgets import QLabel, QProgressBar, QApplication
     from PySide.QtCore import Qt, SIGNAL, Signal, QObject, QThread, QSize
     from PySide.QtGui import QIcon, QPixmap, QAction, QGuiApplication
 
     activeWorkbench = Gui.activeWorkbench().name()
-    lbl = QLabel(translate("SearchBar", "Loading workbench … (…/…)"))
-    lbl.setWindowFlags(Qt.WindowType.Dialog | Qt.WindowType.WindowStaysOnTopHint)
-    lbl.setMinimumSize(300, 20)
-    lbl.setContentsMargins(3, 3, 3, 3)
+
+    # Define a QProgressBar as a counter dialog
+    progressBar = QProgressBar(minimum=0, value=0)
+    progressBar.setWindowFlags(Qt.WindowType.Dialog | Qt.WindowType.WindowStaysOnTopHint)
 
     # Get the stylesheet from the main window and use it for this form
-    lbl.setStyleSheet("background-color: " + StyleMapping_SearchBar.ReturnStyleItem("Background_Color") + ";")
+    progressBar.setStyleSheet("background-color: " + StyleMapping_SearchBar.ReturnStyleItem("Background_Color") + ";")
 
     # # Get the main window from FreeCAD
     # mw = Gui.getMainWindow()
@@ -28,22 +28,23 @@ def loadAllWorkbenches():
     # cp = QGuiApplication.screenAt(mw.pos()).geometry().center()
     # lbl.move(cp)
 
-    lbl.show()
+    progressBar.show()
     lst = Gui.listWorkbenches()
     for i, wb in enumerate(lst):
         msg = translate("SearchBar", "Loading workbench ") + wb + " (" + str(i + 1) + "/" + str(len(lst)) + ")"
         print(msg)
-        lbl.setText(msg)
-        geo = lbl.geometry()
-        geo.setSize(lbl.sizeHint())
-        lbl.setGeometry(geo)
-        lbl.repaint()
+        progressBar.setFormat(msg)
+        # geo = lbl.geometry()
+        # geo.setSize(lbl.sizeHint())
+        # lbl.setGeometry(geo)
+        # lbl.repaint()
         Gui.updateGui()  # Probably slower with this, because it redraws the entire GUI with all tool buttons changed etc. but allows the label to actually be updated, and it looks nice and gives a quick overview of all the workbenches…
         try:
             Gui.activateWorkbench(wb)
         except Exception:
             pass
-    lbl.hide()
+    # lbl.hide()
+    progressBar.close()
     Gui.activateWorkbench(activeWorkbench)
     return
 
