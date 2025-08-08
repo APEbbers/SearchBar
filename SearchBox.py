@@ -334,9 +334,9 @@ class SearchBox(QLineEdit):
         key = qKeyEvent.key()
         modifiers = qKeyEvent.modifiers()
         self.showList()
-        if key == Qt.Key.Key_Home and modifiers & Qt.Key.CTRL != 0:
+        if key == Qt.Key.Key_Home and modifiers & Qt.ControlModifier:
             self.listStart()
-        elif key == Qt.Key.Key_End and modifiers & Qt.Key.CTRL != 0:
+        elif key == Qt.Key.Key_End and modifiers & Qt.ControlModifier:
             self.listEnd()
         else:
             super(SearchBoxLight, self).keyPressEvent(qKeyEvent)
