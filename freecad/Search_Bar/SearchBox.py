@@ -490,8 +490,13 @@ class SearchBox(QLineEdit):
             # if during that second execution some other calls are made the latest of those will
             # be queued by the code a few lines above this one, and the loop will continue processing
             # until an iteration during which no further call was made.
+            
+            if not index.model():
+                self.setExtraInfoIsActive = False
+                return
+            
             while True:
-                print('Model',index.model())
+
                 groupId = str(index.model().itemData(index.siblingAtColumn(2))[0])
                 # TODO: move this outside of this class, probably use a single metadata
                 # This is a hack to allow some widgets to set the parent and recompute their size
