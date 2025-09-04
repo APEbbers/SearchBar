@@ -1,7 +1,8 @@
 import os
 import FreeCAD as App
 import FreeCADGui as Gui
-import StyleMapping_SearchBar
+
+from .StyleMapping_SearchBar import ReturnStyleItem
 
 # Define the translation
 translate = App.Qt.translate
@@ -9,9 +10,8 @@ translate = App.Qt.translate
 
 def loadAllWorkbenches():
     import FreeCADGui as Gui
-    from PySide.QtWidgets import QLabel, QProgressBar, QApplication
-    from PySide.QtCore import Qt, SIGNAL, Signal, QObject, QThread, QSize
-    from PySide.QtGui import QIcon, QPixmap, QAction, QGuiApplication
+    from PySide.QtWidgets import QProgressBar
+    from PySide.QtCore import Qt
 
     activeWorkbench = Gui.activeWorkbench().name()
 
@@ -21,7 +21,7 @@ def loadAllWorkbenches():
     progressBar.setMinimumSize(300, 20)
 
     # Get the stylesheet from the main window and use it for this form
-    progressBar.setStyleSheet("background-color: " + StyleMapping_SearchBar.ReturnStyleItem("Background_Color") + ";")
+    progressBar.setStyleSheet("background-color: " + ReturnStyleItem("Background_Color") + ";")
 
     # # Get the main window from FreeCAD
     # mw = Gui.getMainWindow()
@@ -58,26 +58,26 @@ def cachePath():
 
 def gatherTools():
     itemGroups = []
-    import SearchResults
+    from .SearchResults import resultProvidersCached
 
-    for providerName, provider in SearchResults.resultProvidersCached.items():
+    for providerName, provider in resultProvidersCached.items():
         itemGroups = itemGroups + provider()
     return itemGroups
 
 
 def writeCacheTools():
-    import Serialize_SearchBar
+    from .Serialize_SearchBar import serialize
 
-    serializedItemGroups = Serialize_SearchBar.serialize(gatherTools())
+    serializedItemGroups = serialize(gatherTools())
     # Todo: use wb and a specific encoding.
     with open(cachePath(), "w") as cache:
         cache.write(serializedItemGroups)
     # I prefer to systematically deserialize, instead of taking the original version,
     # this avoids possible inconsistencies between the original and the cache and
     # makes sure cache-related bugs are noticed quickly.
-    import Serialize_SearchBar
+    from .Serialize_SearchBar import deserialize
 
-    itemGroups = Serialize_SearchBar.deserialize(serializedItemGroups)
+    itemGroups = deserialize(serializedItemGroups)
     print("SearchBox: Data file is created.")
     return itemGroups
 
@@ -86,9 +86,9 @@ def readCacheTools():
     # Todo: use rb and a specific encoding.
     with open(cachePath(), "r") as cache:
         serializedItemGroups = cache.read()
-    import Serialize_SearchBar
+    from .Serialize_SearchBar import deserialize
 
-    itemGroups = Serialize_SearchBar.deserialize(serializedItemGroups)
+    itemGroups = deserialize(serializedItemGroups)
     print("SearchBox: Tools are loaded.")
     return itemGroups
 
@@ -105,7 +105,7 @@ def refreshToolbars(doLoadAllWorkbenches=True):
 
 
 def refreshToolsAction():
-    from PySide.QtWidgets import QApplication, QMessageBox
+    from PySide.QtWidgets import QMessageBox
     from PySide.QtCore import Qt
 
     print("Refresh data file")

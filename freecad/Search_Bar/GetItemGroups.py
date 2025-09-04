@@ -14,10 +14,10 @@ def onResultSelected(index, groupId):
     global globalGroups
     nfo = globalGroups[groupId]
     handlerName = nfo["action"]["handler"]
-    import SearchResults
+    from .SearchResults import actionHandlers
 
-    if handlerName in SearchResults.actionHandlers:
-        SearchResults.actionHandlers[handlerName](nfo)
+    if handlerName in actionHandlers:
+        actionHandlers[handlerName](nfo)
     else:
         from PySide import QtGui
 
@@ -35,10 +35,10 @@ def getToolTip(groupId, setParent):
     global globalGroups
     nfo = globalGroups[int(groupId)]
     handlerName = nfo["action"]["handler"]
-    import SearchResults
+    from .SearchResults import toolTipHandlers
 
-    if handlerName in SearchResults.toolTipHandlers:
-        return SearchResults.toolTipHandlers[handlerName](nfo, setParent)
+    if handlerName in toolTipHandlers:
+        return toolTipHandlers[handlerName](nfo, setParent)
     else:
         return translate(
             "SearchBar",
@@ -47,28 +47,32 @@ def getToolTip(groupId, setParent):
 
 
 def getItemGroups():
+
+    from .BuiltInSearchResults import registerResults
+
     global itemGroups, serializedItemGroups, globalGroups
 
     # Import the tooltip+action handlers and search result providers that are bundled with this Mod.
     # Other providers should import SearchResults and register their handlers and providers
-    import BuiltInSearchResults
+
+    registerResults()
 
     # Load the list of tools, preferably from the cache, if it has not already been loaded:
     if itemGroups is None:
         if serializedItemGroups is None:
-            import RefreshTools
+            from .RefreshTools import refreshToolbars
 
-            itemGroups = RefreshTools.refreshToolbars(doLoadAllWorkbenches=False)
+            itemGroups = refreshToolbars(doLoadAllWorkbenches=False)
         else:
-            import Serialize_SearchBar
+            from .Serialize_SearchBar import deserialize
 
-            itemGroups = Serialize_SearchBar.deserialize(serializedItemGroups)
+            itemGroups = deserialize(serializedItemGroups)
 
     # Aggregate the tools (cached) and document objects (not cached), and assign an index to each
-    import SearchResults
+    from .SearchResults import resultProvidersUncached
 
     igs = itemGroups
-    for providerName, provider in SearchResults.resultProvidersUncached.items():
+    for providerName, provider in resultProvidersUncached.items():
         igs = igs + provider()
     globalGroups = []
 

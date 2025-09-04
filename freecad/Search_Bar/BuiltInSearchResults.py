@@ -1,86 +1,114 @@
 # You can add your own result proviers and action/tooltip handlers, by importing this module and calling the registration functions as follows.
 # We use wrapper functions which import the actual implementation and call it, in order to avoid loading too much code during startup.
 
-import SearchResults
+from .SearchResults import registerResultProvider , registerResultHandler
 
-SearchResults.registerResultProvider(
-    "refreshTools",
-    getItemGroupsCached=lambda: __import__(
-        "ResultsRefreshTools"
-    ).refreshToolsResultsProvider(),
-    getItemGroupsUncached=lambda: [],
-)
-SearchResults.registerResultProvider(
-    "document",
-    getItemGroupsCached=lambda: [],
-    getItemGroupsUncached=lambda: __import__(
-        "ResultsDocument"
-    ).documentResultsProvider(),
-)
-SearchResults.registerResultProvider(
-    "toolbar",
-    getItemGroupsCached=lambda: __import__("ResultsToolbar").toolbarResultsProvider(),
-    getItemGroupsUncached=lambda: [],
-)
-SearchResults.registerResultProvider(
-    "param",
-    getItemGroupsCached=lambda: __import__("ResultsPreferences").paramResultsProvider(),
-    getItemGroupsUncached=lambda: [],
-)
+def registerResults ():
 
-SearchResults.registerResultHandler(
-    "refreshTools",
-    action=lambda nfo: __import__("ResultsRefreshTools").refreshToolsAction(nfo),
-    toolTip=lambda nfo, setParent: __import__(
-        "ResultsRefreshTools"
-    ).refreshToolsToolTip(nfo, setParent),
-)
-SearchResults.registerResultHandler(
-    "toolbar",
-    action=lambda nfo: __import__("ResultsToolbar").toolbarAction(nfo),
-    toolTip=lambda nfo, setParent: __import__("ResultsToolbar").toolbarToolTip(
-        nfo, setParent
-    ),
-)
-SearchResults.registerResultHandler(
-    "tool",
-    action=lambda nfo: __import__("ResultsToolbar").subToolAction(nfo),
-    toolTip=lambda nfo, setParent: __import__("ResultsToolbar").subToolToolTip(
-        nfo, setParent
-    ),
-)
-SearchResults.registerResultHandler(
-    "subTool",
-    action=lambda nfo: __import__("ResultsToolbar").subToolAction(nfo),
-    toolTip=lambda nfo, setParent: __import__("ResultsToolbar").subToolToolTip(
-        nfo, setParent
-    ),
-)
-SearchResults.registerResultHandler(
-    "document",
-    action=lambda nfo: __import__("ResultsDocument").documentAction(nfo),
-    toolTip=lambda nfo, setParent: __import__("ResultsDocument").documentToolTip(
-        nfo, setParent
-    ),
-)
-SearchResults.registerResultHandler(
-    "documentObject",
-    action=lambda nfo: __import__("ResultsDocument").documentObjectAction(nfo),
-    toolTip=lambda nfo, setParent: __import__("ResultsDocument").documentObjectToolTip(
-        nfo, setParent
-    ),
-)
-SearchResults.registerResultHandler(
-    "param",
-    action=lambda nfo: __import__("ResultsPreferences").paramAction(nfo),
-    toolTip=lambda nfo, setParent: __import__("ResultsPreferences").paramToolTip(
-        nfo, setParent
-    ),
-)
-SearchResults.registerResultHandler(
-    "paramGroup",
-    action=lambda nfo: __import__("ResultsPreferences").paramGroupAction(nfo),
-    toolTip=lambda nfo, setParent: __import__("ResultsPreferences").paramGroupToolTip(
-        nfo, setParent
-    ),
-)
+    from .ResultsRefreshTools import refreshToolsResultsProvider
+
+    registerResultProvider(
+        "refreshTools",
+        getItemGroupsCached=lambda: refreshToolsResultsProvider() ,
+        getItemGroupsUncached=lambda: [],
+    )
+
+    from .ResultsDocument import documentResultsProvider
+
+    registerResultProvider(
+        "document",
+        getItemGroupsCached=lambda: [],
+        getItemGroupsUncached=lambda: documentResultsProvider()
+    )
+
+    from .ResultsToolbar import toolbarResultsProvider
+
+    registerResultProvider(
+        "toolbar",
+        getItemGroupsCached=lambda: toolbarResultsProvider(),
+        getItemGroupsUncached=lambda: [],
+    )
+
+    from .ResultsPreferences import paramResultsProvider
+
+    registerResultProvider(
+        "param",
+        getItemGroupsCached=lambda: paramResultsProvider(),
+        getItemGroupsUncached=lambda: [],
+    )
+
+    from .ResultsRefreshTools import refreshToolsToolTip , refreshToolsAction
+
+    registerResultHandler(
+        "refreshTools",
+        action=lambda nfo: refreshToolsAction(nfo),
+        toolTip=lambda nfo, setParent: refreshToolsToolTip(nfo, setParent),
+    )
+
+    from .ResultsToolbar import toolbarToolTip , toolbarAction
+
+    registerResultHandler(
+        "toolbar",
+        action=lambda nfo: toolbarAction(nfo),
+        toolTip=lambda nfo, setParent: toolbarToolTip(
+            nfo, setParent
+        ),
+    )
+
+    from .ResultsToolbar import subToolToolTip , subToolAction
+
+    registerResultHandler(
+        "tool",
+        action=lambda nfo: subToolAction(nfo),
+        toolTip=lambda nfo, setParent: subToolToolTip(
+            nfo, setParent
+        ),
+    )
+
+    registerResultHandler(
+        "subTool",
+        action=lambda nfo: subToolAction(nfo),
+        toolTip=lambda nfo, setParent: subToolToolTip(
+            nfo, setParent
+        ),
+    )
+
+    from .ResultsDocument import documentToolTip , documentAction
+
+    registerResultHandler(
+        "document",
+        action=lambda nfo: documentAction(nfo),
+        toolTip=lambda nfo, setParent: documentToolTip(
+            nfo, setParent
+        ),
+    )
+
+    from .ResultsDocument import documentObjectToolTip , documentObjectAction
+
+    registerResultHandler(
+        "documentObject",
+        action=lambda nfo: documentObjectAction(nfo),
+        toolTip=lambda nfo, setParent: documentObjectToolTip(
+            nfo, setParent
+        ),
+    )
+
+    from .ResultsPreferences import paramToolTip , paramAction
+
+    registerResultHandler(
+        "param",
+        action=lambda nfo: paramAction(nfo),
+        toolTip=lambda nfo, setParent: paramToolTip(
+            nfo, setParent
+        ),
+    )
+
+    from .ResultsPreferences import paramGroupToolTip , paramGroupAction
+
+    registerResultHandler(
+        "paramGroup",
+        action=lambda nfo: paramGroupAction(nfo),
+        toolTip=lambda nfo, setParent: paramGroupToolTip(
+            nfo, setParent
+        ),
+    )
