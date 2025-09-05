@@ -496,7 +496,7 @@ class SearchBox(QLineEdit):
             # if during that second execution some other calls are made the latest of those will
             # be queued by the code a few lines above this one, and the loop will continue processing
             # until an iteration during which no further call was made.
-            
+             
             # Return if index.model is None
             if not index.model():
                 self.setExtraInfoIsActive = False
