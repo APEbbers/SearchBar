@@ -2,9 +2,8 @@ from PySide import QtGui
 from PySide import QtCore
 import FreeCAD as App
 import FreeCADGui
-
-from .SafeViewer import SafeViewer
-from .SearchBox import setIgnoreFocus
+import SafeViewer
+import SearchBox
 
 # Define the translation
 translate = App.Qt.translate
@@ -34,6 +33,7 @@ if not hasattr(App, "_SearchBar3DViewer"):
 
 class DocumentObjectToolTipWidget(QtGui.QWidget):
     def __init__(self, nfo, setParent):
+        import pivy
 
         super(DocumentObjectToolTipWidget, self).__init__()
         html = (
@@ -52,11 +52,12 @@ class DocumentObjectToolTipWidget(QtGui.QWidget):
 
         if App._SearchBar3DViewer is None:
             oldFocus = QtGui.QApplication.focusWidget()
-            setIgnoreFocus(True)
-            App._SearchBar3DViewer = SafeViewer()
-            App._SearchBar3DViewerB = SafeViewer()
+            SearchBox.globalIgnoreFocusOut
+            SearchBox.globalIgnoreFocusOut = True
+            App._SearchBar3DViewer = SafeViewer.SafeViewer()
+            App._SearchBar3DViewerB = SafeViewer.SafeViewer()
             oldFocus.setFocus()
-            setIgnoreFocus(False)
+            SearchBox.globalIgnoreFocusOut = False
             # Tried setting the preview to a fixed size to prevent it from disappearing when changing its contents, this sets it to a fixed size but doesn't actually pick the size, .resize does that but isn't enough to fix the bug.
             # safeViewerInstance.setSizePolicy(QtGui.QSizePolicy(QtGui.QSizePolicy.Preferred, QtGui.QSizePolicy.Fixed))
         self.preview = App._SearchBar3DViewer

@@ -1,23 +1,26 @@
 import FreeCAD as App
+import FreeCADGui as Gui
+
+import os
 from PySide import QtGui
+import Serialize_SearchBar
+import Parameters_SearchBar as Parameters
 
-from .Parameters_SearchBar import genericToolIcon_Pixmap
-from .Serialize_SearchBar import iconToHTML
-
-genericToolIcon = QtGui.QIcon(QtGui.QIcon(genericToolIcon_Pixmap))
+genericToolIcon = QtGui.QIcon(QtGui.QIcon(Parameters.genericToolIcon_Pixmap))
 
 # Define the translation
 translate = App.Qt.translate
 
 
 def refreshToolsAction(nfo):
-    from .RefreshTools import refreshToolsAction
-    refreshToolsAction()
+    import RefreshTools
+
+    RefreshTools.refreshToolsAction()
 
 
 def refreshToolsToolTip(nfo, setParent):
     return (
-        iconToHTML(genericToolIcon)
+        Serialize_SearchBar.iconToHTML(genericToolIcon)
         + "<p>"
         + translate(
             "SearchBar",

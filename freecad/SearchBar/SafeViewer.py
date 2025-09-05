@@ -25,6 +25,7 @@ class SafeViewer(QtGui.QWidget):
             self.displaying_warning = False
             self.enable()
         else:
+            import FreeCADGui
             from PySide import QtCore
 
             self.displaying_warning = True

@@ -20,6 +20,23 @@
 # *                                                                       *
 # *************************************************************************
 import FreeCAD as App
+import FreeCADGui as Gui
+import os
+from PySide.QtGui import QIcon, QPixmap, QAction
+from PySide.QtWidgets import (
+    QListWidgetItem,
+    QTableWidgetItem,
+    QListWidget,
+    QTableWidget,
+    QToolBar,
+    QToolButton,
+    QComboBox,
+    QPushButton,
+    QMenu,
+    QWidget,
+    QMainWindow,
+)
+from PySide.QtCore import Qt, SIGNAL, Signal, QObject, QThread
 
 
 def DarkMode():

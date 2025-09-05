@@ -1,7 +1,7 @@
 import FreeCAD as App
 from PySide import QtGui
 import FreeCADGui
-from .Serialize_SearchBar import iconToHTML
+import Serialize_SearchBar
 
 # Define the translation
 translate = App.Qt.translate
@@ -83,7 +83,7 @@ def toolbarToolTip(nfo, setParent):
     in_workbenches = [
         "<li>"
         + (
-            iconToHTML(QtGui.QIcon(workbenches[wb].Icon))
+            Serialize_SearchBar.iconToHTML(QtGui.QIcon(workbenches[wb].Icon))
             if wb in workbenches
             else "? "
         )
@@ -102,7 +102,7 @@ def toolbarToolTip(nfo, setParent):
 
 def subToolToolTip(nfo, setParent):
     return (
-        iconToHTML(nfo["icon"], 32)
+        Serialize_SearchBar.iconToHTML(nfo["icon"], 32)
         + "<p>"
         + nfo["toolTip"]
         + "</p>"

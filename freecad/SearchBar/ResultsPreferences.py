@@ -1,10 +1,11 @@
+import os
 import FreeCAD as App
 import FreeCADGui
 from PySide import QtGui
+import Serialize_SearchBar
+import Parameters_SearchBar as Parameters
 
-from .Parameters_SearchBar import genericToolIcon_Pixmap
-
-genericToolIcon = QtGui.QIcon(QtGui.QIcon(genericToolIcon_Pixmap))
+genericToolIcon = QtGui.QIcon(QtGui.QIcon(Parameters.genericToolIcon_Pixmap))
 
 
 def getParam(grpPath, type_, name):

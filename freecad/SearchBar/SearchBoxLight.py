@@ -38,10 +38,10 @@ class SearchBoxLight(QtGui.QLineEdit):
         import types
 
         def f(*args, **kwargs):
-            from .SearchBox import SearchBox
+            import SearchBox
 
-            SearchBox.lazyInit(self)
-            return getattr(SearchBox, name)(*args, **kwargs)
+            SearchBox.SearchBox.lazyInit(self)
+            return getattr(SearchBox.SearchBox, name)(*args, **kwargs)
 
         return types.MethodType(f, self)
 
