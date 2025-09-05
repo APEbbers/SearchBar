@@ -9,7 +9,6 @@ tbr = None
 # Define the translation
 translate = App.Qt.translate
 
-
 def QT_TRANSLATE_NOOP(context, text):
     return text
 
@@ -17,13 +16,12 @@ def QT_TRANSLATE_NOOP(context, text):
 def addToolSearchBox():
     global wax, sea, tbr
     mw = Gui.getMainWindow()
-    import SearchBox
+    from .SearchBox import SearchBoxFunction
     from PySide.QtWidgets import QToolBar
-    from PySide.QtGui import QShortcut, QKeySequence
 
     if mw:
         if sea is None:
-            wax = SearchBox.SearchBoxFunction(mw)
+            wax = SearchBoxFunction(mw)
         if tbr is None:
             tbr = QToolBar("SearchBar")  # QtGui.QDockWidget()
             # Include FreeCAD in the name so that one can find windows labeled with

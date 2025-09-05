@@ -1,24 +1,12 @@
 import FreeCAD as App
 import FreeCADGui as Gui
-import os
 
 from PySide.QtCore import (
     Qt,
-    SIGNAL,
-    QSize,
     QIdentityProxyModel,
     QPoint,
 )
 from PySide.QtWidgets import (
-    QTabWidget,
-    QSlider,
-    QSpinBox,
-    QCheckBox,
-    QComboBox,
-    QLabel,
-    QTabWidget,
-    QSizePolicy,
-    QPushButton,
     QLineEdit,
     QTextEdit,
     QListView,
@@ -26,23 +14,20 @@ from PySide.QtWidgets import (
     QWidget,
     QVBoxLayout,
     QApplication,
-    QListWidget,
     QWidgetAction,
 )
 from PySide.QtGui import (
     QIcon,
-    QPixmap,
-    QColor,
     QStandardItemModel,
     QShortcut,
     QKeySequence,
     QStandardItem,
 )
 
-from SearchBoxLight import SearchBoxLight
-import Parameters_SearchBar as Parameters
+from .SearchBoxLight import SearchBoxLight
+from .Parameters_SearchBar import genericToolIcon_Pixmap
 
-genericToolIcon = QIcon(Parameters.genericToolIcon_Pixmap)
+genericToolIcon = QIcon(genericToolIcon_Pixmap)
 
 globalIgnoreFocusOut = False
 
@@ -55,6 +40,11 @@ sea = None
 tbr = None
 
 
+def setIgnoreFocus ( state : bool ):
+    global globalIgnoreFocusOut 
+    globalIgnoreFocusOut = state
+
+
 def easyToolTipWidget(html):
     foo = QTextEdit()
     foo.setReadOnly(True)
@@ -64,19 +54,23 @@ def easyToolTipWidget(html):
 
 
 def SearchBoxFunction(mw):
-    import SearchBoxLight
+    from .SearchBoxLight import SearchBoxLight
 
     global wax, sea, tbr
 
     if mw:
         if sea is None:
-            sea = SearchBoxLight.SearchBoxLight(
-                getItemGroups=lambda: __import__("GetItemGroups").getItemGroups(),
-                getToolTip=lambda groupId, setParent: __import__("GetItemGroups").getToolTip(groupId, setParent),
-                getItemDelegate=lambda: __import__("IndentedItemDelegate").IndentedItemDelegate(),
+
+            from .IndentedItemDelegate import IndentedItemDelegate
+            from .GetItemGroups import onResultSelected , getItemGroups , getToolTip
+
+            sea = SearchBoxLight(
+                getItemGroups=lambda: getItemGroups(),
+                getToolTip=lambda groupId, setParent: getToolTip(groupId, setParent),
+                getItemDelegate=lambda: IndentedItemDelegate(),
             )
             sea.resultSelected.connect(
-                lambda index, groupId: __import__("GetItemGroups").onResultSelected(index, groupId)
+                lambda index, groupId: onResultSelected(index, groupId)
             )
 
         if wax is None:
@@ -496,7 +490,13 @@ class SearchBox(QLineEdit):
             # if during that second execution some other calls are made the latest of those will
             # be queued by the code a few lines above this one, and the loop will continue processing
             # until an iteration during which no further call was made.
+            
+            if not index.model():
+                self.setExtraInfoIsActive = False
+                return
+            
             while True:
+
                 groupId = str(index.model().itemData(index.siblingAtColumn(2))[0])
                 # TODO: move this outside of this class, probably use a single metadata
                 # This is a hack to allow some widgets to set the parent and recompute their size
