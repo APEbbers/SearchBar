@@ -30,7 +30,7 @@ class EventInspector(QObject):
     def ShowSearchBoxAtCursor(self):
         global wax, sea, tbr
         mw = Gui.getMainWindow()
-        tbr = customToolbar("mouseMenu")
+        tbr = customToolbar(text="mouseMenu")
         import SearchBox
 
         if mw:
