@@ -21,10 +21,12 @@ def addToolSearchBox():
     global wax, sea, tbr
     mw = Gui.getMainWindow()
     import SearchBox
-    from EventFilters import EventInspector
+    from MouseBar import EventInspector
     from PySide6.QtWidgets import QToolBar
     
     if mw:
+        mw.installEventFilter(EventInspector(mw))
+        
         if sea is None:
             wax = SearchBox.SearchBoxFunction(mw)
         if tbr is None:
@@ -34,29 +36,9 @@ def addToolSearchBox():
             tbr.setObjectName("SearchBar")
             tbr.addAction(wax)
         mw.addToolBar(tbr)
-        mw.installEventFilter(EventInspector(mw))
         tbr.show()
-        return
-    
-# def ShowSearchBoxAtCursor():
-#     global wax, sea, tbr
-#     mw = Gui.getMainWindow()
-#     tbr = customToolbar("mouseMenu")
-#     import SearchBox
-
-#     if mw:
-#         if sea is None:
-#             wax = SearchBox.SearchBoxFunction(mw)
-#         if tbr is None:
-#             tbr = QToolBar("SearchBar")  # QtGui.QDockWidget()
-#             # Include FreeCAD in the name so that one can find windows labeled with
-#             # FreeCAD easily in window managers which allow search through the list of open windows.
-#             tbr.setObjectName("SearchBar")
-#             tbr.addAction(wax)
-#         return
-    
+        return   
 
 addToolSearchBox()
-# ShowSearchBoxAtCursor()
 Gui.getMainWindow().workbenchActivated.connect(addToolSearchBox)
 
