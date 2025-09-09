@@ -23,7 +23,12 @@ class EventInspector(QObject):
         toolbar = mw.findChild(QToolBar, "SearchBarAtMouse")
         
         if event.type() == QEvent.Type.KeyPress:
-            if event.key() == Qt.Key.Key_S:
+            if event.key() == Qt.Key.Key_Space:
+                try:
+                    toolbar.parent().parent().close()
+                except Exception:
+                    pass
+                
                 toolbar = QToolBar("SearchBarAtMouse", mw)   
                 toolbar.setFloatable(True)
                 toolbar.setAllowedAreas(Qt.ToolBarArea.NoToolBarArea)
@@ -39,11 +44,9 @@ class EventInspector(QObject):
                 return True
         if event.type() == QEvent.Type.MouseButtonPress:
             try:
-                toolbar = mw.findChild(QToolBar, "SearchBarAtMouse")
                 if toolbar.underMouse() is False:
                     toolbar.parent().parent().close()
-            except Exception as e:
-                print(e)
+            except Exception:
                 pass
             return True
         return False
