@@ -45,6 +45,7 @@ class SearchBar_Pointer:
             
             toolbar.move(pos.x()+10, pos.y()-10)
             toolbar.adjustSize()
+            toolbar.setStyleSheet("background: none;")
             toolbar.show()
             return
         # If there is already a toolbar, show it at the cursor or hide it
@@ -52,6 +53,7 @@ class SearchBar_Pointer:
             if toolbar.isVisible() is False:
                 toolbar.parent().parent().move(pos.x()+10, pos.y()-10)
                 toolbar.parent().parent().show()
+                toolbar.parent().parent().setStyleSheet("background: none;")
             else:
                 toolbar.parent().parent().close()
             return
