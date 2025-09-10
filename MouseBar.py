@@ -2,9 +2,9 @@ from tkinter import Menubutton
 from turtle import isvisible
 import FreeCAD as App
 import FreeCADGui as Gui
-from PySide6.QtWidgets import QMainWindow, QToolBar, QMenu, QHBoxLayout, QWidget, QWidgetAction, QDialog, QVBoxLayout
-from PySide6.QtGui import QShortcut, QKeySequence, QCursor, QWindow,  QKeySequence
-from PySide6.QtCore import Qt, Signal, QEvent, QObject
+from PySide.QtWidgets import QMainWindow, QToolBar, QMenu, QHBoxLayout, QWidget, QWidgetAction, QDialog, QVBoxLayout
+from PySide.QtGui import QShortcut, QKeySequence, QCursor, QWindow,  QKeySequence
+from PySide.QtCore import Qt, Signal, QEvent, QObject
 
 # Avoid garbage collection by storing the action in a global variable
 wax = None

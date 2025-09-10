@@ -1,8 +1,8 @@
 import FreeCAD as App
 import FreeCADGui as Gui
-from PySide6.QtWidgets import QMainWindow, QToolBar, QMenu, QWidget, QDialog
-from PySide6.QtGui import QShortcut, QKeySequence, QCursor
-from PySide6.QtCore import Qt, Signal, QEvent, QObject
+from PySide.QtWidgets import QMainWindow, QToolBar, QMenu, QWidget, QDialog
+from PySide.QtGui import QShortcut, QKeySequence, QCursor
+from PySide.QtCore import Qt, Signal, QEvent, QObject
 
 import MouseBar
 
@@ -26,7 +26,7 @@ def addToolSearchBox():
     import SearchBox
     import MouseBar
     from MouseBar import EventInspector
-    from PySide6.QtWidgets import QToolBar
+    from PySide.QtWidgets import QToolBar
     
     # Activate the searchBar at the pointer module
     MouseBar.SearchBar_Pointer()
