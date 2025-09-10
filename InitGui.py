@@ -1,8 +1,10 @@
 import FreeCAD as App
 import FreeCADGui as Gui
-from PySide6.QtWidgets import QToolBar, QMenu
+from PySide6.QtWidgets import QMainWindow, QToolBar, QMenu, QWidget, QDialog
 from PySide6.QtGui import QShortcut, QKeySequence, QCursor
 from PySide6.QtCore import Qt, Signal, QEvent, QObject
+
+import MouseBar
 
 # Avoid garbage collection by storing the action in a global variable
 wax = None
@@ -16,16 +18,25 @@ translate = App.Qt.translate
 def QT_TRANSLATE_NOOP(context, text):
     return text
 
-
 def addToolSearchBox():
     global wax, sea, tbr
-    mw = Gui.getMainWindow()
+    mw: QMainWindow = Gui.getMainWindow()
+    cp = mw.centralWidget()
+    vp: QWidget = cp.viewport()
     import SearchBox
+    import MouseBar
     from MouseBar import EventInspector
     from PySide6.QtWidgets import QToolBar
     
+    # Activate the searchBar at the pointer module
+    MouseBar.SearchBar_Pointer()
+    
     if mw:
         mw.installEventFilter(EventInspector(mw))
+        mw.centralWidget().installEventFilter(EventInspector(mw))
+        vp.installEventFilter(EventInspector(mw))
+        for child in vp.children():
+            child.installEventFilter(EventInspector(mw))
         
         if sea is None:
             wax = SearchBox.SearchBoxFunction(mw)
@@ -41,4 +52,6 @@ def addToolSearchBox():
 
 addToolSearchBox()
 Gui.getMainWindow().workbenchActivated.connect(addToolSearchBox)
+
+
 
