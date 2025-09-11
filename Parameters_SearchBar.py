@@ -74,7 +74,13 @@ class Settings:
 
 # region - Define the resources ----------------------------------------------------------------------------------------
 ICON_LOCATION = os.path.join(os.path.dirname(__file__), "Resources", "Icons")
+IMAGE_LOCATION = os.path.join(os.path.dirname(__file__), "Resources", "Images")
+UI_LOCATION = os.path.join(os.path.dirname(__file__), "Resources", "ui")
 # endregion ------------------------------------------------------------------------------------------------------------
 
 # The pixmap for the general tool icon
 genericToolIcon_Pixmap = os.path.join(ICON_LOCATION, "Tango-Tools-spanner-hammer.svg")
+
+DO_NOT_SHOW_AGAIN: bool = Settings.GetBoolSetting("DoNotShowAgain")
+if Settings.GetBoolSetting("DoNotShowAgain") is None:
+    AUTOHIDE_RIBBON = bool(False)

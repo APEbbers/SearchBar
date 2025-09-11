@@ -25,13 +25,17 @@ def addToolSearchBox():
     vp: QWidget = cp.viewport()
     import SearchBox
     import MouseBar
+    import LoadChangeDialog
     from MouseBar import EventInspector
     from PySide.QtWidgets import QToolBar
-    
-    # Activate the searchBar at the pointer module
-    MouseBar.SearchBar_Pointer()
-    
+        
     if mw:
+        # Load the what changed dialog
+        LoadChangeDialog.main()
+        
+        # Activate the searchBar at the pointer module
+        MouseBar.SearchBar_Pointer()
+        
         mw.installEventFilter(EventInspector(mw))
         mw.centralWidget().installEventFilter(EventInspector(mw))
         vp.installEventFilter(EventInspector(mw))
