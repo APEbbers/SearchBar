@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ChangeDialogAQSGvv.ui'
+## Form generated from reading UI file 'ChangeDialogJNRBKE.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -17,7 +17,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QCheckBox, QGridLayout, QSizePolicy,
     QTextBrowser, QWidget)
-import Resource file_rc
+import Resources_rc
 
 class Ui_Form(object):
     def setupUi(self, Form):
