@@ -43,7 +43,13 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         # # this will create a Qt widget from our ui file
         self.form = Gui.PySideUic.loadUi(os.path.join(pathUI, "ChangeDialog.ui"))
         
+        # Set the window on top
         self.form.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+        # Position the dialog in front of FreeCAD
+        centerPoint = mw.geometry().center()
+        Rectangle = self.form.frameGeometry()
+        Rectangle.moveCenter(centerPoint)
+        self.form.move(Rectangle.topLeft())
         
         # Set the window title
         self.form.setWindowTitle(translate("Searchbar", "What's new?"))
@@ -63,14 +69,14 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         self.form.DoNotShowAgain.clicked.connect(self.on_DoNotShowAgain_clicked)
         
         textBrowser: QTextEdit= self.form.textEdit
-        text = ("### New in SearchBar version 1.6.0: \n"
+        text = ("### New in SearchBar version 1.6.0:  \n"
         + "With this release, the searchbar can be shown at cursor by pressing a shortcut key. The default shortcut is 'S'.  \n"
         + "To show the searchbar at the cursor, press 'S'. To hide it, press 'S' again.  \n"
-        + f'<img src=\"{os.path.join(pathImages, "SearchBar at pointer.png")}\" width=200/>\n\n'
-        + "The shortcut can be changed. To do this, go to Tools->Customize.....\n"
+        + f'<img src=\"{os.path.join(pathImages, "SearchBar at pointer.png")}\"/>  \n'
+        + "The shortcut can be changed. To do this, go to Tools->Customize.....  \n"
         + "The customize menu of FreeCAD will popup. On the keyboard tab look for the catagory 'SearchBar'. \n"
-        + "The pointer command will be shown. Here you can set your prefferred shortcut.\n"
-        + f'<img src=\"{os.path.join(pathImages, "Change shortcut.png")}\" width=500/>\n\n')
+        + "The pointer command will be shown. Here you can set your prefferred shortcut.  \n"
+        + f'<img src=\"{os.path.join(pathImages, "Change shortcut.png")}\" width=500/>\n')
 
         textBrowser.setMarkdown(text)
         return
@@ -98,9 +104,6 @@ def main():
             versionString = versionString + versionList[i] + "."
     if versionString.endswith("."):
         versionString = versionString[:-1]
-        
-    print(versionString)
-    print(versionToShow)
         
     if versionString == versionToShow:
         # Get the form

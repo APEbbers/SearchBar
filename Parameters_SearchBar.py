@@ -7,7 +7,7 @@ import sys
 # Define the translation
 translate = App.Qt.translate
 
-preferences = App.ParamGet("User parameter:BaseApp/Preferences/Mod/FreeCAD-Ribbon")
+preferences = App.ParamGet("User parameter:BaseApp/Preferences/Mod/SearchBar")
 
 
 class Settings:
