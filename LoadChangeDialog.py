@@ -63,27 +63,16 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         self.form.DoNotShowAgain.clicked.connect(self.on_DoNotShowAgain_clicked)
         
         textBrowser: QTextEdit= self.form.textEdit
-        # htmlFile = open(os.path.join(pathchangelog, "What's new.html")).read()
-        tekst = f"""
-        <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
-        <html>
-        <b>New in SearchBar version 1.6.0:</b>
-        <br/>
-        <p>
-        With this release, the searchbar can be shown at cursor by pressing a shortcut key. The default shortcut is 'S'.
-        To show the searchbar at the cursor, press 'S'. To hide it, press 'S' again.
-        </p>
-        <img src=\":/Images/Resources/Images/2025-09-11 Change shortcut.png\" />
-        <p>
-        <br/>
-        The shortcut can be changed. To do this, go to Tools->Customize.....
-        The customize menu of FreeCAD will popup.  
-        On the keyboard tab look for the catagory 'SearchBar'. 
-        The pointer command will be shown. Here you can set your prefferred shortcut.
-        </p></html>
-        """
+        text = ("### New in SearchBar version 1.6.0: \n"
+        + "With this release, the searchbar can be shown at cursor by pressing a shortcut key. The default shortcut is 'S'.  \n"
+        + "To show the searchbar at the cursor, press 'S'. To hide it, press 'S' again.  \n"
+        + f'<img src=\"{os.path.join(pathImages, "SearchBar at pointer.png")}\" width=200/>\n\n'
+        + "The shortcut can be changed. To do this, go to Tools->Customize.....\n"
+        + "The customize menu of FreeCAD will popup. On the keyboard tab look for the catagory 'SearchBar'. \n"
+        + "The pointer command will be shown. Here you can set your prefferred shortcut.\n"
+        + f'<img src=\"{os.path.join(pathImages, "Change shortcut.png")}\" width=500/>\n\n')
 
-        textBrowser.setHtml(tekst)
+        textBrowser.setMarkdown(text)
         return
     
     def on_DoNotShowAgain_clicked(self):
