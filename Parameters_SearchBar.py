@@ -57,6 +57,7 @@ class Settings:
         if value.lower() == "none":
             value = ""
         preferences.SetString(settingName, value)
+        App.saveParameter()
         return
 
     def SetBoolSetting(settingName: str, value):
@@ -65,11 +66,14 @@ class Settings:
         if str(value).lower() == "none" or str(value).lower() != "true":
             Bool = False
         preferences.SetBool(settingName, Bool)
+        App.saveParameter()
         return
 
     def SetIntSetting(settingName: str, value: int):
         if str(value).lower() != "":
             preferences.SetInt(settingName, value)
+            App.saveParameter()
+        return
 
 
 # region - Define the resources ----------------------------------------------------------------------------------------
