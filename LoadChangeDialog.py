@@ -43,7 +43,7 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         mw = self.mw
 
         # # this will create a Qt widget from our ui file
-        self.form = Gui.PySideUic.loadUi(os.path.join(pathUI, "ui_ChangeDialog.ui"))
+        self.form = Gui.PySideUic.loadUi(os.path.join(pathUI, "ChangeDialog.ui"))
         
         # Set the window title
         self.form.setWindowTitle(translate("Searchbar", "What's new?"))
@@ -61,6 +61,10 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         
         # Connect do not show again checkbox
         self.form.DoNotShowAgain.clicked.connect(self.on_DoNotShowAgain_clicked)
+        
+        textBrowser: QTextBrowser = self.form.textBrowser
+        textBrowser.clear()
+        textBrowser.insertHtml(os.path.join(os.path.dirname(__file__), "What's new.html"))
         return
     
     def on_DoNotShowAgain_clicked(self):
@@ -80,11 +84,15 @@ def main():
     
     versionList = versionToShow.split(".")
     versionString = ""
-    for i in range(len(versionList)-1):
+    
+    for i in range(len(versionList)):
         if versionList[i] == CurrentVersion[i]:
             versionString = versionString + versionList[i] + "."
     if versionString.endswith("."):
         versionString = versionString[:-1]
+        
+    print(versionString)
+    print(versionToShow)
         
     if versionString == versionToShow:
         # Get the form
