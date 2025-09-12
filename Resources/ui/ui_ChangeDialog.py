@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ChangeDialogVqibFX.ui'
+## Form generated from reading UI file 'ChangeDialogsUlGqf.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -15,8 +15,9 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QCheckBox, QGridLayout, QLabel,
-    QSizePolicy, QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QGridLayout, QSizePolicy,
+    QTextEdit, QWidget)
+import Resources_rc
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -30,11 +31,10 @@ class Ui_Form(object):
 
         self.gridLayout.addWidget(self.DoNotShowAgain, 1, 0, 1, 1)
 
-        self.label = QLabel(Form)
-        self.label.setObjectName(u"label")
-        self.label.setWordWrap(True)
+        self.textEdit = QTextEdit(Form)
+        self.textEdit.setObjectName(u"textEdit")
 
-        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.textEdit, 0, 0, 1, 1)
 
 
         self.retranslateUi(Form)
@@ -45,6 +45,13 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.DoNotShowAgain.setText(QCoreApplication.translate("Form", u"Do not show again", None))
-        self.label.setText(QCoreApplication.translate("Form", u"TextLabel", None))
+        self.textEdit.setHtml(QCoreApplication.translate("Form", u"<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+"<html><head><meta name=\"qrichtext\" content=\"1\" /><meta charset=\"utf-8\" /><style type=\"text/css\">\n"
+"p, li { white-space: pre-wrap; }\n"
+"hr { height: 1px; border-width: 0; }\n"
+"li.unchecked::marker { content: \"\\2610\"; }\n"
+"li.checked::marker { content: \"\\2612\"; }\n"
+"</style></head><body style=\" font-family:'Noto Sans'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><img src=\":/Images/Resources/Images/2025-09-11 Change shortcut.png\" /></p></body></html>", None))
     # retranslateUi
 
