@@ -37,8 +37,6 @@ li.checked::marker { content: &quot;\2612&quot;; }
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../Resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
