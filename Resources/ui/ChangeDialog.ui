@@ -22,26 +22,16 @@
     </widget>
    </item>
    <item row="0" column="0">
-    <widget class="QWebEngineView" name="webEngineView">
-     <property name="autoFillBackground">
-      <bool>true</bool>
-     </property>
-     <property name="url">
-      <url>
-       <string>about:blank</string>
-      </url>
+    <widget class="QTextEdit" name="textEdit">
+     <property name="markdown">
+      <string>### New in SearchBar version 1.6.0:  With this release, the searchbar can be shown at cursor by pressing a shortcut key. The default shortcut is 'S'. To show the searchbar at the cursor, press 'S'. To hide it, press 'S' again.   ![2025-09-11 SearchBar at pointer](https://github.com/user-attachments/assets/9be0ec18-3fe4-4feb-85db-0cf4e0fe7665)     The shortcut can be changed. To do this, go to Tools-&gt;Customize..... The customize menu of FreeCAD will popup.   On the keyboard tab look for the catagory 'SearchBar'. The pointer command will be shown. Here you can set your prefferred shortcut.   ![2025-09-11 Change shortcut](https://github.com/user-attachments/assets/8f65c2aa-17b5-458f-acfd-3d107b1029ba)
+
+</string>
      </property>
     </widget>
    </item>
   </layout>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>QWebEngineView</class>
-   <extends>QWidget</extends>
-   <header location="global">QtWebEngineWidgets/QWebEngineView</header>
-  </customwidget>
- </customwidgets>
  <resources>
   <include location="../../Resources.qrc"/>
  </resources>

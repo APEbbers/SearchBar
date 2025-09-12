@@ -5,9 +5,8 @@ import sys
 
 
 from PySide6.QtGui import QIcon, QPixmap, QAction, QGuiApplication, QTextDocument
-from PySide6.QtWidgets import QCheckBox
+from PySide6.QtWidgets import QCheckBox, QTextEdit
 from PySide6.QtCore import Qt, QObject
-from PySide6.QtWebEngineWidgets import QWebEngineView, 
 
 import StandardFunctions_SearchBar as StandardFunctions
 import Parameters_SearchBar
@@ -65,9 +64,20 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         # Connect do not show again checkbox
         self.form.DoNotShowAgain.clicked.connect(self.on_DoNotShowAgain_clicked)
         
-        textBrowser: QWebEngineView = self.form.webEngineView
-        htmlFile = open(os.path.join(pathchangelog, "What's new.html")).read()
-        textBrowser.setHtml(htmlFile)
+        textBrowser: QTextEdit = self.form.textEdit
+        # htmlFile = open(os.path.join(pathchangelog, "What's new.html")).read()
+        tekst = f"""
+        ### New in SearchBar version 1.6.0:
+
+        With this release, the searchbar can be shown at cursor by pressing a shortcut key. The default shortcut is 'S'.
+        To show the searchbar at the cursor, press 'S'. To hide it, press 'S' again.  
+        <img height="100" alt="2025-09-11 SearchBar at pointer" src={os.path.join(pathImages, "2025-09-11 Change shortcut.png")} />
+        
+        The shortcut can be changed. To do this, go to Tools->Customize..... The customize menu of FreeCAD will popup.  
+        On the keyboard tab look for the catagory 'SearchBar'. The pointer command will be shown. Here you can set your prefferred shortcut.  
+        <img height="500" alt="2025-09-11 Change shortcut" src={os.path.join(pathImages, "2025-09-11 SearchBar at pointer.png")} />  
+        """
+        textBrowser.setMarkdown(tekst)
         return
     
     def on_DoNotShowAgain_clicked(self):
