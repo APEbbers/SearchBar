@@ -84,7 +84,7 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         + f'<img src=\"{os.path.join(pathImages, "SearchBar at pointer.png")}\"/>  \n'
         + "### Changing the shortcut  \n"
         + "To change the shortcut, go to Tools->Customize.....  \n"
-        + "The customize menu of FreeCAD will popup. On the keyboard tab look for the catagory 'SearchBar'. \n"
+        + "The customize menu of FreeCAD will popup. On the keyboard tab look for the category 'SearchBar'. \n"
         + "The pointer command will be shown. Here you can set your preferred shortcut.  \n"
         + f'<img src=\"{os.path.join(pathImages, "Change shortcut.png")}\" width=500/>\n')
         textBrowser.setMarkdown(text)
@@ -119,7 +119,7 @@ def main():
     if versionString.endswith("."):
         versionString = versionString[:-1]
         
-    if versionString == versionToShow:
+    if versionString == versionToShow and Parameters_SearchBar.DO_NOT_SHOW_AGAIN is False:
         # Get the form
         Dialog = LoadDialog().form
         # Show the form
