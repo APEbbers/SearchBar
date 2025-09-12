@@ -5,11 +5,14 @@ from PySide.QtGui import QShortcut, QKeySequence, QCursor
 from PySide.QtCore import Qt, Signal, QEvent, QObject
 
 import MouseBar
+import LoadChangeDialog
 
 # Avoid garbage collection by storing the action in a global variable
 wax = None
 sea = None
 tbr = None
+
+ChangeDialogLoaded = False
 
 # Define the translation
 translate = App.Qt.translate
@@ -19,7 +22,7 @@ def QT_TRANSLATE_NOOP(context, text):
     return text
 
 def addToolSearchBox():
-    global wax, sea, tbr
+    global wax, sea, tbr, ChangeDialogLoaded
     mw: QMainWindow = Gui.getMainWindow()
     cp = mw.centralWidget()
     vp: QWidget = cp.viewport()
@@ -30,8 +33,10 @@ def addToolSearchBox():
     from PySide.QtWidgets import QToolBar
         
     if mw:
-        # Load the what changed dialog
-        LoadChangeDialog.main()
+        if ChangeDialogLoaded is False:
+            # Load the what changed dialog
+            LoadChangeDialog.main()
+        ChangeDialogLoaded = True
         
         # Activate the searchBar at the pointer module
         MouseBar.SearchBar_Pointer()

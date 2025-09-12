@@ -75,7 +75,6 @@ class Settings:
 # region - Define the resources ----------------------------------------------------------------------------------------
 ICON_LOCATION = os.path.join(os.path.dirname(__file__), "Resources", "Icons")
 IMAGE_LOCATION = os.path.join(os.path.dirname(__file__), "Resources", "Images")
-CHANGELOG_LOCATION = os.path.join(os.path.dirname(__file__), "Resources", "Changelog")
 UI_LOCATION = os.path.join(os.path.dirname(__file__), "Resources", "ui")
 # endregion ------------------------------------------------------------------------------------------------------------
 

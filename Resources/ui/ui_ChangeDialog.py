@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ChangeDialogEeDzlW.ui'
+## Form generated from reading UI file 'ChangeDialogVqibFX.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -15,8 +15,8 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QCheckBox, QGridLayout, QSizePolicy,
-    QTextEdit, QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QGridLayout, QLabel,
+    QSizePolicy, QWidget)
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -30,10 +30,11 @@ class Ui_Form(object):
 
         self.gridLayout.addWidget(self.DoNotShowAgain, 1, 0, 1, 1)
 
-        self.textEdit = QTextEdit(Form)
-        self.textEdit.setObjectName(u"textEdit")
+        self.label = QLabel(Form)
+        self.label.setObjectName(u"label")
+        self.label.setWordWrap(True)
 
-        self.gridLayout.addWidget(self.textEdit, 0, 0, 1, 1)
+        self.gridLayout.addWidget(self.label, 0, 0, 1, 1)
 
 
         self.retranslateUi(Form)
@@ -44,5 +45,6 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.DoNotShowAgain.setText(QCoreApplication.translate("Form", u"Do not show again", None))
+        self.label.setText(QCoreApplication.translate("Form", u"TextLabel", None))
     # retranslateUi
 
