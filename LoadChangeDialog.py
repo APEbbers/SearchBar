@@ -3,12 +3,11 @@ import FreeCADGui as Gui
 import os
 import sys
 
-# from PySide6.QtGui import QIcon, QPixmap, QAction, QGuiApplication
-from PySide6.QtWidgets import (
-    QTextBrowser,
-    QCheckBox
-)
+
+from PySide6.QtGui import QIcon, QPixmap, QAction, QGuiApplication, QTextDocument
+from PySide6.QtWidgets import QCheckBox
 from PySide6.QtCore import Qt, QObject
+from PySide6.QtWebEngineWidgets import QWebEngineView, 
 
 import StandardFunctions_SearchBar as StandardFunctions
 import Parameters_SearchBar
@@ -17,9 +16,11 @@ import Parameters_SearchBar
 pathIcons = Parameters_SearchBar.ICON_LOCATION
 pathUI = Parameters_SearchBar.UI_LOCATION
 pathImages = Parameters_SearchBar.IMAGE_LOCATION
+pathchangelog = Parameters_SearchBar.CHANGELOG_LOCATION
 sys.path.append(pathIcons)
 sys.path.append(pathUI)
 sys.path.append(pathImages)
+sys.path.append(pathchangelog)
 
 # import graphical created Ui. (With QtDesigner or QtCreator)
 import ui_ChangeDialog as ui_ChangeDialog
@@ -45,6 +46,8 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         # # this will create a Qt widget from our ui file
         self.form = Gui.PySideUic.loadUi(os.path.join(pathUI, "ChangeDialog.ui"))
         
+        self.form.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
+        
         # Set the window title
         self.form.setWindowTitle(translate("Searchbar", "What's new?"))
 
@@ -62,9 +65,9 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         # Connect do not show again checkbox
         self.form.DoNotShowAgain.clicked.connect(self.on_DoNotShowAgain_clicked)
         
-        textBrowser: QTextBrowser = self.form.textBrowser
-        textBrowser.clear()
-        textBrowser.insertHtml(os.path.join(os.path.dirname(__file__), "What's new.html"))
+        textBrowser: QWebEngineView = self.form.webEngineView
+        htmlFile = open(os.path.join(pathchangelog, "What's new.html")).read()
+        textBrowser.setHtml(htmlFile)
         return
     
     def on_DoNotShowAgain_clicked(self):
