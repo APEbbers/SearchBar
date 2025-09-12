@@ -4,9 +4,9 @@ import os
 import sys
 
 
-from PySide6.QtGui import QIcon, QPixmap, QAction, QGuiApplication, QTextDocument
-from PySide6.QtWidgets import QCheckBox, QTextEdit
-from PySide6.QtCore import Qt, QObject
+from PySide6.QtGui import QIcon, QPixmap, QAction, QGuiApplication, QTextDocument, QScreen
+from PySide6.QtWidgets import QCheckBox, QMainWindow, QTextEdit
+from PySide6.QtCore import QSize, Qt, QObject, SIGNAL
 
 import StandardFunctions_SearchBar as StandardFunctions
 import Parameters_SearchBar
@@ -38,7 +38,7 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         # Makes "self.on_CreateBOM_clicked" listen to the changed control values instead initial values
         super(LoadDialog, self).__init__()
         
-        mw = self.mw
+        mw: QMainWindow = self.mw
 
         # # this will create a Qt widget from our ui file
         self.form = Gui.PySideUic.loadUi(os.path.join(pathUI, "ChangeDialog.ui"))
@@ -46,13 +46,17 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         # Set the window on top
         self.form.setWindowFlags(Qt.WindowType.WindowStaysOnTopHint)
         # Position the dialog in front of FreeCAD
-        centerPoint = mw.geometry().center()
+        centerPoint = mw.screen().geometry().center()
         Rectangle = self.form.frameGeometry()
         Rectangle.moveCenter(centerPoint)
         self.form.move(Rectangle.topLeft())
-        
+
+        # Set the size of the dialog
+        self.form.setMinimumSize(QSize(600,600))
+        self.form.adjustSize()
+
         # Set the window title
-        self.form.setWindowTitle(translate("Searchbar", "What's new?"))
+        self.form.setWindowTitle(translate("Searchbar", "Searchbar"))
 
         # Get the style from the main window and use it for this form
         palette = mw.palette()
@@ -60,29 +64,39 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         Style = mw.style()
         self.form.setStyle(Style)
         
+        # Set the checkbox
         if Parameters_SearchBar.DO_NOT_SHOW_AGAIN is True:
             self.form.DoNotShowAgain.setCheckState(Qt.CheckState.Checked)
         else:
             self.form.DoNotShowAgain.setCheckState(Qt.CheckState.Unchecked)
         
         # Connect do not show again checkbox
-        self.form.DoNotShowAgain.clicked.connect(self.on_DoNotShowAgain_clicked)
+        def DoNotShowAgain():
+            self.on_DoNotShowAgain_clicked()
+
+        self.form.DoNotShowAgain.connect(self.form.DoNotShowAgain, SIGNAL("clicked()"), DoNotShowAgain)
         
+        # Set the text
         textBrowser: QTextEdit= self.form.textEdit
-        text = ("### New in SearchBar version 1.6.0:  \n"
-        + "With this release, the searchbar can be shown at cursor by pressing a shortcut key. The default shortcut is 'S'.  \n"
+        text = ("## New in SearchBar version 1.6.0:  \n"
+        + "With this release, the searchbar can be shown at cursor by pressing a shortcut key. The default shortcut is 'S'.\n"
         + "To show the searchbar at the cursor, press 'S'. To hide it, press 'S' again.  \n"
         + f'<img src=\"{os.path.join(pathImages, "SearchBar at pointer.png")}\"/>  \n'
-        + "The shortcut can be changed. To do this, go to Tools->Customize.....  \n"
+        + "### Changing the shortcut  \n"
+        + "To change the shortcut, go to Tools->Customize.....  \n"
         + "The customize menu of FreeCAD will popup. On the keyboard tab look for the catagory 'SearchBar'. \n"
-        + "The pointer command will be shown. Here you can set your prefferred shortcut.  \n"
+        + "The pointer command will be shown. Here you can set your preferred shortcut.  \n"
         + f'<img src=\"{os.path.join(pathImages, "Change shortcut.png")}\" width=500/>\n')
-
         textBrowser.setMarkdown(text)
         return
     
     def on_DoNotShowAgain_clicked(self):
-        Parameters_SearchBar.Settings.SetBoolSetting("DoNotShowAgain", self.form.DoNotShowAgain.isChecked())
+        if self.form.DoNotShowAgain.checkState() is Qt.CheckState.Checked:
+            Parameters_SearchBar.Settings.SetBoolSetting("DoNotShowAgain", True)
+            Parameters_SearchBar.DO_NOT_SHOW_AGAIN = True
+        if self.form.DoNotShowAgain.checkState() is Qt.CheckState.Unchecked:
+            Parameters_SearchBar.Settings.SetBoolSetting("DoNotShowAgain", False)
+            Parameters_SearchBar.DO_NOT_SHOW_AGAIN = False
         return
     
 
