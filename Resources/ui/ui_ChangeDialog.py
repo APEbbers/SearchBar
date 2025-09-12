@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'ChangeDialogsmxkzU.ui'
+## Form generated from reading UI file 'ChangeDialogEeDzlW.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -17,7 +17,6 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide6.QtWidgets import (QApplication, QCheckBox, QGridLayout, QSizePolicy,
     QTextEdit, QWidget)
-import Resources_rc
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -45,8 +44,5 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"Form", None))
         self.DoNotShowAgain.setText(QCoreApplication.translate("Form", u"Do not show again", None))
-        self.textEdit.setMarkdown(QCoreApplication.translate("Form", u"### New in SearchBar version 1.6.0:  With this release, the searchbar can be shown at cursor by pressing a shortcut key. The default shortcut is 'S'. To show the searchbar at the cursor, press 'S'. To hide it, press 'S' again.   ![2025-09-11 SearchBar at pointer](https://github.com/user-attachments/assets/9be0ec18-3fe4-4feb-85db-0cf4e0fe7665)     The shortcut can be changed. To do this, go to Tools->Customize..... The customize menu of FreeCAD will popup.   On the keyboard tab look for the catagory 'SearchBar'. The pointer command will be shown. Here you can set your prefferred shortcut.   ![2025-09-11 Change shortcut](https://github.com/user-attachments/assets/8f65c2aa-17b5-458f-acfd-3d107b1029ba)\n"
-"\n"
-"", None))
     # retranslateUi
 
