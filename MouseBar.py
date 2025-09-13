@@ -45,10 +45,14 @@ class SearchBar_Pointer:
             action = ToolBarAction(mw)
             toolbar.addAction(action)
 
+            # Get the style from the main window and use it for this form
+            palette = mw.palette()
+            toolbar.setPalette(palette)
+            Style = mw.style()
+            toolbar.setStyle(Style)
             
             toolbar.move(pos.x()+10, pos.y()-10)
             toolbar.adjustSize()
-            toolbar.setStyleSheet("background-color: " + StyleMapping_SearchBar.ReturnStyleItem("Background_Color") + ";")
             toolbar.show()
             return
         # If there is already a toolbar, show it at the cursor or hide it
@@ -56,7 +60,6 @@ class SearchBar_Pointer:
             if toolbar.isVisible() is False:
                 toolbar.parent().parent().move(pos.x()+10, pos.y()-10)
                 toolbar.parent().parent().show()
-                toolbar.parent().parent().setStyleSheet("background-color: " + StyleMapping_SearchBar.ReturnStyleItem("Background_Color") + ";")
             else:
                 toolbar.parent().parent().close()
             return
