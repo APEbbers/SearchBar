@@ -6,6 +6,7 @@ from PySide.QtGui import QShortcut, QKeySequence, QCursor, QWindow,  QKeySequenc
 from PySide.QtCore import Qt, Signal, QEvent, QObject
 import SearchBoxLight
 import os
+import StyleMapping_SearchBar
 
 # Avoid garbage collection by storing the action in a global variable
 wax = None
@@ -47,7 +48,7 @@ class SearchBar_Pointer:
             
             toolbar.move(pos.x()+10, pos.y()-10)
             toolbar.adjustSize()
-            toolbar.setStyleSheet("background: none;")
+            toolbar.setStyleSheet("background-color: " + StyleMapping_SearchBar.ReturnStyleItem("Background_Color") + ";")
             toolbar.show()
             return
         # If there is already a toolbar, show it at the cursor or hide it
@@ -55,7 +56,7 @@ class SearchBar_Pointer:
             if toolbar.isVisible() is False:
                 toolbar.parent().parent().move(pos.x()+10, pos.y()-10)
                 toolbar.parent().parent().show()
-                toolbar.parent().parent().setStyleSheet("background: none;")
+                toolbar.parent().parent().setStyleSheet("background-color: " + StyleMapping_SearchBar.ReturnStyleItem("Background_Color") + ";")
             else:
                 toolbar.parent().parent().close()
             return
