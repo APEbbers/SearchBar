@@ -1,9 +1,11 @@
 import FreeCAD as App
 import FreeCADGui as Gui
+import Parameters_SearchBar
 from PySide.QtWidgets import QMainWindow, QToolBar, QMenu, QHBoxLayout, QWidget, QWidgetAction, QDialog, QVBoxLayout
 from PySide.QtGui import QShortcut, QKeySequence, QCursor, QWindow,  QKeySequence
 from PySide.QtCore import Qt, Signal, QEvent, QObject
 import SearchBoxLight
+import os
 
 # Avoid garbage collection by storing the action in a global variable
 wax = None
@@ -17,7 +19,7 @@ translate = App.Qt.translate
 class SearchBar_Pointer:
     def GetResources(self):
         return {
-            "Pixmap": "./Resources/icons/FreecadNew.svg",  # the name of a svg file available in the resources
+            "Pixmap": os.path.join(Parameters_SearchBar.ICON_LOCATION, "Tango-System-search.svg"),  # the name of a svg file available in the resources
             "Accel": "S",
             "MenuText": "Pointer command",
             "ToolTip": "SearchBar pointer command",
