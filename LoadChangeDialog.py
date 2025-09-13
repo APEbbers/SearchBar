@@ -64,6 +64,7 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         self.form.setPalette(palette)
         Style = mw.style()
         self.form.setStyle(Style)
+        self.form.setStyleSheet("background-color: " + StyleMapping_SearchBar.ReturnStyleItem("Background_Color") + ";")
         
         # Set the properties for the textEdit
         self.form.textEdit.setTextInteractionFlags(Qt.TextInteractionFlag.NoTextInteraction)
