@@ -1,10 +1,9 @@
-from tkinter import Menubutton
-from turtle import isvisible
 import FreeCAD as App
 import FreeCADGui as Gui
 from PySide.QtWidgets import QMainWindow, QToolBar, QMenu, QHBoxLayout, QWidget, QWidgetAction, QDialog, QVBoxLayout
 from PySide.QtGui import QShortcut, QKeySequence, QCursor, QWindow,  QKeySequence
 from PySide.QtCore import Qt, Signal, QEvent, QObject
+import SearchBoxLight
 
 # Avoid garbage collection by storing the action in a global variable
 wax = None
@@ -40,6 +39,7 @@ class SearchBar_Pointer:
             toolbar.setOrientation(Qt.Orientation.Horizontal)
             toolbar.setWindowFlags(Qt.WindowType.FramelessWindowHint)
             action = ToolBarAction(mw)
+            action = ToolBarAction(mw)
             toolbar.addAction(action)
 
             
@@ -63,17 +63,27 @@ class SearchBar_Pointer:
 Gui.addCommand("SearchBar", SearchBar_Pointer())
 
 # Create the toolbar action
-class ToolBarAction(QWidgetAction):
-    import SearchBox
-    mw = Gui.getMainWindow()
-    action: QWidgetAction = SearchBox.SearchBoxFunction(mw)
-        
+class ToolBarAction(QWidgetAction):     
     toolbar = QToolBar()
-    toolbar.setObjectName("SearchBarAtMouse")
-    toolbar.addAction(action)
-    
+        
     def __init__(self, parent):
         super(ToolBarAction, self).__init__(parent)
+
+        # Define a new searchbar widget
+        sea = SearchBoxLight.SearchBoxLight(
+            getItemGroups=lambda: __import__("GetItemGroups").getItemGroups(),
+            getToolTip=lambda groupId, setParent: __import__("GetItemGroups").getToolTip(groupId, setParent),
+            getItemDelegate=lambda: __import__("IndentedItemDelegate").IndentedItemDelegate(),
+        )
+        sea.resultSelected.connect(
+            lambda index, groupId: __import__("GetItemGroups").onResultSelected(index, groupId)
+        )
+        
+        
+        toolbar = QToolBar()
+        toolbar.setObjectName("SearchBarAtMouse")
+        toolbar.addWidget(sea)
+        self.toolbar = toolbar
         
         layout = QHBoxLayout()
         self.widget = QWidget()

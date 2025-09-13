@@ -4,9 +4,9 @@ import os
 import sys
 
 
-from PySide6.QtGui import QIcon, QPixmap, QAction, QGuiApplication, QTextDocument, QScreen
-from PySide6.QtWidgets import QCheckBox, QMainWindow, QTextEdit
-from PySide6.QtCore import QSize, Qt, QObject, SIGNAL
+from PySide.QtGui import QIcon, QPixmap, QAction, QGuiApplication, QTextDocument, QScreen
+from PySide.QtWidgets import QCheckBox, QMainWindow, QTextEdit
+from PySide.QtCore import QSize, Qt, QObject, SIGNAL
 
 import StandardFunctions_SearchBar as StandardFunctions
 import Parameters_SearchBar
