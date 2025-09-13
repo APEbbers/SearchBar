@@ -84,6 +84,8 @@ UI_LOCATION = os.path.join(os.path.dirname(__file__), "Resources", "ui")
 
 # The pixmap for the general tool icon
 genericToolIcon_Pixmap = os.path.join(ICON_LOCATION, "Tango-Tools-spanner-hammer.svg")
+SearchIcon_Pixmap = os.path.join(ICON_LOCATION, "Tango-System-search.svg")
+
 
 DO_NOT_SHOW_AGAIN: bool = Settings.GetBoolSetting("DoNotShowAgain")
 if Settings.GetBoolSetting("DoNotShowAgain") is None:
