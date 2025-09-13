@@ -1,6 +1,7 @@
+import Parameters_SearchBar
 from PySide import QtGui
 from PySide import QtCore
-
+import os
 
 # This is a "light" version of the SearchBox implementation, which loads the actual implementation on first click
 class SearchBoxLight(QtGui.QLineEdit):
@@ -22,7 +23,8 @@ class SearchBoxLight(QtGui.QLineEdit):
         # Connect signals and slots
         self.textChanged.connect(self.filterModel)
         # Thanks to https://saurabhg.com/programming/search-box-using-qlineedit/ for indicating a few useful options
-        ico = QtGui.QIcon(":/icons/help-browser.svg")
+        # ico = QtGui.QIcon(":/icons/help-browser.svg")
+        ico = QtGui.QIcon(os.path.join(Parameters_SearchBar.ICON_LOCATION, "Tango-System-search.svg"))
         # ico = QtGui.QIcon(':/icons/WhatsThis.svg')
         self.addAction(ico, QtGui.QLineEdit.LeadingPosition)
         self.setClearButtonEnabled(True)

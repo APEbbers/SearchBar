@@ -6,7 +6,7 @@ from PySide import QtGui
 import Serialize_SearchBar
 import Parameters_SearchBar as Parameters
 
-genericToolIcon = QtGui.QIcon(QtGui.QIcon(Parameters.genericToolIcon_Pixmap))
+RefreshToolIcon = Gui.getIcon("view-refresh")
 
 # Define the translation
 translate = App.Qt.translate
@@ -20,7 +20,7 @@ def refreshToolsAction(nfo):
 
 def refreshToolsToolTip(nfo, setParent):
     return (
-        Serialize_SearchBar.iconToHTML(genericToolIcon)
+        Serialize_SearchBar.iconToHTML(RefreshToolIcon)
         + "<p>"
         + translate(
             "SearchBar",
@@ -33,7 +33,7 @@ def refreshToolsToolTip(nfo, setParent):
 def refreshToolsResultsProvider():
     return [
         {
-            "icon": genericToolIcon,
+            "icon": RefreshToolIcon,
             "text": translate("SearchBar", "Refresh cached results"),
             "toolTip": "",
             "action": {"handler": "refreshTools"},
