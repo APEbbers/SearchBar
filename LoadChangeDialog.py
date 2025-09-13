@@ -10,6 +10,7 @@ from PySide.QtCore import QSize, Qt, QObject, SIGNAL
 
 import StandardFunctions_SearchBar as StandardFunctions
 import Parameters_SearchBar
+import StyleMapping_SearchBar
 
 # Get the resources
 pathIcons = Parameters_SearchBar.ICON_LOCATION
@@ -64,11 +65,18 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         Style = mw.style()
         self.form.setStyle(Style)
         
+        # Set the properties for the textEdit
+        self.form.textEdit.setTextInteractionFlags(Qt.TextInteractionFlag.NoTextInteraction)
+        self.form.textEdit.setReadOnly(True)
+        self.form.textEdit.setFocusPolicy(Qt.FocusPolicy.NoFocus)
+        self.form.textEdit.setStyleSheet("background-color: " + StyleMapping_SearchBar.ReturnStyleItem("Background_Color") + ";")
+        
         # Set the checkbox
         if Parameters_SearchBar.DO_NOT_SHOW_AGAIN is True:
             self.form.DoNotShowAgain.setCheckState(Qt.CheckState.Checked)
         else:
             self.form.DoNotShowAgain.setCheckState(Qt.CheckState.Unchecked)
+        self.form.DoNotShowAgain.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         
         # Connect do not show again checkbox
         def DoNotShowAgain():
