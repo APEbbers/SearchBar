@@ -106,10 +106,10 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
     def on_DoNotShowAgain_clicked(self):
         if self.form.DoNotShowAgain.checkState() is Qt.CheckState.Checked:
             Parameters_SearchBar.Settings.SetBoolSetting("DoNotShowAgain", True)
-            Parameters_SearchBar.DO_NOT_SHOW_AGAIN = True
+            Parameters_SearchBar.DO_NOT_SHOW_AGAIN = self.WhatsNewVersion
         if self.form.DoNotShowAgain.checkState() is Qt.CheckState.Unchecked:
             Parameters_SearchBar.Settings.SetBoolSetting("DoNotShowAgain", False)
-            Parameters_SearchBar.DO_NOT_SHOW_AGAIN = False
+            Parameters_SearchBar.DO_NOT_SHOW_AGAIN = " "
         return
     
 
@@ -132,7 +132,7 @@ def main():
     if versionString.endswith("."):
         versionString = versionString[:-1]
         
-    if versionString == versionToShow and Parameters_SearchBar.DO_NOT_SHOW_AGAIN is False:
+    if versionString == versionToShow and Parameters_SearchBar.DO_NOT_SHOW_AGAIN != versionToShow:
         # Get the form
         Dialog = LoadDialog().form
         # Show the form

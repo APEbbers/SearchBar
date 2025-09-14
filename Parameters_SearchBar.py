@@ -87,6 +87,6 @@ genericToolIcon_Pixmap = os.path.join(ICON_LOCATION, "Tango-Tools-spanner-hammer
 SearchIcon_Pixmap = os.path.join(ICON_LOCATION, "Tango-System-search.svg")
 
 
-DO_NOT_SHOW_AGAIN: bool = Settings.GetBoolSetting("DoNotShowAgain")
-if Settings.GetBoolSetting("DoNotShowAgain") is None:
-    AUTOHIDE_RIBBON = bool(False)
+DO_NOT_SHOW_AGAIN: str= Settings.GetStringSetting("DoNotShowAgain")
+if Settings.GetStringSetting("DoNotShowAgain") is None:
+    AUTOHIDE_RIBBON = " "
