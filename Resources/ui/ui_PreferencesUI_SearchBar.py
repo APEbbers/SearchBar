@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PreferencesUI_SearchBarSBSbSs.ui'
+## Form generated from reading UI file 'PreferencesUI_SearchBarpYGBin.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -102,7 +102,7 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"General", None))
-        self.EnableToolbar.setText(QCoreApplication.translate("Form", u"Enable Search Bar toolbar", None))
+        self.EnableToolbar.setText(QCoreApplication.translate("Form", u"Enable SearchBar toolbar", None))
         self.EnableMouseBar.setText(QCoreApplication.translate("Form", u"Enable the MouseBar", None))
         self.label.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:8pt; font-style:italic;\">When a shortcut key is pressed, the SearchBar will show at the mouse cursor. Pressing the shortcut key again will close the SearchBar. </span></p><p><span style=\" font-size:8pt; font-style:italic; \">The default shortcut is 'S'. This can be changed in FreeCAD's customize menu like with all other commands. Go to: 'Tools-&gt;Customize...-&gt;Keyboard. Find the category 'SearchBar'. There you can change the shortcut.</span></p></body></html>", None))
         self.ShowChangeLog.setText(QCoreApplication.translate("Form", u"Show 'What's new' dialog on startup", None))
