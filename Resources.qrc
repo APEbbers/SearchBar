@@ -3,4 +3,7 @@
     <file>Resources/Images/2025-09-11 SearchBar at pointer.png</file>
     <file>Resources/Images/2025-09-11 Change shortcut.png</file>
   </qresource>
+  <qresource prefix="icons">
+    <file>Resources/Icons/preferences-searchbar.svg</file>
+  </qresource>
 </RCC>

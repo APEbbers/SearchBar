@@ -16,9 +16,9 @@ ChangeDialogLoaded = False
 # Define the translation
 translate = App.Qt.translate
 
-# get the path of the current python script
 PreferenceUI = os.path.join(Parameters_SearchBar.UI_LOCATION, "PreferencesUI_SearchBar.ui")
 Gui.addPreferencePage(PreferenceUI, "SearchBar")
+Gui.addIconPath(Parameters_SearchBar.UI_LOCATION)
 
 
 def QT_TRANSLATE_NOOP(context, text):
@@ -28,7 +28,7 @@ class SearchBar:
     import os
     import Parameters_SearchBar
     
-    Icon = os.path.join(Parameters_SearchBar.ICON_LOCATION, "Tango-System-search.svg")
+    Icon = os.path.join(Parameters_SearchBar.ICON_LOCATION, "preferences-searchbar.svg")
     
     def addToolSearchBox():
         global wax, sea, tbr, ChangeDialogLoaded
