@@ -25,6 +25,11 @@ def QT_TRANSLATE_NOOP(context, text):
     return text
 
 class SearchBar:
+    import os
+    import Parameters_SearchBar
+    
+    Icon = os.path.join(Parameters_SearchBar.ICON_LOCATION, "Tango-System-search.svg")
+    
     def addToolSearchBox():
         global wax, sea, tbr, ChangeDialogLoaded
         mw: QMainWindow = Gui.getMainWindow()
