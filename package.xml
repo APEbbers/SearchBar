@@ -19,6 +19,8 @@
 
   <url type="documentation">https://github.com/APEbbers/SearchBar</url>
 
+  <icon>Resources/Icons/Tango-System-search.svg</icon>
+
   <depend type="python">lxml</depend>
   <content>
     <workbench>
