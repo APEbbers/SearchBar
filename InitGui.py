@@ -5,6 +5,7 @@ from PySide.QtGui import QShortcut, QKeySequence, QCursor
 from PySide.QtCore import Qt, Signal, QEvent, QObject
 import os
 import Parameters_SearchBar
+import Resources
 
 # Avoid garbage collection by storing the action in a global variable
 wax = None
@@ -26,6 +27,8 @@ def QT_TRANSLATE_NOOP(context, text):
     return text
 
 class SearchBar:
+    import Resources
+
 
     def addToolSearchBox():
         global wax, sea, tbr, ChangeDialogLoaded

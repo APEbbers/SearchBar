@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PreferencesUI_SearchBarRXskah.ui'
+## Form generated from reading UI file 'PreferencesUI_SearchBargUDlYi.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -31,7 +31,11 @@ class Ui_Form(object):
         self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
 
-        self.gridLayout_3.addItem(self.horizontalSpacer_2, 0, 1, 1, 1)
+        self.gridLayout_3.addItem(self.horizontalSpacer_2, 0, 2, 1, 1)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.gridLayout_3.addItem(self.verticalSpacer, 1, 0, 1, 1)
 
         self.gridLayout_2 = QGridLayout()
         self.gridLayout_2.setObjectName(u"gridLayout_2")
@@ -80,11 +84,15 @@ class Ui_Form(object):
         self.gridLayout_2.addWidget(self.ShowChangeLog, 2, 0, 1, 1)
 
 
-        self.gridLayout_3.addLayout(self.gridLayout_2, 0, 0, 1, 1)
+        self.gridLayout_3.addLayout(self.gridLayout_2, 0, 0, 1, 2)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.label_2 = QLabel(Form)
+        self.label_2.setObjectName(u"label_2")
+        font = QFont()
+        font.setItalic(True)
+        self.label_2.setFont(font)
 
-        self.gridLayout_3.addItem(self.verticalSpacer, 1, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.label_2, 2, 0, 1, 1)
 
 
         self.retranslateUi(Form)
@@ -98,5 +106,6 @@ class Ui_Form(object):
         self.EnableMouseBar.setText(QCoreApplication.translate("Form", u"Enable the MouseBar", None))
         self.label.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:8pt; font-style:italic;\">When a shortcut key is pressed, the SearchBar will show at the mouse cursor. Pressing the shortcut key again will close the SearchBar. </span></p><p><span style=\" font-size:8pt; font-style:italic; \">The default shortcut is 'S'. This can be changed in FreeCAD's customize menu like with all other commands. Go to: 'Tools-&gt;Customize...-&gt;Keyboard. Find the category 'SearchBar'. There you can change the shortcut.</span></p></body></html>", None))
         self.ShowChangeLog.setText(QCoreApplication.translate("Form", u"Show 'What's new' dialog on startup", None))
+        self.label_2.setText(QCoreApplication.translate("Form", u"FreeCAD needs to be restarted before changes become active.", None))
     # retranslateUi
 
