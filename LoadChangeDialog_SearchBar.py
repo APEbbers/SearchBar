@@ -31,7 +31,7 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
     # The text for the changelog (markdown)
     text = ("# New in SearchBar version 1.6.0:  \n"
         + "###\n"
-        + "## SearchBar at mouse cursor  \n"
+        + "## MouseBar  \n"
         + "With this release, the searchbar can be shown at cursor by pressing a shortcut key. The default shortcut is 'S'.\n"
         + "To show the searchbar at the cursor, press 'S'. To hide it, press 'S' again.  \n"
         + f'<img src=\"{os.path.join(pathImages, "SearchBar at pointer.png")}\"/>  \n'
@@ -39,7 +39,14 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         + "To change the shortcut, go to Tools->Customize.....  \n"
         + "The customize menu of FreeCAD will popup. On the keyboard tab look for the category 'SearchBar'. \n"
         + "The pointer command will be shown. Here you can set your preferred shortcut.  \n"
-        + f'<img src=\"{os.path.join(pathImages, "Change shortcut.png")}\" width=500/>\n')
+        + f'<img src=\"{os.path.join(pathImages, "Change shortcut.png")}\" width=500/>\n'
+        + "###\n"
+        + "## Preference page  \n"
+        + "A preference page is added to set the following settings:  \n"
+        + "- Enable or disable the SearchBar toolbars  \n"
+        + "- Enable or disable the MouseBar  \n"
+        + "- Show or hide the 'What's new' dialog at startup  \n"
+    )
     
     # Enter the version for which the form must show on startup
     WhatsNewVersion = "1.6"

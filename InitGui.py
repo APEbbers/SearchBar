@@ -34,7 +34,7 @@ class SearchBar(Gui.Workbench):
         vp: QWidget = cp.viewport()
         import SearchBox
         import MouseBar
-        import LoadChangeDialog
+        import LoadChangeDialog_SearchBar
         from MouseBar import EventInspector
         from PySide.QtWidgets import QToolBar
         import Parameters_SearchBar
@@ -47,7 +47,7 @@ class SearchBar(Gui.Workbench):
         if mw:
             if ChangeDialogLoaded is False:
                 # Load the what changed dialog
-                LoadChangeDialog.main()
+                LoadChangeDialog_SearchBar.main()
             ChangeDialogLoaded = True
             
             # If the mousebar is enabled in preferences, enable it.
