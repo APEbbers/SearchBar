@@ -106,9 +106,11 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
     def on_DoNotShowAgain_clicked(self):
         if self.form.DoNotShowAgain.checkState() is Qt.CheckState.Checked:
             Parameters_SearchBar.Settings.SetStringSetting("DoNotShowAgain", self.WhatsNewVersion)
+            Parameters_SearchBar.Settings.SetBoolSetting("ShowChangeDialog", False)
             Parameters_SearchBar.DO_NOT_SHOW_AGAIN = self.WhatsNewVersion
         if self.form.DoNotShowAgain.checkState() is Qt.CheckState.Unchecked:
             Parameters_SearchBar.Settings.SetStringSetting("DoNotShowAgain", " ")
+            Parameters_SearchBar.Settings.SetBoolSetting("ShowChangeDialog", True)
             Parameters_SearchBar.DO_NOT_SHOW_AGAIN = " "
         return
     

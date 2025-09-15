@@ -40,8 +40,9 @@ class SearchBar:
         import Parameters_SearchBar
         
         # Reset the DoNotShowAgain parameter if wanted
-        if Parameters_SearchBar.Settings.GetBoolSetting("ShowChangeDialog"):
+        if Parameters_SearchBar.Settings.GetBoolSetting("ShowChangeDialog") is True:
             Parameters_SearchBar.Settings.SetStringSetting("DoNotShowAgain", " ")
+            Parameters_SearchBar.DO_NOT_SHOW_AGAIN = " "
             
         if mw:
             if ChangeDialogLoaded is False:
