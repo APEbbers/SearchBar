@@ -5,7 +5,6 @@ from PySide.QtGui import QShortcut, QKeySequence, QCursor
 from PySide.QtCore import Qt, Signal, QEvent, QObject
 import os
 import Parameters_SearchBar
-import Resources
 
 # Avoid garbage collection by storing the action in a global variable
 wax = None
@@ -17,8 +16,8 @@ ChangeDialogLoaded = False
 # Define the translation
 translate = App.Qt.translate
 
-Gui.addIconPath(Parameters_SearchBar.UI_LOCATION)
-Gui.addResourcePath(Parameters_SearchBar.UI_LOCATION)
+Gui.addIconPath(Parameters_SearchBar.ICON_LOCATION)
+Gui.addResourcePath(Parameters_SearchBar.ICON_LOCATION)
 PreferenceUI = os.path.join(Parameters_SearchBar.UI_LOCATION, "PreferencesUI_SearchBar.ui")
 Gui.addPreferencePage(PreferenceUI, "SearchBar")
 
@@ -27,12 +26,6 @@ def QT_TRANSLATE_NOOP(context, text):
     return text
 
 class SearchBar(Gui.Workbench):
-    import Resources
-    import Parameters_SearchBar
-    
-    MenuText = "SearchBar"
-    ToolTip = "A search bar for tools, document objects, and preferences"
-    Icon = os.path.join(Parameters_SearchBar.UI_LOCATION, "Tango-System-search.svg")
 
     def addToolSearchBox():
         global wax, sea, tbr, ChangeDialogLoaded
