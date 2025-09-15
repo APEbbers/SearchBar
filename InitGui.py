@@ -16,20 +16,17 @@ ChangeDialogLoaded = False
 # Define the translation
 translate = App.Qt.translate
 
+Gui.addIconPath(Parameters_SearchBar.UI_LOCATION)
+Gui.addResourcePath(Parameters_SearchBar.UI_LOCATION)
 PreferenceUI = os.path.join(Parameters_SearchBar.UI_LOCATION, "PreferencesUI_SearchBar.ui")
 Gui.addPreferencePage(PreferenceUI, "SearchBar")
-Gui.addIconPath(Parameters_SearchBar.UI_LOCATION)
 
 
 def QT_TRANSLATE_NOOP(context, text):
     return text
 
 class SearchBar:
-    import os
-    import Parameters_SearchBar
-    
-    Icon = os.path.join(Parameters_SearchBar.ICON_LOCATION, "preferences-searchbar.svg")
-    
+
     def addToolSearchBox():
         global wax, sea, tbr, ChangeDialogLoaded
         mw: QMainWindow = Gui.getMainWindow()
@@ -40,6 +37,11 @@ class SearchBar:
         import LoadChangeDialog
         from MouseBar import EventInspector
         from PySide.QtWidgets import QToolBar
+        import Parameters_SearchBar
+        
+        # Reset the DoNotShowAgain parameter if wanted
+        if Parameters_SearchBar.Settings.GetBoolSetting("ShowChangeDialog"):
+            Parameters_SearchBar.Settings.SetStringSetting("DoNotShowAgain", " ")
             
         if mw:
             if ChangeDialogLoaded is False:
@@ -47,26 +49,29 @@ class SearchBar:
                 LoadChangeDialog.main()
             ChangeDialogLoaded = True
             
-            # Activate the searchBar at the pointer module
-            MouseBar.SearchBar_Pointer()
+            # If the mousebar is enabled in preferences, enable it.
+            if Parameters_SearchBar.Settings.GetBoolSetting("EnableMouseBar") is True:
+                # Activate the searchBar at the pointer module
+                MouseBar.SearchBar_Pointer()
+                
+                mw.installEventFilter(EventInspector(mw))
+                mw.centralWidget().installEventFilter(EventInspector(mw))
+                vp.installEventFilter(EventInspector(mw))
+                for child in vp.children():
+                    child.installEventFilter(EventInspector(mw))
             
-            mw.installEventFilter(EventInspector(mw))
-            mw.centralWidget().installEventFilter(EventInspector(mw))
-            vp.installEventFilter(EventInspector(mw))
-            for child in vp.children():
-                child.installEventFilter(EventInspector(mw))
-            
-            if sea is None:
-                wax = SearchBox.SearchBoxFunction(mw)
-            if tbr is None:
-                tbr = QToolBar("SearchBar")  # QtGui.QDockWidget()
-                # Include FreeCAD in the name so that one can find windows labeled with
-                # FreeCAD easily in window managers which allow search through the list of open windows.
-                tbr.setObjectName("SearchBar")
-                tbr.addAction(wax)
-            # tbr = ToolBarAction(mw)
-            mw.addToolBar(tbr)
-            tbr.show()
+            # if the toolbars are enabled in preferences, load them
+            if Parameters_SearchBar.Settings.GetBoolSetting("EnableToolbars") is True:          
+                if sea is None:
+                    wax = SearchBox.SearchBoxFunction(mw)
+                if tbr is None:
+                    tbr = QToolBar("SearchBar")  # QtGui.QDockWidget()
+                    # Include FreeCAD in the name so that one can find windows labeled with
+                    # FreeCAD easily in window managers which allow search through the list of open windows.
+                    tbr.setObjectName("SearchBar")
+                    tbr.addAction(wax)
+                mw.addToolBar(tbr)
+                tbr.show()
             return   
 
 SearchBar.addToolSearchBox()
