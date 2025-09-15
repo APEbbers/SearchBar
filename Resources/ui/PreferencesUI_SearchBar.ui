@@ -14,8 +14,8 @@
    <string>General</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>../Icons/Tango-System-search.svg</normaloff>../Icons/Tango-System-search.svg</iconset>
+   <iconset resource="../../Resources.qrc">
+    <normaloff>:/Resources/Icons/preferences-searchbar.svg</normaloff>:/Resources/Icons/preferences-searchbar.svg</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="1">
@@ -158,6 +158,8 @@
    <header>Gui/PrefWidgets.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../../Resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

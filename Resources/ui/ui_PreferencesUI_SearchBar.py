@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PreferencesUI_SearchBarYTsssm.ui'
+## Form generated from reading UI file 'PreferencesUI_SearchBarRXskah.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -17,6 +17,7 @@ from PySide.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide.QtWidgets import (QApplication, QFrame, QGridLayout, QLabel,
     QSizePolicy, QSpacerItem, QWidget)
+import Resources_rc
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -24,7 +25,7 @@ class Ui_Form(object):
             Form.setObjectName(u"Form")
         Form.resize(1008, 238)
         icon = QIcon()
-        icon.addFile(u"../Icons/Tango-System-search.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
+        icon.addFile(u":/Resources/Icons/preferences-searchbar.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         Form.setWindowIcon(icon)
         self.gridLayout_3 = QGridLayout(Form)
         self.gridLayout_3.setObjectName(u"gridLayout_3")
