@@ -80,6 +80,7 @@ class Settings:
 ICON_LOCATION = os.path.join(os.path.dirname(__file__), "Resources", "Icons")
 IMAGE_LOCATION = os.path.join(os.path.dirname(__file__), "Resources", "Images")
 UI_LOCATION = os.path.join(os.path.dirname(__file__), "Resources", "ui")
+PREFERENCES_LOCATION = os.path.join(os.path.dirname(__file__), "Resources", "PreferencesUI_SearchBar.ui")
 # endregion ------------------------------------------------------------------------------------------------------------
 
 # The pixmap for the general tool icon

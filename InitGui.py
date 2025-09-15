@@ -3,6 +3,8 @@ import FreeCADGui as Gui
 from PySide.QtWidgets import QMainWindow, QToolBar, QMenu, QWidget, QWidgetAction, QDialog, QHBoxLayout
 from PySide.QtGui import QShortcut, QKeySequence, QCursor
 from PySide.QtCore import Qt, Signal, QEvent, QObject
+import os
+import Parameters_SearchBar
 
 # Avoid garbage collection by storing the action in a global variable
 wax = None
@@ -13,6 +15,9 @@ ChangeDialogLoaded = False
 
 # Define the translation
 translate = App.Qt.translate
+
+# get the path of the current python script
+Gui.addPreferencePage(Parameters_SearchBar.PREFERENCES_LOCATION)
 
 
 def QT_TRANSLATE_NOOP(context, text):
