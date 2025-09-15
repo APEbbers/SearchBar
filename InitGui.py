@@ -17,7 +17,7 @@ ChangeDialogLoaded = False
 translate = App.Qt.translate
 
 # get the path of the current python script
-PreferenceUI = os.path.join(os.path.dirname(__file__), "Resources", "ui", "PreferencesUI_SearchBar.ui")
+PreferenceUI = os.path.join(Parameters_SearchBar.UI_LOCATION, "PreferencesUI_SearchBar.ui")
 Gui.addPreferencePage(PreferenceUI, "SearchBar")
 
 
