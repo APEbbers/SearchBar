@@ -24,7 +24,7 @@
   <depend type="python">lxml</depend>
   <content>
     <workbench>
-      <name>SearchBar</name>
+      <classname>SearchBar</classname>
       <icon>Resources/Icons/Tango-System-search.svg</icon>
       <subdirectory>./</subdirectory>
       <tag>search</tag>
