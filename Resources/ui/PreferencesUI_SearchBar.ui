@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Preferences</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../Icons/Tango-System-search.svg</normaloff>../Icons/Tango-System-search.svg</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_3">
    <item row="0" column="1">
