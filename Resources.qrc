@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="/">
+    <file>Resources/Icons/preferences-searchbar.svg</file>
+  </qresource>
+</RCC>

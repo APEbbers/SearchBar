@@ -7,7 +7,7 @@ import sys
 # Define the translation
 translate = App.Qt.translate
 
-preferences = App.ParamGet("User parameter:BaseApp/Preferences/Mod/FreeCAD-Ribbon")
+preferences = App.ParamGet("User parameter:BaseApp/Preferences/Mod/SearchBar")
 
 
 class Settings:
@@ -57,6 +57,7 @@ class Settings:
         if value.lower() == "none":
             value = ""
         preferences.SetString(settingName, value)
+        App.saveParameter()
         return
 
     def SetBoolSetting(settingName: str, value):
@@ -65,16 +66,27 @@ class Settings:
         if str(value).lower() == "none" or str(value).lower() != "true":
             Bool = False
         preferences.SetBool(settingName, Bool)
+        App.saveParameter()
         return
 
     def SetIntSetting(settingName: str, value: int):
         if str(value).lower() != "":
             preferences.SetInt(settingName, value)
+            App.saveParameter()
+        return
 
 
 # region - Define the resources ----------------------------------------------------------------------------------------
 ICON_LOCATION = os.path.join(os.path.dirname(__file__), "Resources", "Icons")
+IMAGE_LOCATION = os.path.join(os.path.dirname(__file__), "Resources", "Images")
+UI_LOCATION = os.path.join(os.path.dirname(__file__), "Resources", "ui")
 # endregion ------------------------------------------------------------------------------------------------------------
 
 # The pixmap for the general tool icon
 genericToolIcon_Pixmap = os.path.join(ICON_LOCATION, "Tango-Tools-spanner-hammer.svg")
+SearchIcon_Pixmap = os.path.join(ICON_LOCATION, "Tango-System-search.svg")
+
+
+DO_NOT_SHOW_AGAIN: str= Settings.GetStringSetting("DoNotShowAgain")
+if Settings.GetStringSetting("DoNotShowAgain") is None:
+    AUTOHIDE_RIBBON = " "

@@ -5,7 +5,7 @@
 
   <description>Adds a search bar widget for tools, document objects, and preferences</description>
 
-  <version>1.5.2.1</version>
+  <version>1.6.0</version>
 
   <date>2022-06-01</date>
 
@@ -19,10 +19,12 @@
 
   <url type="documentation">https://github.com/APEbbers/SearchBar</url>
 
+  <icon>Resources/Icons/Tango-System-search.svg</icon>
+
   <depend type="python">lxml</depend>
   <content>
     <workbench>
-      <name>SearchBar</name>
+      <classname>SearchBar</classname>
       <icon>Resources/Icons/Tango-System-search.svg</icon>
       <subdirectory>./</subdirectory>
       <tag>search</tag>
