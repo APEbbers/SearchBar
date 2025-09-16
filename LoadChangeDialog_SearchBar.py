@@ -46,6 +46,10 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         + "- Enable or disable the SearchBar toolbars  \n"
         + "- Enable or disable the MouseBar  \n"
         + "- Show or hide the 'What's new' dialog at startup  \n"
+        + "###\n"
+        + "## Small improvements and fixes \n" 
+        + "- Fixed a bug were the searchbar was not showing it's icon but a question mark icon instead  \n"
+        + "- The \"Refresh cached results\" has now a refresh icon. (Visible after a refresh  of the cache and a restart)"
     )
     
     # Enter the version for which the form must show on startup
