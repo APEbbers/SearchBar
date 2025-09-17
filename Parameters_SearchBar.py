@@ -35,7 +35,8 @@ class Settings:
 
     def GetBoolSetting(settingName: str, Default = False) -> bool:
         result = preferences.GetBool(settingName)
-        if str(result).lower() == "none":
+        
+        if not settingName in preferences.GetBools():
             result = Default
         return result
 
@@ -91,13 +92,4 @@ DO_NOT_SHOW_AGAIN: str= Settings.GetStringSetting("DoNotShowAgain")
 if Settings.GetStringSetting("DoNotShowAgain") is None:
     DO_NOT_SHOW_AGAIN = " "
     Settings.SetStringSetting("DoNotShowAgain", " ")
-    Settings.SetBoolSetting("ShowChangeDialog", True)
-
-if Settings.GetBoolSetting("EnableMouseBar", True) is None:
-    Settings.SetBoolSetting("EnableMouseBar", True)
-    
-if Settings.GetBoolSetting("EnableToolbars", True) is None:
-    Settings.SetBoolSetting("EnableToolbars", True)
-
-if Settings.GetBoolSetting("ShowChangeDialog", True) is None:
     Settings.SetBoolSetting("ShowChangeDialog", True)

@@ -51,7 +51,7 @@ class SearchBar(Gui.Workbench):
             ChangeDialogLoaded = True
             
             # If the mousebar is enabled in preferences, enable it.
-            if Parameters_SearchBar.Settings.GetBoolSetting("EnableMouseBar") is True:
+            if Parameters_SearchBar.Settings.GetBoolSetting("EnableMouseBar", True) is True:
                 # Activate the searchBar at the pointer module
                 MouseBar.SearchBar_Pointer()
                 
@@ -62,7 +62,7 @@ class SearchBar(Gui.Workbench):
                     child.installEventFilter(EventInspector(mw))
             
             # if the toolbars are enabled in preferences, load them
-            if Parameters_SearchBar.Settings.GetBoolSetting("EnableToolbars") is True:          
+            if Parameters_SearchBar.Settings.GetBoolSetting("EnableToolbars", True) is True:          
                 if sea is None:
                     wax = SearchBox.SearchBoxFunction(mw)
                 if tbr is None:
