@@ -35,8 +35,8 @@ class Settings:
 
     def GetBoolSetting(settingName: str) -> bool:
         result = preferences.GetBool(settingName)
-        # if str(result).lower() == "none":
-        #     result = False
+        if str(result).lower() == "none":
+            result = None
         return result
 
     def GetColorSetting(settingName: str) -> object:
