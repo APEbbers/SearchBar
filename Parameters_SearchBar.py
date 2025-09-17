@@ -92,3 +92,12 @@ if Settings.GetStringSetting("DoNotShowAgain") is None:
     DO_NOT_SHOW_AGAIN = " "
     Settings.SetStringSetting("DoNotShowAgain", " ")
     Settings.SetBoolSetting("ShowChangeDialog", True)
+
+if Settings.GetBoolSetting("EnableMouseBar") is None:
+    Settings.SetBoolSetting("EnableMouseBar", True)
+    
+if Settings.GetBoolSetting("EnableToolbars") is None:
+    Settings.SetBoolSetting("EnableToolbars", True)
+
+if Settings.GetBoolSetting("ShowChangeDialog") is None:
+    Settings.SetBoolSetting("ShowChangeDialog", True)
