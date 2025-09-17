@@ -91,3 +91,4 @@ DO_NOT_SHOW_AGAIN: str= Settings.GetStringSetting("DoNotShowAgain")
 if Settings.GetStringSetting("DoNotShowAgain") is None:
     DO_NOT_SHOW_AGAIN = " "
     Settings.SetStringSetting("DoNotShowAgain", " ")
+    Settings.SetBoolSetting("ShowChangeDialog", True)
