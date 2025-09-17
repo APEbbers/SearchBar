@@ -89,4 +89,5 @@ SearchIcon_Pixmap = os.path.join(ICON_LOCATION, "Tango-System-search.svg")
 
 DO_NOT_SHOW_AGAIN: str= Settings.GetStringSetting("DoNotShowAgain")
 if Settings.GetStringSetting("DoNotShowAgain") is None:
-    AUTOHIDE_RIBBON = " "
+    DO_NOT_SHOW_AGAIN = " "
+    Settings.SetStringSetting("DoNotShowAgain", " ")
