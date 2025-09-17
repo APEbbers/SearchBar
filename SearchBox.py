@@ -375,8 +375,16 @@ class SearchBox(QLineEdit):
 
         def filterGroup(group):
             if matches(group["text"]):
-                # If a group matches, include the entire subtree (might need to disable this if it causes too much noise)
-                return group
+                Skip = False
+                if Parameters.FILTER_TOOLBARS is False and "toolbar" in group["action"]["handler"]:
+                    Skip = True
+                if Parameters.FILTER_PARAMETERS is False and "paramGroup" in group["action"]["handler"]:
+                    Skip = True
+                if Parameters.FILTER_TOOLBARS is False and "document" in group["action"]["handler"]:
+                    Skip = True
+                if Skip is False:
+                    # If a group matches, include the entire subtree (might need to disable this if it causes too much noise)
+                    return group
             else:
                 subitems = filterGroups(group["subitems"])
                 # if len(subitems) == 0:

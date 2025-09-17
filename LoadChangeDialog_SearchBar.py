@@ -53,7 +53,7 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
     )
     
     # Enter the version for which the form must show on startup
-    WhatsNewVersion = "1.6"
+    WhatsNewVersion = "1.7"
     
     # Get the main window from FreeCAD
     mw = Gui.getMainWindow()

@@ -93,3 +93,7 @@ if Settings.GetStringSetting("DoNotShowAgain") is None:
     DO_NOT_SHOW_AGAIN = " "
     Settings.SetStringSetting("DoNotShowAgain", " ")
     Settings.SetBoolSetting("ShowChangeDialog", True)
+
+FILTER_TOOLBARS = Settings.GetBoolSetting("FilterToolbarCommands", True)
+FILTER_PARAMETERS = Settings.GetBoolSetting("FilterParameters", True)
+FILTER_DOCUMENTS = Settings.GetBoolSetting("FilterDocuments", True)
