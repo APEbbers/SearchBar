@@ -33,10 +33,10 @@ class Settings:
             result = None
         return result
 
-    def GetBoolSetting(settingName: str) -> bool:
+    def GetBoolSetting(settingName: str, Default = False) -> bool:
         result = preferences.GetBool(settingName)
         if str(result).lower() == "none":
-            result = None
+            result = Default
         return result
 
     def GetColorSetting(settingName: str) -> object:
@@ -93,11 +93,11 @@ if Settings.GetStringSetting("DoNotShowAgain") is None:
     Settings.SetStringSetting("DoNotShowAgain", " ")
     Settings.SetBoolSetting("ShowChangeDialog", True)
 
-if Settings.GetBoolSetting("EnableMouseBar") is None:
+if Settings.GetBoolSetting("EnableMouseBar", True) is None:
     Settings.SetBoolSetting("EnableMouseBar", True)
     
-if Settings.GetBoolSetting("EnableToolbars") is None:
+if Settings.GetBoolSetting("EnableToolbars", True) is None:
     Settings.SetBoolSetting("EnableToolbars", True)
 
-if Settings.GetBoolSetting("ShowChangeDialog") is None:
+if Settings.GetBoolSetting("ShowChangeDialog", True) is None:
     Settings.SetBoolSetting("ShowChangeDialog", True)
