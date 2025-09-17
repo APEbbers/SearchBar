@@ -1,21 +1,21 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PreferencesUI_SearchBarpYGBin.ui'
+## Form generated from reading UI file 'PreferencesUI_SearchBaraitcPe.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
     QMetaObject, QObject, QPoint, QRect,
     QSize, QTime, QUrl, Qt)
-from PySide.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide.QtWidgets import (QApplication, QFrame, QGridLayout, QLabel,
+from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QLabel,
     QSizePolicy, QSpacerItem, QWidget)
 import Resources_rc
 
@@ -41,6 +41,7 @@ class Ui_Form(object):
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.EnableToolbar = Gui_PrefCheckBox(Form)
         self.EnableToolbar.setObjectName(u"EnableToolbar")
+        self.EnableToolbar.setChecked(True)
         self.EnableToolbar.setProperty(u"prefEntry", u"EnableToolbars")
         self.EnableToolbar.setProperty(u"prefPath", u"Mod/SearchBar")
 
@@ -56,6 +57,7 @@ class Ui_Form(object):
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
         self.EnableMouseBar = Gui_PrefCheckBox(self.frame)
         self.EnableMouseBar.setObjectName(u"EnableMouseBar")
+        self.EnableMouseBar.setChecked(True)
         self.EnableMouseBar.setProperty(u"prefEntry", u"EnableMouseBar")
         self.EnableMouseBar.setProperty(u"prefPath", u"Mod/SearchBar")
 
@@ -78,6 +80,7 @@ class Ui_Form(object):
 
         self.ShowChangeLog = Gui_PrefCheckBox(Form)
         self.ShowChangeLog.setObjectName(u"ShowChangeLog")
+        self.ShowChangeLog.setChecked(True)
         self.ShowChangeLog.setProperty(u"prefEntry", u"ShowChangeDialog")
         self.ShowChangeLog.setProperty(u"prefPath", u"Mod/SearchBar")
 

@@ -51,6 +51,9 @@
        <property name="text">
         <string>Enable SearchBar toolbar</string>
        </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
        <property name="prefEntry" stdset="0">
         <cstring>EnableToolbars</cstring>
        </property>
@@ -87,6 +90,9 @@
          <widget class="Gui::PrefCheckBox" name="EnableMouseBar">
           <property name="text">
            <string>Enable the MouseBar</string>
+          </property>
+          <property name="checked">
+           <bool>true</bool>
           </property>
           <property name="prefEntry" stdset="0">
            <cstring>EnableMouseBar</cstring>
@@ -138,6 +144,9 @@
       <widget class="Gui::PrefCheckBox" name="ShowChangeLog">
        <property name="text">
         <string>Show 'What's new' dialog on startup</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
        </property>
        <property name="prefEntry" stdset="0">
         <cstring>ShowChangeDialog</cstring>

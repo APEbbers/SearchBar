@@ -33,10 +33,11 @@ class Settings:
             result = None
         return result
 
-    def GetBoolSetting(settingName: str) -> bool:
+    def GetBoolSetting(settingName: str, Default = False) -> bool:
         result = preferences.GetBool(settingName)
-        if str(result).lower() == "none":
-            result = False
+        
+        if not settingName in preferences.GetBools():
+            result = Default
         return result
 
     def GetColorSetting(settingName: str) -> object:
@@ -89,4 +90,6 @@ SearchIcon_Pixmap = os.path.join(ICON_LOCATION, "Tango-System-search.svg")
 
 DO_NOT_SHOW_AGAIN: str= Settings.GetStringSetting("DoNotShowAgain")
 if Settings.GetStringSetting("DoNotShowAgain") is None:
-    AUTOHIDE_RIBBON = " "
+    DO_NOT_SHOW_AGAIN = " "
+    Settings.SetStringSetting("DoNotShowAgain", " ")
+    Settings.SetBoolSetting("ShowChangeDialog", True)
