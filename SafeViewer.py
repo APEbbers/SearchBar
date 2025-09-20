@@ -16,7 +16,7 @@ class SafeViewer(QtGui.QWidget):
     )
     instances = []
 
-    def __init__(self, parent=None):
+    def __init__(self, nfo, parent=None):
         super(SafeViewer, self).__init__()
         SafeViewer.instances.append(self)
         self.init_parent = parent
@@ -55,25 +55,26 @@ class SafeViewer(QtGui.QWidget):
             )
                         
             im = None
-            ImageWidget = QLabel()
-            file_name = App.ActiveDocument.getFileName()
+            self.ImageWidget = QLabel()
+            file_name = App.getDocument(str(nfo['action']['document'])).getFileName()
             try:
                 with ZipFile(file_name, 'r') as zip:
                     im = QPixmap(zip.extract("thumbnails/Thumbnail.png"))
-                    ImageWidget.setPixmap(im)
-                    ImageWidget.setScaledContents(True)
+                    self.ImageWidget.setPixmap(im)
+                    self.ImageWidget.setScaledContents(True)
             except Exception as e:
                 print(e)
                 pass
             
             self.setLayout(QtGui.QVBoxLayout())
-            # self.layout().addWidget(self.lbl_warning)
             if im is not None:
-                self.layout().addWidget(ImageWidget)
+                self.layout().addWidget(self.ImageWidget)
             else:
                 self.layout().addWidget(self.lbl_warning)
             self.layout().addWidget(self.btn_enable_for_this_session)
             self.layout().addWidget(self.btn_enable_for_future_sessions)
+            
+            self.destroyed.connect(self.finalizer)
 
     def enable_for_this_session(self):
         if not SafeViewer.enabled:
@@ -143,14 +144,20 @@ class SafeViewer(QtGui.QWidget):
             # self.parent = None
             self.init_parent = None
             self.hiddenQMDIArea = None
+        else:
+            self.init_parent = None
+            self.ImageWidget = None
 
     def showSceneGraph(self, g):
         import FreeCAD as App
 
         if SafeViewer.enabled:
             self.viewer.getViewer().setSceneGraph(g)
-            self.viewer.setCameraOrientation(App.Rotation(1, 1, 0, 0.2))
+            self.viewer.viewDefaultOrientation()
             self.viewer.fitAll()
+            self.viewer.setCornerCrossSize(5)
+            # self.viewer.setCornerCrossVisible(False)
+            self.viewer.getViewer().setEnabledNaviCube(False)
             
 
 
