@@ -27,6 +27,9 @@ class SafeViewer(QtGui.QWidget):
         else:
             import FreeCADGui
             from PySide import QtCore
+            from PySide.QtWidgets import QLabel
+            from PySide.QtGui import QPixmap
+            from zipfile import ZipFile
 
             self.displaying_warning = True
             self.lbl_warning = QtGui.QTextEdit()
@@ -50,26 +53,25 @@ class SafeViewer(QtGui.QWidget):
             self.btn_enable_for_future_sessions.clicked.connect(
                 self.enable_for_future_sessions
             )
-            
-            from PIL import Image
-            from zipfile import ZipFile
-            from PySide6.QtWidgets import QLabel
-            
-            img = None
+                        
+            im = None
             ImageWidget = QLabel()
             file_name = App.ActiveDocument.getFileName()
             try:
                 with ZipFile(file_name, 'r') as zip:
-                    #zip.printdir()      # print files in FC zip file
-                    img = Image.open(zip.open("thumbnails/Thumbnail.png"))    
-                    ImageWidget.setPixmap(img)
-            except Exception:
+                    im = QPixmap(zip.extract("thumbnails/Thumbnail.png"))
+                    ImageWidget.setPixmap(im)
+                    ImageWidget.setScaledContents(True)
+            except Exception as e:
+                print(e)
                 pass
             
             self.setLayout(QtGui.QVBoxLayout())
             # self.layout().addWidget(self.lbl_warning)
-            if img is not None:
+            if im is not None:
                 self.layout().addWidget(ImageWidget)
+            else:
+                self.layout().addWidget(self.lbl_warning)
             self.layout().addWidget(self.btn_enable_for_this_session)
             self.layout().addWidget(self.btn_enable_for_future_sessions)
 
