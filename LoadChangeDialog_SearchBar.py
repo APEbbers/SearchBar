@@ -29,27 +29,19 @@ translate = App.Qt.translate
 class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
     
     # The text for the changelog (markdown)
-    text = ("# New in SearchBar version 1.6.0:  \n"
+    text = ("# New in SearchBar version 1.7.0:  \n"
         + "###\n"
-        + "## MouseBar  \n"
-        + "With this release, the searchbar can be shown at cursor by pressing a shortcut key. The default shortcut is 'S'.\n"
-        + "To show the searchbar at the cursor, press 'S'. To hide it, press 'S' again.  \n"
-        + f'<img src=\"{os.path.join(pathImages, "SearchBar at pointer.png")}\"/>  \n'
-        + "### Changing the shortcut  \n"
-        + "To change the shortcut, go to Tools->Customize.....  \n"
-        + "The customize menu of FreeCAD will popup. On the keyboard tab look for the category 'SearchBar'. \n"
-        + "The pointer command will be shown. Here you can set your preferred shortcut.  \n"
-        + f'<img src=\"{os.path.join(pathImages, "Change shortcut.png")}\" width=500/>\n'
+        + "## Filter options  \n"
+        + "The results of the searchbar consists of three type of results: Buttons, parameters and open documents with their content.  \n"
+        + "It is now possible to enable or disable one or more of these result types in the preference page.  \n"
+        + f'<img src=\"{os.path.join(pathImages, "FilterOptions.png")}\"/>  \n'
         + "###\n"
-        + "## Preference page  \n"
-        + "A preference page is added to set the following settings:  \n"
-        + "- Enable or disable the SearchBar toolbars  \n"
-        + "- Enable or disable the MouseBar  \n"
-        + "- Show or hide the 'What's new' dialog at startup  \n"
-        + "###\n"
-        + "## Small improvements and fixes \n" 
-        + "- Fixed a bug were the searchbar was not showing it's icon but a question mark icon instead  \n"
-        + "- The \"Refresh cached results\" has now a refresh icon. (Visible after a refresh  of the cache and a restart)"
+        + "## 3D Viewer improvements  \n"
+        + "a 3D Previewer can be enabled to for open documents. With this new release the following changes and improvements are made: \n"
+        + "- The button to enable this permanently is moved from the results dialog to preferences. \n"
+        + f'<img src=\"{os.path.join(pathImages, "Enable 3D Previewer in preferences.png")}\" width=500/>  \n'
+        + "- When the 3D preview is disabled, a thumbnail is now added instead. \n"
+        + "  For this to work, a thumbnail must be present in the document. You can enable this in preferences->General->Documents.  \n"
     )
     
     # Enter the version for which the form must show on startup
