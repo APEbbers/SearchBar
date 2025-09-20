@@ -35,10 +35,18 @@ class SafeViewer(QtGui.QWidget):
             self.lbl_warning = QtGui.QTextEdit()
             self.lbl_warning.setReadOnly(True)
             self.lbl_warning.setAlignment(QtCore.Qt.AlignTop)
+            # self.lbl_warning.setText(
+            #     translate(
+            #         "SearchBar",
+            #         "Warning: the 3D preview has some stability issues. It can cause FreeCAD to crash (usually when quitting the application) and could in theory cause data loss, inside and outside of App.",
+            #     )
+            # )
+            # 
+            # # A new text for when no thumbnail is available
             self.lbl_warning.setText(
                 translate(
                     "SearchBar",
-                    "Warning: the 3D preview has some stability issues. It can cause FreeCAD to crash (usually when quitting the application) and could in theory cause data loss, inside and outside of App.",
+                    "No thumbnail available!",
                 )
             )
             self.btn_enable_for_this_session = QtGui.QPushButton(
@@ -72,7 +80,7 @@ class SafeViewer(QtGui.QWidget):
             else:
                 self.layout().addWidget(self.lbl_warning)
             self.layout().addWidget(self.btn_enable_for_this_session)
-            self.layout().addWidget(self.btn_enable_for_future_sessions)
+            # self.layout().addWidget(self.btn_enable_for_future_sessions)
             
             self.destroyed.connect(self.finalizer)
 
