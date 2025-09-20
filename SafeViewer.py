@@ -50,8 +50,26 @@ class SafeViewer(QtGui.QWidget):
             self.btn_enable_for_future_sessions.clicked.connect(
                 self.enable_for_future_sessions
             )
+            
+            from PIL import Image
+            from zipfile import ZipFile
+            from PySide6.QtWidgets import QLabel
+            
+            img = None
+            ImageWidget = QLabel()
+            file_name = App.ActiveDocument.getFileName()
+            try:
+                with ZipFile(file_name, 'r') as zip:
+                    #zip.printdir()      # print files in FC zip file
+                    img = Image.open(zip.open("thumbnails/Thumbnail.png"))    
+                    ImageWidget.setPixmap(img)
+            except Exception:
+                pass
+            
             self.setLayout(QtGui.QVBoxLayout())
-            self.layout().addWidget(self.lbl_warning)
+            # self.layout().addWidget(self.lbl_warning)
+            if img is not None:
+                self.layout().addWidget(ImageWidget)
             self.layout().addWidget(self.btn_enable_for_this_session)
             self.layout().addWidget(self.btn_enable_for_future_sessions)
 
@@ -131,6 +149,7 @@ class SafeViewer(QtGui.QWidget):
             self.viewer.getViewer().setSceneGraph(g)
             self.viewer.setCameraOrientation(App.Rotation(1, 1, 0, 0.2))
             self.viewer.fitAll()
+            
 
 
 """

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PreferencesUI_SearchBarmSMCQu.ui'
+## Form generated from reading UI file 'PreferencesUI_SearchBarpXGoNR.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -23,7 +23,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(1008, 420)
+        Form.resize(1008, 511)
         icon = QIcon()
         icon.addFile(u":/Resources/Icons/preferences-searchbar.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         Form.setWindowIcon(icon)
@@ -35,19 +35,32 @@ class Ui_Form(object):
         font.setItalic(True)
         self.label_2.setFont(font)
 
-        self.gridLayout_4.addWidget(self.label_2, 4, 0, 1, 1)
+        self.gridLayout_4.addWidget(self.label_2, 6, 0, 1, 1)
 
-        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.groupBox_2 = QGroupBox(Form)
+        self.groupBox_2.setObjectName(u"groupBox_2")
+        self.gridLayout_5 = QGridLayout(self.groupBox_2)
+        self.gridLayout_5.setObjectName(u"gridLayout_5")
+        self.label_3 = QLabel(self.groupBox_2)
+        self.label_3.setObjectName(u"label_3")
+        self.label_3.setWordWrap(True)
 
-        self.gridLayout_4.addItem(self.horizontalSpacer_2, 0, 1, 1, 1)
+        self.gridLayout_5.addWidget(self.label_3, 1, 1, 1, 1)
 
-        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        self.horizontalSpacer_3 = QSpacerItem(25, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
-        self.gridLayout_4.addItem(self.verticalSpacer, 3, 0, 1, 1)
+        self.gridLayout_5.addItem(self.horizontalSpacer_3, 1, 0, 1, 1)
 
-        self.verticalSpacer_2 = QSpacerItem(20, 10, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+        self.Enable3DViewer = Gui_PrefCheckBox(self.groupBox_2)
+        self.Enable3DViewer.setObjectName(u"Enable3DViewer")
+        self.Enable3DViewer.setChecked(False)
+        self.Enable3DViewer.setProperty(u"prefEntry", u"PreviewEnabled")
+        self.Enable3DViewer.setProperty(u"prefPath", u"Mod/SearchBar")
 
-        self.gridLayout_4.addItem(self.verticalSpacer_2, 1, 0, 1, 1)
+        self.gridLayout_5.addWidget(self.Enable3DViewer, 0, 0, 1, 2)
+
+
+        self.gridLayout_4.addWidget(self.groupBox_2, 4, 0, 1, 1)
 
         self.FilterBox = QGroupBox(Form)
         self.FilterBox.setObjectName(u"FilterBox")
@@ -80,6 +93,18 @@ class Ui_Form(object):
 
 
         self.gridLayout_4.addWidget(self.FilterBox, 2, 0, 1, 1)
+
+        self.verticalSpacer = QSpacerItem(20, 40, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+
+        self.gridLayout_4.addItem(self.verticalSpacer, 5, 0, 1, 1)
+
+        self.verticalSpacer_2 = QSpacerItem(20, 10, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.gridLayout_4.addItem(self.verticalSpacer_2, 1, 0, 1, 1)
+
+        self.horizontalSpacer_2 = QSpacerItem(40, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+
+        self.gridLayout_4.addItem(self.horizontalSpacer_2, 0, 1, 1, 1)
 
         self.groupBox = QGroupBox(Form)
         self.groupBox.setObjectName(u"groupBox")
@@ -136,6 +161,10 @@ class Ui_Form(object):
 
         self.gridLayout_4.addWidget(self.groupBox, 0, 0, 1, 1)
 
+        self.verticalSpacer_3 = QSpacerItem(20, 10, QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Fixed)
+
+        self.gridLayout_4.addItem(self.verticalSpacer_3, 3, 0, 1, 1)
+
 
         self.retranslateUi(Form)
 
@@ -145,10 +174,13 @@ class Ui_Form(object):
     def retranslateUi(self, Form):
         Form.setWindowTitle(QCoreApplication.translate("Form", u"General", None))
         self.label_2.setText(QCoreApplication.translate("Form", u"FreeCAD needs to be restarted before changes become active.", None))
+        self.groupBox_2.setTitle(QCoreApplication.translate("Form", u"3D Viewer settings", None))
+        self.label_3.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:8pt; font-style:italic;\">Warning: the 3D preview has some stability issues. It can cause FreeCAD to crash (usually when quitting the application) and could in theory cause data loss, inside and outside of App.</span></p></body></html>", None))
+        self.Enable3DViewer.setText(QCoreApplication.translate("Form", u"Enable the 3D-Viewer for open documents", None))
         self.FilterBox.setTitle(QCoreApplication.translate("Form", u"Filter preferences", None))
-        self.checkBox.setText(QCoreApplication.translate("Form", u"Toolbar commands", None))
-        self.checkBox_3.setText(QCoreApplication.translate("Form", u"Features from open documents", None))
-        self.checkBox_2.setText(QCoreApplication.translate("Form", u"Parameters", None))
+        self.checkBox.setText(QCoreApplication.translate("Form", u"Include toolbar commands", None))
+        self.checkBox_3.setText(QCoreApplication.translate("Form", u"Include open documents and their features", None))
+        self.checkBox_2.setText(QCoreApplication.translate("Form", u"Include parameters", None))
         self.groupBox.setTitle(QCoreApplication.translate("Form", u"General preferences", None))
         self.EnableMouseBar.setText(QCoreApplication.translate("Form", u"Enable the MouseBar", None))
         self.label.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:8pt; font-style:italic;\">When a shortcut key is pressed, the SearchBar will show at the mouse cursor. Pressing the shortcut key again will close the SearchBar. </span></p><p><span style=\" font-size:8pt; font-style:italic; \">The default shortcut is 'S'. This can be changed in FreeCAD's customize menu like with all other commands. Go to: 'Tools-&gt;Customize...-&gt;Keyboard. Find the category 'SearchBar'. There you can change the shortcut.</span></p></body></html>", None))
