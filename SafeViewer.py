@@ -70,8 +70,7 @@ class SafeViewer(QWidget):
                     im = QPixmap(zip.extract("thumbnails/Thumbnail.png"))
                     self.ImageWidget.setPixmap(im)
                     self.ImageWidget.setScaledContents(True)
-                    self.ImageWidget.setFixedSize(70,70)
-                    self.ImageWidget.setSizePolicy(QSizePolicy.Policy.MinimumExpanding)
+                    self.ImageWidget.setFixedSize(102,102)
             except Exception as e:
                 print(e)
                 pass
