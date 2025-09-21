@@ -1,11 +1,16 @@
-from PySide import QtGui
 import FreeCAD as App
+import FreeCADGui as Gui
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QLabel, QTextEdit, QMdiArea, QPushButton, QVBoxLayout, QWidget
+from PySide6.QtGui import QPixmap
+from zipfile import ZipFile
+import SearchBox
 
 # Define the translation
 translate = App.Qt.translate
 
 
-class SafeViewer(QtGui.QWidget):
+class SafeViewer(QWidget):
     """FreeCAD uses a modified version of QuarterWidget, so the import pivy.quarter one will cause segfaults.
     FreeCAD's FreeCADGui.createViewer() puts the viewer widget inside an MDI window, and detaching it without causing segfaults on exit is tricky.
     This class contains some kludges to extract the viewer as a standalone widget and destroy it safely.
@@ -25,16 +30,10 @@ class SafeViewer(QtGui.QWidget):
             self.displaying_warning = False
             self.enable()
         else:
-            import FreeCADGui
-            from PySide import QtCore
-            from PySide.QtWidgets import QLabel
-            from PySide.QtGui import QPixmap
-            from zipfile import ZipFile
-
             self.displaying_warning = True
-            self.lbl_warning = QtGui.QTextEdit()
+            self.lbl_warning = QTextEdit()
             self.lbl_warning.setReadOnly(True)
-            self.lbl_warning.setAlignment(QtCore.Qt.AlignTop)
+            self.lbl_warning.setAlignment(Qt.AlignmentFlag.AlignTop)
             # self.lbl_warning.setText(
             #     translate(
             #         "SearchBar",
@@ -49,20 +48,20 @@ class SafeViewer(QtGui.QWidget):
                     "No thumbnail available!",
                 )
             )
-            self.btn_enable_for_this_session = QtGui.QPushButton(
+            self.btn_enable_for_this_session = QPushButton(
                 translate("SearchBar", "Enable 3D preview for this session")
             )
             self.btn_enable_for_this_session.clicked.connect(
                 self.enable_for_this_session
             )
-            self.btn_enable_for_future_sessions = QtGui.QPushButton(
+            self.btn_enable_for_future_sessions = QPushButton(
                 translate("SearchBar", "Enable 3D preview for future sessions")
             )
             self.btn_enable_for_future_sessions.clicked.connect(
                 self.enable_for_future_sessions
             )
                         
-            im = None
+            im = QPixmap()
             self.ImageWidget = QLabel()
             file_name = App.getDocument(str(nfo['action']['document'])).getFileName()
             try:
@@ -70,11 +69,12 @@ class SafeViewer(QtGui.QWidget):
                     im = QPixmap(zip.extract("thumbnails/Thumbnail.png"))
                     self.ImageWidget.setPixmap(im)
                     self.ImageWidget.setScaledContents(True)
+                    # self.ImageWidget.setFixedSize(60,60)
             except Exception as e:
                 print(e)
                 pass
             
-            self.setLayout(QtGui.QVBoxLayout())
+            self.setLayout(QVBoxLayout())
             if im is not None:
                 self.layout().addWidget(self.ImageWidget)
             else:
@@ -88,6 +88,7 @@ class SafeViewer(QtGui.QWidget):
         if not SafeViewer.enabled:
             for instance in SafeViewer.instances:
                 instance.enable()
+                SearchBox.globalIgnoreFocusOut = True
 
     def enable_for_future_sessions(self):
         if not SafeViewer.enabled:
@@ -120,13 +121,13 @@ class SafeViewer(QtGui.QWidget):
             )
 
             # Avoid segfault but still hide the undesired window by moving it to a new hidden MDI area.
-            self.hiddenQMDIArea = QtGui.QMdiArea()
+            self.hiddenQMDIArea = QMdiArea()
             self.hiddenQMDIArea.addSubWindow(self.oldGraphicsViewParentParentParent)
 
             self.private_widget = self.oldGraphicsViewParent
             self.private_widget.setParent(self.init_parent)
 
-            self.setLayout(QtGui.QVBoxLayout())
+            self.setLayout(QVBoxLayout())
             self.layout().addWidget(self.private_widget)
             self.layout().setContentsMargins(0, 0, 0, 0)
 
