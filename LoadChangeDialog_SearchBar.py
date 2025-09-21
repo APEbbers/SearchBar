@@ -37,15 +37,16 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         + f'<img src=\"{os.path.join(pathImages, "FilterOptions.png")}\" width=500/>  \n'
         + "###\n"
         + "## 3D Viewer improvements  \n"
-        + "a 3D Previewer can be enabled to for open documents. With this new release the following changes and improvements are made: \n"
-        + "- The button to enable this permanently is moved from the results dialog to preferences.  \n"
+        + "a 3D Previewer can be enabled to for open documents. With this new release the following changes and improvements are made:  \n"
+        + "- The button to enable the 3D previewer permanently is moved from the results dialog to preferences.\n"
         + f'<img src=\"{os.path.join(pathImages, "Enable 3D Previewer in preferences.png")}\" width=500/>  \n'
-        + "- The button to enable the 3D Preview only for the current session is removed. The 3D previewer works best after a restart of FreeCAD.  \n"
-        + "- a thumbnail will be shown when the 3D previewer is disabled. \n"
-        + "  For this to work, a thumbnail must be present in the document. \n"
+        + "- The button to enable the 3D Preview only for the current session is removed. The 3D previewer has stability issues without a restart of FreeCAD.\n"
+        + "  The 3D Previewer is more stable when enabled permanent.  \n"
+        + "- a thumbnail will be shown when the 3D previewer is disabled.\n"
+        + "  For this to work, a thumbnail must be present in the document.\n"
         + "  You can enable this in preferences->General->Documents.  \n"
         + "- The navigation cube is removed from the 3D preview. The cube was too big and was partially hiding the document.  \n"
-        + "- The 3D preview is net to the default orientation of the document, when it is first shown.  \n"
+        + "- The 3D preview is set to the default orientation of the document, when it is first shown.\n"
         + "  For most documents this will be the Isometric view.  \n"
     )
     
