@@ -40,11 +40,12 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         + "a 3D Previewer can be enabled to for open documents. With this new release the following changes and improvements are made: \n"
         + "- The button to enable this permanently is moved from the results dialog to preferences.  \n"
         + f'<img src=\"{os.path.join(pathImages, "Enable 3D Previewer in preferences.png")}\" width=500/>  \n'
-        + "- When the 3D preview is disabled, a thumbnail is now added instead. \n"
+        + "- The button to enable the 3D Preview only for the current session is removed. The 3D previewer works best after a restart of FreeCAD.  \n"
+        + "- a thumbnail will be shown when the 3D previewer is disabled. \n"
         + "  For this to work, a thumbnail must be present in the document. \n"
         + "  You can enable this in preferences->General->Documents.  \n"
-        + "- The navigation cube is no removed from the 3D preview. The cube was too big and was partially hiding the document.  \n"
-        + "- The 3D preview is now set to the default orientation of the document, when it is first shown.  \n"
+        + "- The navigation cube is removed from the 3D preview. The cube was too big and was partially hiding the document.  \n"
+        + "- The 3D preview is net to the default orientation of the document, when it is first shown.  \n"
         + "  For most documents this will be the Isometric view.  \n"
     )
     
