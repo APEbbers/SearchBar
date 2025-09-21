@@ -1,4 +1,5 @@
 import Parameters_SearchBar
+import StyleMapping_SearchBar
 from PySide import QtGui
 from PySide import QtCore
 import FreeCAD as App
@@ -74,7 +75,7 @@ class DocumentObjectToolTipWidget(QtGui.QWidget):
             App._SearchBar3DViewerB,
             App._SearchBar3DViewer,
         )
-
+        
         obj = App.getDocument(str(nfo["toolTip"]["docName"])).getObject(
             str(nfo["toolTip"]["name"])
         )
@@ -98,9 +99,12 @@ class DocumentObjectToolTipWidget(QtGui.QWidget):
 
         setParent(self)
         # Let the GUI recompute the side of the description based on its horizontal size.
-        FreeCADGui.updateGui()
-        siz = description.document().size().toSize()
-        description.setFixedHeight(siz.height() + 5)
+        # FreeCADGui.updateGui()
+        # siz = description.document().size().toSize()
+        # description.setFixedHeight(siz.height() + 5)
+        
+        # Set a fixed heigth to avoid flickering
+        description.setFixedHeight(80)
         
         # SearchBox.globalIgnoreFocusOut = False
         return

@@ -1,10 +1,11 @@
 import FreeCAD as App
 import FreeCADGui as Gui
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QLabel, QTextEdit, QMdiArea, QPushButton, QVBoxLayout, QWidget
+from PySide6.QtWidgets import QLabel, QSizePolicy, QTextEdit, QMdiArea, QPushButton, QVBoxLayout, QWidget
 from PySide6.QtGui import QPixmap
 from zipfile import ZipFile
 import SearchBox
+import StyleMapping_SearchBar
 
 # Define the translation
 translate = App.Qt.translate
@@ -61,7 +62,7 @@ class SafeViewer(QWidget):
                 self.enable_for_future_sessions
             )
                         
-            im = QPixmap()
+            im = None
             self.ImageWidget = QLabel()
             file_name = App.getDocument(str(nfo['action']['document'])).getFileName()
             try:
@@ -69,7 +70,8 @@ class SafeViewer(QWidget):
                     im = QPixmap(zip.extract("thumbnails/Thumbnail.png"))
                     self.ImageWidget.setPixmap(im)
                     self.ImageWidget.setScaledContents(True)
-                    # self.ImageWidget.setFixedSize(60,60)
+                    self.ImageWidget.setFixedSize(70,70)
+                    self.ImageWidget.setSizePolicy(QSizePolicy.Policy.MinimumExpanding)
             except Exception as e:
                 print(e)
                 pass
@@ -79,8 +81,8 @@ class SafeViewer(QWidget):
                 self.layout().addWidget(self.ImageWidget)
             else:
                 self.layout().addWidget(self.lbl_warning)
-            self.layout().addWidget(self.btn_enable_for_this_session)
-            # self.layout().addWidget(self.btn_enable_for_future_sessions)
+            # self.layout().addWidget(self.btn_enable_for_this_session)
+            # self.layout().addWidget(self.btn_enable_for_future_sessions)        
             
             self.destroyed.connect(self.finalizer)
 
