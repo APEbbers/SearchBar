@@ -59,7 +59,7 @@ class DocumentObjectToolTipWidget(QtGui.QWidget):
         
         # Set the searchbox to ignore Focus out. This was previouly only done when there no 3D preview (statement below)
         # This seems to make the behavior more stable
-        SearchBox.globalIgnoreFocusOut = False
+        SearchBox.globalIgnoreFocusOut = True
         if App._SearchBar3DViewer is None:
             oldFocus = QtGui.QApplication.focusWidget()
             SearchBox.globalIgnoreFocusOut
@@ -99,7 +99,7 @@ class DocumentObjectToolTipWidget(QtGui.QWidget):
 
         setParent(self)
         # Let the GUI recompute the side of the description based on its horizontal size.
-        # FreeCADGui.updateGui()
+        FreeCADGui.updateGui()
         # siz = description.document().size().toSize()
         # description.setFixedHeight(siz.height() + 5)
         
