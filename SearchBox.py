@@ -126,6 +126,8 @@ class SearchBox(QLineEdit):
     self.setPlaceholderText('Search tools, prefs & tree')
     self.setFixedWidth(200) # needed to avoid a change of width when the clear button appears/disappears
     """
+        # Set an objectname
+        self.setObjectName("SearchBox")
 
         # Save arguments
         # self.model = model
