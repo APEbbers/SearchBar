@@ -56,12 +56,15 @@ class DocumentObjectToolTipWidget(QtGui.QWidget):
             App._SearchBar3DViewer = SafeViewer.SafeViewer(nfo)
             App._SearchBar3DViewerB = SafeViewer.SafeViewer(nfo)
         
+        # Set the searchbox to ignore Focus out. This was previouly only done when there no 3D preview (statement below)
+        # This seems to make the behavior more stable
+        SearchBox.globalIgnoreFocusOut = False
         if App._SearchBar3DViewer is None:
             oldFocus = QtGui.QApplication.focusWidget()
             SearchBox.globalIgnoreFocusOut
             SearchBox.globalIgnoreFocusOut = True
-            App._SearchBar3DViewer = SafeViewer.SafeViewer()
-            App._SearchBar3DViewerB = SafeViewer.SafeViewer()
+            App._SearchBar3DViewer = SafeViewer.SafeViewer(nfo)
+            App._SearchBar3DViewerB = SafeViewer.SafeViewer(nfo)
             oldFocus.setFocus()
             SearchBox.globalIgnoreFocusOut = False
             # Tried setting the preview to a fixed size to prevent it from disappearing when changing its contents, this sets it to a fixed size but doesn't actually pick the size, .resize does that but isn't enough to fix the bug.
