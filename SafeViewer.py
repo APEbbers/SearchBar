@@ -1,8 +1,8 @@
 import FreeCAD as App
 import FreeCADGui as Gui
-from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QLabel, QSizePolicy, QTextEdit, QMdiArea, QPushButton, QVBoxLayout, QWidget
-from PySide6.QtGui import QPixmap
+from PySide.QtCore import Qt
+from PySide.QtWidgets import QLabel, QSizePolicy, QTextEdit, QMdiArea, QPushButton, QVBoxLayout, QWidget
+from PySide.QtGui import QPixmap
 from zipfile import ZipFile
 import SearchBox
 import StyleMapping_SearchBar
