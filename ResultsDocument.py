@@ -59,7 +59,7 @@ class DocumentObjectToolTipWidget(QtGui.QWidget):
         
         # Set the searchbox to ignore Focus out. This was previouly only done when there no 3D preview (statement below)
         # This seems to make the behavior more stable
-        SearchBox.globalIgnoreFocusOut = True
+        SearchBox.globalIgnoreFocusOut = False
         if App._SearchBar3DViewer is None:
             oldFocus = QtGui.QApplication.focusWidget()
             SearchBox.globalIgnoreFocusOut
