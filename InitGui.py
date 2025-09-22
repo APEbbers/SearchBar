@@ -16,6 +16,7 @@ ChangeDialogLoaded = False
 # Define the translation
 translate = App.Qt.translate
 
+PrefLoaded = False
 Gui.addIconPath(Parameters_SearchBar.ICON_LOCATION)
 Gui.addResourcePath(Parameters_SearchBar.ICON_LOCATION)
 PreferenceUI = os.path.join(Parameters_SearchBar.UI_LOCATION, "PreferencesUI_SearchBar.ui")
@@ -26,6 +27,11 @@ def QT_TRANSLATE_NOOP(context, text):
     return text
 
 class SearchBar(Gui.Workbench):
+    # This is needed to avoid crashes
+    def GetClassName(self):
+        # This function is mandatory if this is a full Python workbench
+        # This is not a template, the returned string should be exactly "Gui::PythonWorkbench"
+        return "Gui::PythonWorkbench"
 
     def addToolSearchBox():
         global wax, sea, tbr, ChangeDialogLoaded
