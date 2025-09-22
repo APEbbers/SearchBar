@@ -106,31 +106,31 @@ class EventInspector(QObject):
         super(EventInspector, self).__init__(parent)
 
     def eventFilter(self, obj, event):
-        # Get the main window and the toolbar
-        mw: QMainWindow = Gui.getMainWindow()
-        toolbar = mw.findChild(QToolBar, "SearchBarAtMouse")
-        
-        # Get the shortcut key
-        ShortcutKey = "S"
-        CustomShortCuts = App.ParamGet(
-                "User parameter:BaseApp/Preferences/Shortcut"
-            )
-        if "SearchBar" in CustomShortCuts.GetStrings():
-            ShortcutKey = CustomShortCuts.GetString("SearchBar")
-        # Get a modifier key if there is one
-        modifier = None
-        key = QKeySequence(ShortcutKey)
-        if len(ShortcutKey.split("+")) > 1:
-            if ShortcutKey.split("+")[0].lower() == "alt":
-                modifier = Qt.KeyboardModifier.AltModifier
-            if ShortcutKey.split("+")[0].lower() == "ctrl":
-                modifier = Qt.KeyboardModifier.ControlModifier
-            if ShortcutKey.split("+")[0].lower() == "shift":
-                modifier = Qt.KeyboardModifier.ShiftModifier
-            key = QKeySequence(ShortcutKey.split("+")[1])
-        
         # If there is a key press event, continue
         if event.type() == QEvent.Type.KeyPress:
+            # Get the main window and the toolbar
+            mw: QMainWindow = Gui.getMainWindow()
+            toolbar = mw.findChild(QToolBar, "SearchBarAtMouse")
+            
+            # Get the shortcut key
+            ShortcutKey = "S"
+            CustomShortCuts = App.ParamGet(
+                    "User parameter:BaseApp/Preferences/Shortcut"
+                )
+            if "SearchBar" in CustomShortCuts.GetStrings():
+                ShortcutKey = CustomShortCuts.GetString("SearchBar")
+            # Get a modifier key if there is one
+            modifier = None
+            key = QKeySequence(ShortcutKey)
+            if len(ShortcutKey.split("+")) > 1:
+                if ShortcutKey.split("+")[0].lower() == "alt":
+                    modifier = Qt.KeyboardModifier.AltModifier
+                if ShortcutKey.split("+")[0].lower() == "ctrl":
+                    modifier = Qt.KeyboardModifier.ControlModifier
+                if ShortcutKey.split("+")[0].lower() == "shift":
+                    modifier = Qt.KeyboardModifier.ShiftModifier
+                key = QKeySequence(ShortcutKey.split("+")[1])
+        
             # check if there is a modifier key that matches the modifier key in the shortcut
             if modifier is not None:
                 if event.modifiers() and modifier:
