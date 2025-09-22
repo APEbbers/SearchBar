@@ -141,12 +141,21 @@ class EventInspector(QObject):
                 if event.modifiers() and modifier:
                     if event.key() == key:
                         Gui.runCommand("SearchBar")
+                        # Set the toolbar focused, so that you can start typing right away.
+                        if toolbar is not None and toolbar.isVisible():
+                            child = toolbar.findChild(QLineEdit)
+                            child.setFocus()
                         return True
             # If there is only one key, continue here
             else:
                 if event.key() == key:
                     Gui.runCommand("SearchBar")
+                    # Set the toolbar focused, so that you can start typing right away.
+                    if toolbar is not None and toolbar.isVisible():
+                        child = toolbar.findChild(QLineEdit)
+                        child.setFocus()
                     return True
+                            
         # If there is a mouse click, check if the toolbar is under the cursor
         # If not, close it
         if (
