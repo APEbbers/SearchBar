@@ -7,14 +7,14 @@
     <x>0</x>
     <y>0</y>
     <width>1008</width>
-    <height>511</height>
+    <height>516</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>General</string>
   </property>
   <property name="windowIcon">
-   <iconset resource="../../Resources.qrc">
+   <iconset>
     <normaloff>:/Resources/Icons/preferences-searchbar.svg</normaloff>:/Resources/Icons/preferences-searchbar.svg</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
@@ -330,8 +330,6 @@
    <header>Gui/PrefWidgets.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../../Resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

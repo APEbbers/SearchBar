@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PreferencesUI_SearchBarpXGoNR.ui'
+## Form generated from reading UI file 'PreferencesUI_SearchBarhOajHi.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -17,13 +17,12 @@ from PySide.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QPalette, QPixmap, QRadialGradient, QTransform)
 from PySide.QtWidgets import (QApplication, QFrame, QGridLayout, QGroupBox,
     QLabel, QSizePolicy, QSpacerItem, QWidget)
-import Resources_rc
 
 class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(1008, 511)
+        Form.resize(1008, 516)
         icon = QIcon()
         icon.addFile(u":/Resources/Icons/preferences-searchbar.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         Form.setWindowIcon(icon)
