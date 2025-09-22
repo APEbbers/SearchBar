@@ -5,6 +5,7 @@ import Parameters_SearchBar
 from PySide.QtWidgets import QLineEdit, QMainWindow, QToolBar, QMenu, QHBoxLayout, QToolButton, QWidget, QWidgetAction, QDialog, QVBoxLayout
 from PySide.QtGui import QShortcut, QKeySequence, QCursor, QWindow,  QKeySequence
 from PySide.QtCore import Qt, Signal, QEvent, QObject
+from SearchBox import SearchBox
 import SearchBoxLight
 import os
 import StyleMapping_SearchBar
@@ -34,7 +35,7 @@ class SearchBar_Pointer:
         toolbar = mw.findChild(QToolBar, "SearchBarAtMouse")
         # Get the cursor position
         pos = QCursor.pos()
-        
+
         # If there is no toolbar, create and show it at the cursor
         if toolbar is None:
             toolbar = QToolBar("SearchBarAtMouse", mw)   
@@ -42,7 +43,6 @@ class SearchBar_Pointer:
             toolbar.setAllowedAreas(Qt.ToolBarArea.NoToolBarArea)
             toolbar.setOrientation(Qt.Orientation.Horizontal)
             toolbar.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-            action = ToolBarAction(mw)
             action = ToolBarAction(mw)
             toolbar.addAction(action)
 
@@ -90,10 +90,23 @@ class ToolBarAction(QWidgetAction):
             lambda index, groupId: __import__("GetItemGroups").onResultSelected(index, groupId)
         )
         
-        
         toolbar = QToolBar()
         toolbar.setObjectName("SearchBarAtMouse")
         toolbar.addWidget(sea)
+        
+        # Get the style from the main window and use it for this form
+        mw: QMainWindow = Gui.getMainWindow()
+        palette = mw.palette()
+        toolbar.setPalette(palette)
+        Style = mw.style()
+        toolbar.setStyle(Style)
+        
+        # Get the cursor position
+        pos = QCursor.pos()
+        toolbar.move(pos.x()+10, pos.y()-10)
+        toolbar.adjustSize()
+        
+
         self.toolbar = toolbar
         
         layout = QHBoxLayout()
@@ -111,31 +124,31 @@ class EventInspector_SB(QObject):
         super(EventInspector_SB, self).__init__(parent)
 
     def eventFilter(self, obj, event):
-        # Get the main window and the toolbar
-        mw: QMainWindow = Gui.getMainWindow()
-        toolbar = mw.findChild(QToolBar, "SearchBarAtMouse")
-        
-        # Get the shortcut key
-        ShortcutKey = "S"
-        CustomShortCuts = App.ParamGet(
-                "User parameter:BaseApp/Preferences/Shortcut"
-            )
-        if "SearchBar" in CustomShortCuts.GetStrings():
-            ShortcutKey = CustomShortCuts.GetString("SearchBar")
-        # Get a modifier key if there is one
-        modifier = None
-        key = QKeySequence(ShortcutKey)
-        if len(ShortcutKey.split("+")) > 1:
-            if ShortcutKey.split("+")[0].lower() == "alt":
-                modifier = Qt.KeyboardModifier.AltModifier
-            if ShortcutKey.split("+")[0].lower() == "ctrl":
-                modifier = Qt.KeyboardModifier.ControlModifier
-            if ShortcutKey.split("+")[0].lower() == "shift":
-                modifier = Qt.KeyboardModifier.ShiftModifier
-            key = QKeySequence(ShortcutKey.split("+")[1])
-        
         # If there is a key press event, continue
         if event.type() == QEvent.Type.KeyPress:
+            # Get the main window and the toolbar
+            mw: QMainWindow = Gui.getMainWindow()
+            toolbar = mw.findChild(QToolBar, "SearchBarAtMouse")
+            # Get the shortcut key
+            ShortcutKey = "S"
+            CustomShortCuts = App.ParamGet(
+                    "User parameter:BaseApp/Preferences/Shortcut"
+                )
+            if "SearchBar" in CustomShortCuts.GetStrings():
+                ShortcutKey = CustomShortCuts.GetString("SearchBar")
+            # Get a modifier key if there is one
+            modifier = None
+            key = QKeySequence(ShortcutKey)
+            if len(ShortcutKey.split("+")) > 1:
+                if ShortcutKey.split("+")[0].lower() == "alt":
+                    modifier = Qt.KeyboardModifier.AltModifier
+                if ShortcutKey.split("+")[0].lower() == "ctrl":
+                    modifier = Qt.KeyboardModifier.ControlModifier
+                if ShortcutKey.split("+")[0].lower() == "shift":
+                    modifier = Qt.KeyboardModifier.ShiftModifier
+                key = QKeySequence(ShortcutKey.split("+")[1])
+        
+        
             # check if there is a modifier key that matches the modifier key in the shortcut
             if modifier is not None:
                 if event.modifiers() and modifier:
