@@ -41,7 +41,7 @@ class SearchBar(Gui.Workbench):
         import SearchBox
         import MouseBar
         import LoadChangeDialog_SearchBar
-        from MouseBar import EventInspector
+        from MouseBar import EventInspector_SB
         from PySide.QtWidgets import QToolBar
         import Parameters_SearchBar
         
@@ -61,11 +61,11 @@ class SearchBar(Gui.Workbench):
                 # Activate the searchBar at the pointer module
                 MouseBar.SearchBar_Pointer()
                 
-                mw.installEventFilter(EventInspector(mw))
-                mw.centralWidget().installEventFilter(EventInspector(mw))
-                vp.installEventFilter(EventInspector(mw))
+                mw.installEventFilter(EventInspector_SB(mw))
+                mw.centralWidget().installEventFilter(EventInspector_SB(mw))
+                vp.installEventFilter(EventInspector_SB(mw))
                 for child in vp.children():
-                    child.installEventFilter(EventInspector(mw))
+                    child.installEventFilter(EventInspector_SB(mw))
             
             # if the toolbars are enabled in preferences, load them
             if Parameters_SearchBar.Settings.GetBoolSetting("EnableToolbars", True) is True:          

@@ -105,10 +105,10 @@ class ToolBarAction(QWidgetAction):
         return
 
 # Create an event filter to install and detect the shortcut key
-class EventInspector(QObject):
+class EventInspector_SB(QObject):
     
     def __init__(self, parent):
-        super(EventInspector, self).__init__(parent)
+        super(EventInspector_SB, self).__init__(parent)
 
     def eventFilter(self, obj, event):
         # Get the main window and the toolbar
