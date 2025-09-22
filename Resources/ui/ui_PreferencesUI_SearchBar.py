@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PreferencesUI_SearchBarORcAGS.ui'
+## Form generated from reading UI file 'PreferencesUI_SearchBarwsULbe.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
