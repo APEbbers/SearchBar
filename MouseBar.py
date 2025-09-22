@@ -60,6 +60,7 @@ class SearchBar_Pointer:
             if toolbar.isVisible() is False:
                 toolbar.parent().parent().move(pos.x()+10, pos.y()-10)
                 toolbar.parent().parent().show()
+                toolbar.show()
             else:
                 toolbar.parent().parent().close()
             return
