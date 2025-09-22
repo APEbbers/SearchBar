@@ -1,7 +1,8 @@
+from PySide.QtGui import QAction
 import FreeCAD as App
 import FreeCADGui as Gui
 import Parameters_SearchBar
-from PySide.QtWidgets import QMainWindow, QToolBar, QMenu, QHBoxLayout, QWidget, QWidgetAction, QDialog, QVBoxLayout
+from PySide.QtWidgets import QLineEdit, QMainWindow, QToolBar, QMenu, QHBoxLayout, QToolButton, QWidget, QWidgetAction, QDialog, QVBoxLayout
 from PySide.QtGui import QShortcut, QKeySequence, QCursor, QWindow,  QKeySequence
 from PySide.QtCore import Qt, Signal, QEvent, QObject
 import SearchBoxLight
@@ -54,6 +55,9 @@ class SearchBar_Pointer:
             toolbar.move(pos.x()+10, pos.y()-10)
             toolbar.adjustSize()
             toolbar.show()
+            # Set the toolbar focused, so that you can start typing right away.
+            child = toolbar.findChild(QLineEdit)
+            child.setFocus()
             return
         # If there is already a toolbar, show it at the cursor or hide it
         if toolbar is not None:
