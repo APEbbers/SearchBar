@@ -5,11 +5,27 @@ from PySide.QtWidgets import QLabel, QSizePolicy, QTextEdit, QMdiArea, QPushButt
 from PySide.QtGui import QPixmap
 from zipfile import ZipFile
 import SearchBox
-import StyleMapping_SearchBar
+import time
+import os
+import platform
 
 # Define the translation
 translate = App.Qt.translate
 
+def extract_with_permission(
+        self, zipfile: ZipFile, filename: str, target_dir: str, ZIP_SYSTEM=3
+    ):
+        extracted_path = ""
+        for info in zipfile.infolist():
+            if filename in info.filename:
+                extracted_path = zipfile.extract(info, target_dir)
+
+                if info.create_system == ZIP_SYSTEM:
+                    unix_attributes = info.external_attr >> 16
+                if unix_attributes:
+                    os.chmod(extracted_path, unix_attributes)
+
+        return extracted_path
 
 class SafeViewer(QWidget):
     """FreeCAD uses a modified version of QuarterWidget, so the import pivy.quarter one will cause segfaults.
@@ -66,8 +82,19 @@ class SafeViewer(QWidget):
             self.ImageWidget = QLabel()
             file_name = App.getDocument(str(nfo['action']['document'])).getFileName()
             try:
-                with ZipFile(file_name, 'r') as zip:
-                    im = QPixmap(zip.extract("thumbnails/Thumbnail.png"))
+                if not platform.system() == "Darwin":
+                    with ZipFile(file_name, 'r') as zip:
+                        im = QPixmap(zip.extract("thumbnails/Thumbnail.png"))
+                        self.ImageWidget.setPixmap(im)
+                        self.ImageWidget.setScaledContents(True)
+                        self.ImageWidget.setFixedSize(102,102)
+                if platform.system() == "Darwin":
+                    im = QPixmap(extract_with_permission(
+                        ZipFile(file_name),
+                        os.path.basename("thumbnails/Thumbnail.png"),
+                        os.path.dirname(file_name),
+                        )
+                    )
                     self.ImageWidget.setPixmap(im)
                     self.ImageWidget.setScaledContents(True)
                     self.ImageWidget.setFixedSize(102,102)
