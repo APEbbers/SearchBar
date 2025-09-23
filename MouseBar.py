@@ -56,8 +56,9 @@ class SearchBar_Pointer:
             toolbar.adjustSize()
             toolbar.show()
             # Set the toolbar focused, so that you can start typing right away.
-            child = toolbar.findChild(QLineEdit)
-            child.setFocus()
+            if Parameters_SearchBar.Settings.GetBoolSetting("AutoFocusMouseBarEnabled", True) is True:
+                child = toolbar.findChild(QLineEdit)
+                child.setFocus()
             return
         # If there is already a toolbar, show it at the cursor or hide it
         if toolbar is not None:
@@ -156,7 +157,7 @@ class EventInspector_SB(QObject):
                         Gui.runCommand("SearchBar")
                         # Set the toolbar focused, so that you can start typing right away.
                         if toolbar is not None and toolbar.isVisible():
-                            if Parameters_SearchBar.Settings.GetBoolSetting("SetAutoFocusMouseBar", True) is True:
+                            if Parameters_SearchBar.Settings.GetBoolSetting("AutoFocusMouseBarEnabled", True) is True:
                                 child = toolbar.findChild(QLineEdit)
                                 child.setFocus()
                         return True
@@ -166,7 +167,7 @@ class EventInspector_SB(QObject):
                     Gui.runCommand("SearchBar")
                     # Set the toolbar focused, so that you can start typing right away.
                     if toolbar is not None and toolbar.isVisible():
-                        if Parameters_SearchBar.Settings.GetBoolSetting("SetAutoFocusMouseBar", True) is True:
+                        if Parameters_SearchBar.Settings.GetBoolSetting("AutoFocusMouseBarEnabled", True) is True:
                             child = toolbar.findChild(QLineEdit)
                             child.setFocus()
                     return True
