@@ -5,7 +5,7 @@ import sys
 
 
 from PySide.QtGui import QIcon, QPixmap, QAction, QGuiApplication, QTextDocument, QScreen
-from PySide.QtWidgets import QCheckBox, QMainWindow, QTextEdit
+from PySide.QtWidgets import QCheckBox, QGraphicsOpacityEffect, QMainWindow, QTextEdit, QGraphicsEffect
 from PySide.QtCore import QSize, Qt, QObject, SIGNAL
 
 import StandardFunctions_SearchBar as StandardFunctions
@@ -48,6 +48,10 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         + "- The navigation cube is removed from the 3D preview. The cube was too big and was partially hiding the document.  \n"
         + "- The 3D preview is set to the default orientation of the document, when it is first shown.\n"
         + "  For most documents this will be the Isometric view.  \n"
+        + "###\n"
+        + "## MouseBar  \n"
+        + "From this release when the MouseBar is activated, the MouseBar is focussed so that you can start typing right away. It is best to use Escape to close the MouseBar again.  \n"
+        + "This function can be disabled in the preference menu."
     )
     
     # Enter the version for which the form must show on startup
@@ -93,6 +97,7 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         self.form.textEdit.setReadOnly(True)
         self.form.textEdit.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self.form.textEdit.setStyleSheet("background-color: " + StyleMapping_SearchBar.ReturnStyleItem("Background_Color") + ";")
+        self.form.textEdit.setAcceptRichText(True)
         
         # Set the checkbox
         if Parameters_SearchBar.DO_NOT_SHOW_AGAIN is True:
