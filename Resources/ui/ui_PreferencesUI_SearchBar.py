@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PreferencesUI_SearchBarDrpqfc.ui'
+## Form generated from reading UI file 'PreferencesUI_SearchBaruENwFD.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -22,7 +22,7 @@ class Ui_Form(object):
     def setupUi(self, Form):
         if not Form.objectName():
             Form.setObjectName(u"Form")
-        Form.resize(1008, 516)
+        Form.resize(1008, 641)
         icon = QIcon()
         icon.addFile(u":/Resources/Icons/preferences-searchbar.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
         Form.setWindowIcon(icon)
@@ -110,6 +110,14 @@ class Ui_Form(object):
         self.groupBox.setCheckable(False)
         self.gridLayout_2 = QGridLayout(self.groupBox)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
+        self.EnableToolbar = Gui_PrefCheckBox(self.groupBox)
+        self.EnableToolbar.setObjectName(u"EnableToolbar")
+        self.EnableToolbar.setChecked(True)
+        self.EnableToolbar.setProperty(u"prefEntry", u"EnableToolbars")
+        self.EnableToolbar.setProperty(u"prefPath", u"Mod/SearchBar")
+
+        self.gridLayout_2.addWidget(self.EnableToolbar, 0, 0, 1, 3)
+
         self.frame = QFrame(self.groupBox)
         self.frame.setObjectName(u"frame")
         self.frame.setFrameShape(QFrame.Shape.StyledPanel)
@@ -118,28 +126,16 @@ class Ui_Form(object):
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.EnableMouseBar = Gui_PrefCheckBox(self.frame)
-        self.EnableMouseBar.setObjectName(u"EnableMouseBar")
-        self.EnableMouseBar.setChecked(True)
-        self.EnableMouseBar.setProperty(u"prefEntry", u"EnableMouseBar")
-        self.EnableMouseBar.setProperty(u"prefPath", u"Mod/SearchBar")
 
-        self.gridLayout.addWidget(self.EnableMouseBar, 0, 0, 1, 2)
+        self.gridLayout_2.addWidget(self.frame, 2, 2, 1, 1)
 
         self.horizontalSpacer = QSpacerItem(25, 17, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
-        self.gridLayout.addItem(self.horizontalSpacer, 1, 0, 1, 1)
+        self.gridLayout_2.addItem(self.horizontalSpacer, 2, 0, 1, 1)
 
-        self.label = QLabel(self.frame)
-        self.label.setObjectName(u"label")
-        self.label.setMinimumSize(QSize(400, 100))
-        self.label.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignTop)
-        self.label.setWordWrap(True)
+        self.horizontalSpacer_4 = QSpacerItem(20, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
-        self.gridLayout.addWidget(self.label, 1, 1, 1, 1)
-
-
-        self.gridLayout_2.addWidget(self.frame, 1, 0, 1, 1)
+        self.gridLayout_2.addItem(self.horizontalSpacer_4, 6, 0, 1, 1)
 
         self.ShowChangeLog = Gui_PrefCheckBox(self.groupBox)
         self.ShowChangeLog.setObjectName(u"ShowChangeLog")
@@ -147,15 +143,37 @@ class Ui_Form(object):
         self.ShowChangeLog.setProperty(u"prefEntry", u"ShowChangeDialog")
         self.ShowChangeLog.setProperty(u"prefPath", u"Mod/SearchBar")
 
-        self.gridLayout_2.addWidget(self.ShowChangeLog, 2, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.ShowChangeLog, 8, 0, 1, 3)
 
-        self.EnableToolbar = Gui_PrefCheckBox(self.groupBox)
-        self.EnableToolbar.setObjectName(u"EnableToolbar")
-        self.EnableToolbar.setChecked(True)
-        self.EnableToolbar.setProperty(u"prefEntry", u"EnableToolbars")
-        self.EnableToolbar.setProperty(u"prefPath", u"Mod/SearchBar")
+        self.label = QLabel(self.groupBox)
+        self.label.setObjectName(u"label")
+        self.label.setMinimumSize(QSize(400, 100))
+        self.label.setAlignment(Qt.AlignmentFlag.AlignLeading|Qt.AlignmentFlag.AlignLeft|Qt.AlignmentFlag.AlignTop)
+        self.label.setWordWrap(True)
 
-        self.gridLayout_2.addWidget(self.EnableToolbar, 0, 0, 1, 1)
+        self.gridLayout_2.addWidget(self.label, 2, 1, 1, 1)
+
+        self.EnableMouseBar = Gui_PrefCheckBox(self.groupBox)
+        self.EnableMouseBar.setObjectName(u"EnableMouseBar")
+        self.EnableMouseBar.setChecked(True)
+        self.EnableMouseBar.setProperty(u"prefEntry", u"EnableMouseBar")
+        self.EnableMouseBar.setProperty(u"prefPath", u"Mod/SearchBar")
+
+        self.gridLayout_2.addWidget(self.EnableMouseBar, 1, 0, 1, 3)
+
+        self.label_4 = QLabel(self.groupBox)
+        self.label_4.setObjectName(u"label_4")
+        self.label_4.setWordWrap(True)
+
+        self.gridLayout_2.addWidget(self.label_4, 6, 1, 1, 2)
+
+        self.seAutoFocusMousBar = Gui_PrefCheckBox(self.groupBox)
+        self.seAutoFocusMousBar.setObjectName(u"seAutoFocusMousBar")
+        self.seAutoFocusMousBar.setChecked(True)
+        self.seAutoFocusMousBar.setProperty(u"prefEntry", u"SetAutoFocusMouseBar")
+        self.seAutoFocusMousBar.setProperty(u"prefPath", u"Mod/SearchBar")
+
+        self.gridLayout_2.addWidget(self.seAutoFocusMousBar, 5, 0, 1, 2)
 
 
         self.gridLayout_4.addWidget(self.groupBox, 0, 0, 1, 1)
@@ -181,9 +199,11 @@ class Ui_Form(object):
         self.checkBox_3.setText(QCoreApplication.translate("Form", u"Include open documents and their features", None))
         self.checkBox_2.setText(QCoreApplication.translate("Form", u"Include parameters", None))
         self.groupBox.setTitle(QCoreApplication.translate("Form", u"General preferences", None))
-        self.EnableMouseBar.setText(QCoreApplication.translate("Form", u"Enable the MouseBar", None))
-        self.label.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:8pt; font-style:italic;\">When a shortcut key is pressed, the SearchBar will show at the mouse cursor. Pressing the shortcut key again will close the SearchBar. </span></p><p><span style=\" font-size:8pt; font-style:italic; \">The default shortcut is 'S'. This can be changed in FreeCAD's customize menu like with all other commands. Go to: 'Tools-&gt;Customize...-&gt;Keyboard. Find the category 'SearchBar'. There you can change the shortcut.</span></p></body></html>", None))
-        self.ShowChangeLog.setText(QCoreApplication.translate("Form", u"Show 'What's new' dialog on startup", None))
         self.EnableToolbar.setText(QCoreApplication.translate("Form", u"Enable SearchBar toolbar", None))
+        self.ShowChangeLog.setText(QCoreApplication.translate("Form", u"Show 'What's new' dialog on startup", None))
+        self.label.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:8pt; font-style:italic;\">When a shortcut key is pressed, the SearchBar will show at the mouse cursor. Pressing the shortcut key again will close the SearchBar. </span></p><p><span style=\" font-size:8pt; font-style:italic; \">The default shortcut is 'S'. This can be changed in FreeCAD's customize menu like with all other commands. Go to: 'Tools-&gt;Customize...-&gt;Keyboard. Find the category 'SearchBar'. There you can change the shortcut.</span></p></body></html>", None))
+        self.EnableMouseBar.setText(QCoreApplication.translate("Form", u"Enable the MouseBar", None))
+        self.label_4.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:8pt; font-style:italic;\">This sets the focus to the MouseBar when activated. You can start typing immediately. When enabled it is best to use the 'Escape' button to close the MouseBar.</span></p></body></html>", None))
+        self.seAutoFocusMousBar.setText(QCoreApplication.translate("Form", u"Set focus to the MouseBar on activation", None))
     # retranslateUi
 
