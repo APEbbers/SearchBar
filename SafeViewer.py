@@ -13,7 +13,7 @@ import platform
 translate = App.Qt.translate
 
 def extract_with_permission(
-        self, zipfile: ZipFile, filename: str, target_dir: str, ZIP_SYSTEM=3
+        zipfile: ZipFile, filename: str, target_dir: str, ZIP_SYSTEM=3
     ):
         extracted_path = ""
         for info in zipfile.infolist():
