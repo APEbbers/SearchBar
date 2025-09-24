@@ -108,7 +108,7 @@ class SearchBox(QLineEdit):
     """
     resultSelected = QtCore.Signal(int, int)
     """
-
+    
     @staticmethod
     def lazyInit(self):
         if self.isInitialized:
@@ -133,6 +133,9 @@ class SearchBox(QLineEdit):
     """
         # Set an objectname
         self.setObjectName("SearchBox")
+        
+        # Create a list to store all highlighed buttons
+        self.highlightedButtons = list()
 
         # Save arguments
         # self.model = model
@@ -225,6 +228,12 @@ class SearchBox(QLineEdit):
             self.showExtraInfo()
         if self.listView.isHidden():
             self.hideExtraInfo()
+        
+        if self.listView.underMouse() is False and self.extraInfo.underMouse() is False:
+            # clear any highlighted buttons
+            for btn in self.highlightedButtons:
+                btn.setStyleSheet("border: none;")
+                Gui.updateGui()
         return
 
     @staticmethod
@@ -264,6 +273,11 @@ class SearchBox(QLineEdit):
 
     @staticmethod
     def proxyFocusOutEvent(self, qFocusEvent):
+        # clear any highlighted buttons
+        for btn in self.highlightedButtons:
+            btn.setStyleSheet("border: none;")
+            Gui.updateGui()
+        
         global globalIgnoreFocusOut
         if not globalIgnoreFocusOut:
             self.hideList()
@@ -271,6 +285,11 @@ class SearchBox(QLineEdit):
 
     @staticmethod
     def proxyLeaveEvent(self, qFocusEvent):
+        # clear any highlighted buttons
+        for btn in self.highlightedButtons:
+            btn.setStyleSheet("border: none;")
+            Gui.updateGui()
+        
         self.clearFocus()
         self.hideList()
         return
@@ -328,6 +347,11 @@ class SearchBox(QLineEdit):
 
     @staticmethod
     def cancelKey(self):
+        # clear any highlighted buttons
+        for btn in self.highlightedButtons:
+            btn.setStyleSheet("border: none;")
+            Gui.updateGui()
+            
         self.hideList()
         self.clearFocus()
 
@@ -338,6 +362,11 @@ class SearchBox(QLineEdit):
 
     @staticmethod
     def proxyKeyPressEvent(self, qKeyEvent):
+        # clear any highlighted buttons
+        for btn in self.highlightedButtons:
+            btn.setStyleSheet("border: none;")
+            Gui.updateGui()
+        
         key = qKeyEvent.key()
         modifiers = qKeyEvent.modifiers()
         self.showList()
@@ -494,6 +523,8 @@ class SearchBox(QLineEdit):
                 for btn in mw.findChildren(QToolButton):
                     if btn.text() == Dict['tool']:
                         btn.setStyleSheet("border: none;")
+                        if btn in self.highlightedButtons:
+                            self.highlightedButtons.remove(btn)
                         Gui.updateGui()
         
         if len(selected) > 0:
@@ -508,7 +539,8 @@ class SearchBox(QLineEdit):
                 if 'tool' in Dict:
                     for btn in mw.findChildren(QToolButton):
                         if btn.text() == Dict['tool']:
-                            btn.setStyleSheet("border: 2px solid red;")
+                            btn.setStyleSheet("border: 2px solid red;border-radius: 5px;")
+                            self.highlightedButtons.append(btn)
                             Gui.updateGui()
                     
         elif len(deselected) > 0:
