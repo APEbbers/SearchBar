@@ -39,7 +39,7 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         + "## 3D Viewer improvements  \n"
         + "a 3D Previewer can be enabled to for open documents. With this new release the following changes and improvements are made:  \n"
         + "- The button to enable the 3D previewer permanently is moved from the results dialog to preferences.\n"
-        + f'<img src=\"{os.path.join(pathImages, "Enable 3D Previewer in preferences.png")}\" width=500/>  \n'
+        + f'- <img src=\"{os.path.join(pathImages, "Enable 3D Previewer in preferences.png")}\" width=500/>  \n'
         + "- The button to enable the 3D Preview only for the current session is removed. The 3D previewer has stability issues without a restart of FreeCAD.\n"
         + "  The 3D Previewer is more stable when enabled permanent.  \n"
         + "- a thumbnail will be shown when the 3D previewer is disabled.\n"
@@ -51,7 +51,7 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         + "###\n"
         + "## MouseBar  \n"
         + "When the MouseBar is activated, the MouseBar is focussed so that you can start typing right away. It is best to use Escape to close the MouseBar again.  \n"
-        + "This function can be disabled in the preference menu."
+        + "This function can be disabled in the preference menu.  \n"
         + "###\n"
         + "## UI improvements \n"
         + "When you hover over an command in the list, the corresponding button will be highlighted in the UI. Both the standard Toolbar interface and the Ribbon UI are supported.  \n"
