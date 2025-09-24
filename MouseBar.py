@@ -130,6 +130,7 @@ class EventInspector_SB(QObject):
             # Get the main window and the toolbar
             mw: QMainWindow = Gui.getMainWindow()
             toolbar = mw.findChild(QToolBar, "SearchBarAtMouse")
+
             # Get the shortcut key
             ShortcutKey = "S"
             CustomShortCuts = App.ParamGet(
@@ -149,7 +150,6 @@ class EventInspector_SB(QObject):
                     modifier = Qt.KeyboardModifier.ShiftModifier
                 key = QKeySequence(ShortcutKey.split("+")[1])
         
-        
             # check if there is a modifier key that matches the modifier key in the shortcut
             if modifier is not None:
                 if event.modifiers() and modifier:
@@ -161,6 +161,7 @@ class EventInspector_SB(QObject):
                                 child = toolbar.findChild(QLineEdit)
                                 child.setFocus()
                         return True
+            
             # If there is only one key, continue here
             else:
                 if event.key() == key:
