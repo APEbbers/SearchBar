@@ -1,6 +1,7 @@
 import FreeCAD as App
 import FreeCADGui as Gui
 import os
+import ast
 
 from PySide.QtCore import (
     Qt,
@@ -10,6 +11,7 @@ from PySide.QtCore import (
     QPoint,
 )
 from PySide.QtWidgets import (
+    QMainWindow,
     QTabWidget,
     QSlider,
     QSpinBox,
@@ -28,6 +30,9 @@ from PySide.QtWidgets import (
     QApplication,
     QListWidget,
     QWidgetAction,
+    QToolBar,
+    QToolButton,
+    QGraphicsEffect
 )
 from PySide.QtGui import (
     QIcon,
@@ -417,6 +422,7 @@ class SearchBox(QLineEdit):
                         QStandardItem(group["icon"] or genericToolIcon, group["text"]),
                         QStandardItem(str(depth)),
                         QStandardItem(str(group["id"])),
+                        QStandardItem(str(group["action"])),
                     ]
                 )
                 addGroups(group["subitems"], depth + 1)
@@ -477,14 +483,37 @@ class SearchBox(QLineEdit):
         # index in deselected.indexes()
         selected = selected.indexes()
         deselected = deselected.indexes()
+        mw: QMainWindow = Gui.getMainWindow()
+        
+        # Remove the highlight border from the deselected button
+        if deselected is not None and len(deselected) > 0:
+            index = deselected[0]
+            Dict = ast.literal_eval(self.listView.model().itemData(index.siblingAtColumn(3))[0])
+            
+            if 'tool' in Dict:
+                for btn in mw.findChildren(QToolButton):
+                    if btn.text() == Dict['tool']:
+                        btn.setStyleSheet("border: none;")
+                        Gui.updateGui()
+        
         if len(selected) > 0:
             index = selected[0]
             self.setExtraInfo(index)
+            Dict = ast.literal_eval(self.listView.model().itemData(index.siblingAtColumn(3))[0])
             # Poor attempt to circumvent a glitch where the extra info pane stays visible after pressing Return
             if not self.listView.isHidden():
                 self.showExtraInfo()
+            
+                # Add a Highlight border
+                if 'tool' in Dict:
+                    for btn in mw.findChildren(QToolButton):
+                        if btn.text() == Dict['tool']:
+                            btn.setStyleSheet("border: 2px solid red;")
+                            Gui.updateGui()
+                    
         elif len(deselected) > 0:
             self.hideExtraInfo()
+
 
     @staticmethod
     def setExtraInfo(self, index):
