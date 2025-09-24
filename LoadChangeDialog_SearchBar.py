@@ -50,8 +50,13 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         + "  For most documents this will be the Isometric view.  \n"
         + "###\n"
         + "## MouseBar  \n"
-        + "From this release when the MouseBar is activated, the MouseBar is focussed so that you can start typing right away. It is best to use Escape to close the MouseBar again.  \n"
+        + "When the MouseBar is activated, the MouseBar is focussed so that you can start typing right away. It is best to use Escape to close the MouseBar again.  \n"
         + "This function can be disabled in the preference menu."
+        + "###\n"
+        + "## UI improvements \n"
+        + "When you hover over an command in the list, the corresponding button will be highlighted in the UI. Both the standard Toolbar interface and the Ribbon UI are supported.  \n"
+        + "Menus are not yet supported. Only buttons in toolbars and the Ribbon UI are highlighted.  \n"
+        + f'<img src=\"{os.path.join(pathImages, "Highlight example.png")}\" width=500/>  \n'
     )
     
     # Enter the version for which the form must show on startup
