@@ -29,7 +29,7 @@ translate = App.Qt.translate
 class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
     
     # The text for the changelog (markdown)
-    text = ("# New in SearchBar version 1.7:  \n"
+    text = ("# New in SearchBar version 1.7.x:  \n"
         + "###\n"
         + "## Filter options  \n"
         + "The results of the searchbar consists of three type of results: Buttons, parameters and open documents with their content.  \n"
