@@ -132,7 +132,7 @@ class EventInspector_SB(QObject):
         if event.type() == QEvent.Type.KeyPress:
             # Get the main window and the toolbar
             mw: QMainWindow = Gui.getMainWindow()
-            toolbar = mw.findChild(QToolBar, "SearchBarA")
+            toolbar = mw.findChild(QToolBar, "SearchBar")
             mouseBar = mw.findChild(QToolBar, "SearchBarAtMouse")
             
             child = toolbar.findChild(QLineEdit)
