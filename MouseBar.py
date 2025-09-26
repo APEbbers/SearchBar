@@ -126,7 +126,8 @@ class EventInspector_SB(QObject):
 
     def eventFilter(self, obj, event):
         if event.type() != QEvent.Type.KeyPress:
-            return
+            return False
+        
         # If there is a key press event, continue
         if event.type() == QEvent.Type.KeyPress:
             # Get the main window and the toolbar
@@ -136,7 +137,7 @@ class EventInspector_SB(QObject):
             
             child = toolbar.findChild(QLineEdit)
             if toolbar.hasFocus() is True:
-                return
+                return False
             
             # Get the shortcut key
             ShortcutKey = "S"
