@@ -525,12 +525,18 @@ class SearchBox(QLineEdit):
                         btn.setStyleSheet("border: none;")
                         if btn in self.highlightedButtons:
                             self.highlightedButtons.remove(btn)
-                        Gui.updateGui()
+                        # Gui.updateGui()
         
         if len(selected) > 0:
             index = selected[0]
             self.setExtraInfo(index)
             Dict = ast.literal_eval(self.listView.model().itemData(index.siblingAtColumn(3))[0])
+            if 'workbenches' in Dict and Parameters.ENABLE_ACTIVATE_WB is True:
+                Workbenches = Dict['workbenches']
+                if len(Workbenches) == 1:
+                    Gui.activateWorkbench(Workbenches[0])
+                    self.listView.show()
+                
             # Poor attempt to circumvent a glitch where the extra info pane stays visible after pressing Return
             if not self.listView.isHidden():
                 self.showExtraInfo()
@@ -538,10 +544,11 @@ class SearchBox(QLineEdit):
                 # Add a Highlight border "EnableHighlight"
                 if 'tool' in Dict and Parameters.ENABLE_HIGHLIGHT is True:
                     for btn in mw.findChildren(QToolButton):
-                        if btn.text() == Dict['tool']:
+                        if btn.text() == Dict['tool']:                                                       
                             btn.setStyleSheet("border: 2px solid red;border-radius: 5px;")
                             self.highlightedButtons.append(btn)
-                            Gui.updateGui()
+                                                        
+                            # Gui.updateGui()
                     
         elif len(deselected) > 0:
             self.hideExtraInfo()

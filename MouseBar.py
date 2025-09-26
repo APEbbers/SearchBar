@@ -125,12 +125,19 @@ class EventInspector_SB(QObject):
         super(EventInspector_SB, self).__init__(parent)
 
     def eventFilter(self, obj, event):
+        if event.type() != QEvent.Type.KeyPress:
+            return
         # If there is a key press event, continue
         if event.type() == QEvent.Type.KeyPress:
             # Get the main window and the toolbar
             mw: QMainWindow = Gui.getMainWindow()
-            toolbar = mw.findChild(QToolBar, "SearchBarAtMouse")
-
+            toolbar = mw.findChild(QToolBar, "SearchBarA")
+            mouseBar = mw.findChild(QToolBar, "SearchBarAtMouse")
+            
+            child = toolbar.findChild(QLineEdit)
+            if toolbar.hasFocus() is True:
+                return
+            
             # Get the shortcut key
             ShortcutKey = "S"
             CustomShortCuts = App.ParamGet(
@@ -156,9 +163,9 @@ class EventInspector_SB(QObject):
                     if event.key() == key:
                         Gui.runCommand("SearchBar")
                         # Set the toolbar focused, so that you can start typing right away.
-                        if toolbar is not None and toolbar.isVisible():
+                        if mouseBar is not None and mouseBar.isVisible():
                             if Parameters_SearchBar.Settings.GetBoolSetting("AutoFocusMouseBarEnabled", True) is True:
-                                child = toolbar.findChild(QLineEdit)
+                                child = mouseBar.findChild(QLineEdit)
                                 child.setFocus()
                         return True
             
@@ -167,9 +174,9 @@ class EventInspector_SB(QObject):
                 if event.key() == key:
                     Gui.runCommand("SearchBar")
                     # Set the toolbar focused, so that you can start typing right away.
-                    if toolbar is not None and toolbar.isVisible():
+                    if mouseBar is not None and mouseBar.isVisible():
                         if Parameters_SearchBar.Settings.GetBoolSetting("AutoFocusMouseBarEnabled", True) is True:
-                            child = toolbar.findChild(QLineEdit)
+                            child = mouseBar.findChild(QLineEdit)
                             child.setFocus()
                     return True
                             
@@ -181,8 +188,11 @@ class EventInspector_SB(QObject):
             or (event.type() == QEvent.Type.KeyPress and event.key() == Qt.Key.Key_Escape) 
             ):
             try:
-                if toolbar.underMouse() is False:
-                    toolbar.parent().parent().close()
+                # Get the main window and the toolbar
+                mw: QMainWindow = Gui.getMainWindow()
+                mouseBar = mw.findChild(QToolBar, "SearchBarAtMouse")
+                if mouseBar.underMouse() is False:
+                    mouseBar.parent().parent().close()
             except Exception:
                 pass
             return True

@@ -99,3 +99,4 @@ FILTER_PARAMETERS = Settings.GetBoolSetting("FilterParameters", True)
 FILTER_DOCUMENTS = Settings.GetBoolSetting("FilterDocuments", True)
 
 ENABLE_HIGHLIGHT = Settings.GetBoolSetting("EnableHighlight", True)
+ENABLE_ACTIVATE_WB = Settings.GetBoolSetting("ActivateOnHover", True)

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1008</width>
-    <height>639</height>
+    <height>834</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,131 +17,7 @@
    <iconset>
     <normaloff>:/Resources/Icons/preferences-searchbar.svg</normaloff>:/Resources/Icons/preferences-searchbar.svg</iconset>
   </property>
-  <layout class="QGridLayout" name="gridLayout_4">
-   <item row="4" column="0">
-    <widget class="QGroupBox" name="groupBox_2">
-     <property name="title">
-      <string>3D Viewer settings</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_5">
-      <item row="1" column="1">
-       <widget class="QLabel" name="label_3">
-        <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt; font-style:italic;&quot;&gt;Warning: the 3D preview has some stability issues. It can cause FreeCAD to crash (usually when quitting the application) and could in theory cause data loss, inside and outside of App.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-        </property>
-        <property name="wordWrap">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <spacer name="horizontalSpacer_3">
-        <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Policy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>25</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="0" colspan="2">
-       <widget class="Gui::PrefCheckBox" name="Enable3DViewer">
-        <property name="text">
-         <string>Enable the 3D-Viewer for open documents</string>
-        </property>
-        <property name="checked">
-         <bool>false</bool>
-        </property>
-        <property name="prefEntry" stdset="0">
-         <cstring>PreviewEnabled</cstring>
-        </property>
-        <property name="prefPath" stdset="0">
-         <cstring>Mod/SearchBar</cstring>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <widget class="QGroupBox" name="FilterBox">
-     <property name="title">
-      <string>Filter preferences</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="0">
-       <widget class="Gui::PrefCheckBox" name="checkBox">
-        <property name="text">
-         <string>Include toolbar commands</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-        <property name="prefEntry" stdset="0">
-         <cstring>FilterToolbarCommands</cstring>
-        </property>
-        <property name="prefPath" stdset="0">
-         <cstring>Mod/SearchBar</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0">
-       <widget class="Gui::PrefCheckBox" name="checkBox_3">
-        <property name="text">
-         <string>Include open documents and their features</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-        <property name="prefEntry" stdset="0">
-         <cstring>FilterDocuments</cstring>
-        </property>
-        <property name="prefPath" stdset="0">
-         <cstring>Mod/SearchBar</cstring>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="Gui::PrefCheckBox" name="checkBox_2">
-        <property name="text">
-         <string>Include parameters</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-        <property name="prefEntry" stdset="0">
-         <cstring>FilterParameters</cstring>
-        </property>
-        <property name="prefPath" stdset="0">
-         <cstring>Mod/SearchBar</cstring>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <spacer name="horizontalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Orientation::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
+  <layout class="QGridLayout" name="gridLayout_6">
    <item row="0" column="0">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
@@ -151,6 +27,22 @@
       <bool>false</bool>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
+      <item row="9" column="0" colspan="3">
+       <widget class="Gui::PrefCheckBox" name="EnableHighlight">
+        <property name="text">
+         <string>Highlight commands when hovering over them in the searchbar list</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <property name="prefEntry" stdset="0">
+         <cstring>EnableHighlight</cstring>
+        </property>
+        <property name="prefPath" stdset="0">
+         <cstring>Mod/SearchBar</cstring>
+        </property>
+       </widget>
+      </item>
       <item row="2" column="2">
        <widget class="QFrame" name="frame">
         <property name="frameShape">
@@ -178,7 +70,7 @@
         </layout>
        </widget>
       </item>
-      <item row="5" column="0" colspan="2">
+      <item row="5" column="0" colspan="3">
        <widget class="Gui::PrefCheckBox" name="seAutoFocusMousBar">
         <property name="text">
          <string>Set focus to the MouseBar on activation</string>
@@ -255,7 +147,7 @@
         </property>
        </widget>
       </item>
-      <item row="9" column="0" colspan="3">
+      <item row="12" column="0" colspan="3">
        <widget class="Gui::PrefCheckBox" name="ShowChangeLog">
         <property name="text">
          <string>Show 'What's new' dialog on startup</string>
@@ -303,46 +195,64 @@
         </property>
        </spacer>
       </item>
-      <item row="8" column="0" colspan="2">
-       <widget class="Gui::PrefCheckBox" name="EnableHighlight">
-        <property name="text">
-         <string>Highlight commands when hovering over them in the searchbar list</string>
-        </property>
-        <property name="checked">
-         <bool>true</bool>
-        </property>
-        <property name="prefEntry" stdset="0">
-         <cstring>EnableHighlight</cstring>
-        </property>
-        <property name="prefPath" stdset="0">
-         <cstring>Mod/SearchBar</cstring>
-        </property>
-       </widget>
+      <item row="10" column="1">
+       <layout class="QGridLayout" name="gridLayout_4">
+        <item row="1" column="0">
+         <spacer name="horizontalSpacer_5">
+          <property name="orientation">
+           <enum>Qt::Orientation::Horizontal</enum>
+          </property>
+          <property name="sizeType">
+           <enum>QSizePolicy::Policy::Fixed</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>20</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+        <item row="0" column="0" colspan="2">
+         <widget class="Gui::PrefCheckBox" name="ActivateWorkbenchOnHighlight">
+          <property name="text">
+           <string>Automaticlly switch to the workbench the commands belongs to</string>
+          </property>
+          <property name="prefEntry" stdset="0">
+           <cstring>ActivateOnHover</cstring>
+          </property>
+          <property name="prefPath" stdset="0">
+           <cstring>Mod/SearchBar</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QLabel" name="label_5">
+          <property name="text">
+           <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt; font-style:italic;&quot;&gt;This works only for commands that are only present in one workbench. This can cause to all workbenches to be loaded. Use with caution!&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          </property>
+          <property name="wordWrap">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+       </layout>
       </item>
      </layout>
     </widget>
    </item>
-   <item row="6" column="0">
-    <widget class="QLabel" name="label_2">
-     <property name="font">
-      <font>
-       <italic>true</italic>
-      </font>
-     </property>
-     <property name="text">
-      <string>FreeCAD needs to be restarted before changes become active.</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="0">
-    <spacer name="verticalSpacer">
+   <item row="0" column="1">
+    <spacer name="horizontalSpacer_2">
      <property name="orientation">
-      <enum>Qt::Orientation::Vertical</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+     <property name="sizeType">
+      <enum>QSizePolicy::Policy::Expanding</enum>
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>20</width>
-       <height>40</height>
+       <width>40</width>
+       <height>20</height>
       </size>
      </property>
     </spacer>
@@ -363,6 +273,66 @@
      </property>
     </spacer>
    </item>
+   <item row="2" column="0">
+    <widget class="QGroupBox" name="FilterBox">
+     <property name="title">
+      <string>Filter preferences</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignVCenter</set>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0">
+       <widget class="Gui::PrefCheckBox" name="checkBox">
+        <property name="text">
+         <string>Include toolbar commands</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <property name="prefEntry" stdset="0">
+         <cstring>FilterToolbarCommands</cstring>
+        </property>
+        <property name="prefPath" stdset="0">
+         <cstring>Mod/SearchBar</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <widget class="Gui::PrefCheckBox" name="checkBox_3">
+        <property name="text">
+         <string>Include open documents and their features</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <property name="prefEntry" stdset="0">
+         <cstring>FilterDocuments</cstring>
+        </property>
+        <property name="prefPath" stdset="0">
+         <cstring>Mod/SearchBar</cstring>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="Gui::PrefCheckBox" name="checkBox_2">
+        <property name="text">
+         <string>Include parameters</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <property name="prefEntry" stdset="0">
+         <cstring>FilterParameters</cstring>
+        </property>
+        <property name="prefPath" stdset="0">
+         <cstring>Mod/SearchBar</cstring>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
    <item row="3" column="0">
     <spacer name="verticalSpacer_3">
      <property name="orientation">
@@ -378,6 +348,82 @@
       </size>
      </property>
     </spacer>
+   </item>
+   <item row="4" column="0">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>3D Viewer settings</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="1" column="1">
+       <widget class="QLabel" name="label_3">
+        <property name="text">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:8pt; font-style:italic;&quot;&gt;Warning: the 3D preview has some stability issues. It can cause FreeCAD to crash (usually when quitting the application) and could in theory cause data loss, inside and outside of App.&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <spacer name="horizontalSpacer_3">
+        <property name="orientation">
+         <enum>Qt::Orientation::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Policy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>25</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="Gui::PrefCheckBox" name="Enable3DViewer">
+        <property name="text">
+         <string>Enable the 3D-Viewer for open documents</string>
+        </property>
+        <property name="checked">
+         <bool>false</bool>
+        </property>
+        <property name="prefEntry" stdset="0">
+         <cstring>PreviewEnabled</cstring>
+        </property>
+        <property name="prefPath" stdset="0">
+         <cstring>Mod/SearchBar</cstring>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Orientation::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="6" column="0">
+    <widget class="QLabel" name="label_2">
+     <property name="font">
+      <font>
+       <italic>true</italic>
+      </font>
+     </property>
+     <property name="text">
+      <string>FreeCAD needs to be restarted before changes become active.</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
