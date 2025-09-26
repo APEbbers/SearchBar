@@ -2,7 +2,7 @@ from PySide.QtGui import QAction
 import FreeCAD as App
 import FreeCADGui as Gui
 import Parameters_SearchBar
-from PySide.QtWidgets import QLineEdit, QMainWindow, QToolBar, QMenu, QHBoxLayout, QToolButton, QWidget, QWidgetAction, QDialog, QVBoxLayout
+from PySide.QtWidgets import QLineEdit, QMainWindow, QToolBar, QMenu, QHBoxLayout, QToolButton, QWidget, QWidgetAction, QDialog, QVBoxLayout, QDockWidget
 from PySide.QtGui import QShortcut, QKeySequence, QCursor, QWindow,  QKeySequence
 from PySide.QtCore import Qt, Signal, QEvent, QObject
 from SearchBox import SearchBox
@@ -128,15 +128,43 @@ class EventInspector_SB(QObject):
         # If there is a key press event, continue
         if event.type() == QEvent.Type.KeyPress:
             # Get the main window and the toolbar
-            mw: QMainWindow = Gui.getMainWindow()
-            toolbar = mw.findChild(QToolBar, "SearchBar")
+            mw: QMainWindow = Gui.getMainWindow()            
             mouseBar = mw.findChild(QToolBar, "SearchBarAtMouse")
             
-            child = toolbar.findChild(QLineEdit)
-            if toolbar.hasFocus() is True:
-                return False
+            # if the toolbar is under the mouse cursor, don´t execute the mousebar
+            toolbar = mw.findChild(QToolBar, "SearchBar")
             if toolbar.underMouse() is True:
-                return False
+                return False            
+            for i in range(10):
+                toolbar_Parent = toolbar.parent()
+                if toolbar_Parent is mw:
+                    break
+                if toolbar_Parent.underMouse() is True:
+                    return False
+                else:
+                    toolbar_Parent = toolbar_Parent.parent()
+                    
+            # if RibbonUI is installed and the right toolbar is under the mouse cursor, don´t execute the mousebar
+            try:
+                import FCBinding
+
+                dw = mw.findChild(QDockWidget, "Ribbon")
+                Ribbon = dw.findChild(FCBinding.ModernMenu, "Ribbon")
+                toolbar = Ribbon.rightToolBar()
+                if toolbar.underMouse() is True:
+                    return False            
+                for i in range(10):
+                    toolbar_Parent = toolbar.parent()
+                    if toolbar_Parent is mw:
+                        break
+                    if toolbar_Parent.underMouse() is True:
+                        return False
+                    else:
+                        toolbar_Parent = toolbar_Parent.parent()
+            except Exception as e:
+                print(e)
+                pass
+                
             
             # Get the shortcut key
             ShortcutKey = "S"
