@@ -1,6 +1,7 @@
 import FreeCAD as App
 import FreeCADGui as Gui
 import os
+import ast
 
 from PySide.QtCore import (
     Qt,
@@ -10,6 +11,7 @@ from PySide.QtCore import (
     QPoint,
 )
 from PySide.QtWidgets import (
+    QMainWindow,
     QTabWidget,
     QSlider,
     QSpinBox,
@@ -28,6 +30,9 @@ from PySide.QtWidgets import (
     QApplication,
     QListWidget,
     QWidgetAction,
+    QToolBar,
+    QToolButton,
+    QGraphicsEffect
 )
 from PySide.QtGui import (
     QIcon,
@@ -103,7 +108,7 @@ class SearchBox(QLineEdit):
     """
     resultSelected = QtCore.Signal(int, int)
     """
-
+    
     @staticmethod
     def lazyInit(self):
         if self.isInitialized:
@@ -126,6 +131,11 @@ class SearchBox(QLineEdit):
     self.setPlaceholderText('Search tools, prefs & tree')
     self.setFixedWidth(200) # needed to avoid a change of width when the clear button appears/disappears
     """
+        # Set an objectname
+        self.setObjectName("SearchBox")
+        
+        # Create a list to store all highlighed buttons
+        self.highlightedButtons = list()
 
         # Save arguments
         # self.model = model
@@ -218,6 +228,12 @@ class SearchBox(QLineEdit):
             self.showExtraInfo()
         if self.listView.isHidden():
             self.hideExtraInfo()
+        
+        if self.listView.underMouse() is False and self.extraInfo.underMouse() is False:
+            # clear any highlighted buttons
+            for btn in self.highlightedButtons:
+                btn.setStyleSheet("border: none;")
+                Gui.updateGui()
         return
 
     @staticmethod
@@ -257,6 +273,11 @@ class SearchBox(QLineEdit):
 
     @staticmethod
     def proxyFocusOutEvent(self, qFocusEvent):
+        # clear any highlighted buttons
+        for btn in self.highlightedButtons:
+            btn.setStyleSheet("border: none;")
+            Gui.updateGui()
+        
         global globalIgnoreFocusOut
         if not globalIgnoreFocusOut:
             self.hideList()
@@ -264,6 +285,11 @@ class SearchBox(QLineEdit):
 
     @staticmethod
     def proxyLeaveEvent(self, qFocusEvent):
+        # clear any highlighted buttons
+        for btn in self.highlightedButtons:
+            btn.setStyleSheet("border: none;")
+            Gui.updateGui()
+        
         self.clearFocus()
         self.hideList()
         return
@@ -321,6 +347,11 @@ class SearchBox(QLineEdit):
 
     @staticmethod
     def cancelKey(self):
+        # clear any highlighted buttons
+        for btn in self.highlightedButtons:
+            btn.setStyleSheet("border: none;")
+            Gui.updateGui()
+            
         self.hideList()
         self.clearFocus()
 
@@ -331,6 +362,11 @@ class SearchBox(QLineEdit):
 
     @staticmethod
     def proxyKeyPressEvent(self, qKeyEvent):
+        # clear any highlighted buttons
+        for btn in self.highlightedButtons:
+            btn.setStyleSheet("border: none;")
+            Gui.updateGui()
+        
         key = qKeyEvent.key()
         modifiers = qKeyEvent.modifiers()
         self.showList()
@@ -374,6 +410,13 @@ class SearchBox(QLineEdit):
             return userInput.lower() in s.lower()
 
         def filterGroup(group):
+            if Parameters.FILTER_TOOLBARS is False and "toolbar" in group["action"]["handler"]:
+                return
+            if Parameters.FILTER_PARAMETERS is False and "paramGroup" in group["action"]["handler"]:
+                return
+            if Parameters.FILTER_DOCUMENTS is False and "document" in group["action"]["handler"]:
+                return
+            
             if matches(group["text"]):
                 # If a group matches, include the entire subtree (might need to disable this if it causes too much noise)
                 return group
@@ -408,6 +451,7 @@ class SearchBox(QLineEdit):
                         QStandardItem(group["icon"] or genericToolIcon, group["text"]),
                         QStandardItem(str(depth)),
                         QStandardItem(str(group["id"])),
+                        QStandardItem(str(group["action"])),
                     ]
                 )
                 addGroups(group["subitems"], depth + 1)
@@ -468,14 +512,47 @@ class SearchBox(QLineEdit):
         # index in deselected.indexes()
         selected = selected.indexes()
         deselected = deselected.indexes()
+        mw: QMainWindow = Gui.getMainWindow()
+        
+        # Remove the highlight border from the deselected button
+        if deselected is not None and len(deselected) > 0:
+            index = deselected[0]
+            Dict = ast.literal_eval(self.listView.model().itemData(index.siblingAtColumn(3))[0])
+            
+            if 'tool' in Dict and Parameters.ENABLE_HIGHLIGHT is True:
+                for btn in mw.findChildren(QToolButton):
+                    if btn.text() == Dict['tool']:
+                        btn.setStyleSheet("border: none;")
+                        if btn in self.highlightedButtons:
+                            self.highlightedButtons.remove(btn)
+                        # Gui.updateGui()
+        
         if len(selected) > 0:
             index = selected[0]
             self.setExtraInfo(index)
+            Dict = ast.literal_eval(self.listView.model().itemData(index.siblingAtColumn(3))[0])
+            # if 'workbenches' in Dict and Parameters.ENABLE_ACTIVATE_WB is True:
+            #     Workbenches = Dict['workbenches']
+            #     if len(Workbenches) == 1:
+            #         Gui.activateWorkbench(Workbenches[0])
+            #         self.listView.show()
+                
             # Poor attempt to circumvent a glitch where the extra info pane stays visible after pressing Return
             if not self.listView.isHidden():
                 self.showExtraInfo()
+            
+                # Add a Highlight border "EnableHighlight"
+                if 'tool' in Dict and Parameters.ENABLE_HIGHLIGHT is True:
+                    for btn in mw.findChildren(QToolButton):
+                        if btn.text() == Dict['tool']:                                                       
+                            btn.setStyleSheet("border: 2px solid red;border-radius: 5px;")
+                            self.highlightedButtons.append(btn)
+                                                        
+                            # Gui.updateGui()
+                    
         elif len(deselected) > 0:
             self.hideExtraInfo()
+
 
     @staticmethod
     def setExtraInfo(self, index):

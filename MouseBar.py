@@ -1,9 +1,11 @@
+from PySide.QtGui import QAction
 import FreeCAD as App
 import FreeCADGui as Gui
 import Parameters_SearchBar
-from PySide.QtWidgets import QMainWindow, QToolBar, QMenu, QHBoxLayout, QWidget, QWidgetAction, QDialog, QVBoxLayout
+from PySide.QtWidgets import QLineEdit, QMainWindow, QToolBar, QMenu, QHBoxLayout, QToolButton, QWidget, QWidgetAction, QDialog, QVBoxLayout, QDockWidget
 from PySide.QtGui import QShortcut, QKeySequence, QCursor, QWindow,  QKeySequence
 from PySide.QtCore import Qt, Signal, QEvent, QObject
+from SearchBox import SearchBox
 import SearchBoxLight
 import os
 import StyleMapping_SearchBar
@@ -33,7 +35,7 @@ class SearchBar_Pointer:
         toolbar = mw.findChild(QToolBar, "SearchBarAtMouse")
         # Get the cursor position
         pos = QCursor.pos()
-        
+
         # If there is no toolbar, create and show it at the cursor
         if toolbar is None:
             toolbar = QToolBar("SearchBarAtMouse", mw)   
@@ -41,7 +43,6 @@ class SearchBar_Pointer:
             toolbar.setAllowedAreas(Qt.ToolBarArea.NoToolBarArea)
             toolbar.setOrientation(Qt.Orientation.Horizontal)
             toolbar.setWindowFlags(Qt.WindowType.FramelessWindowHint)
-            action = ToolBarAction(mw)
             action = ToolBarAction(mw)
             toolbar.addAction(action)
 
@@ -54,12 +55,17 @@ class SearchBar_Pointer:
             toolbar.move(pos.x()+10, pos.y()-10)
             toolbar.adjustSize()
             toolbar.show()
+            # Set the toolbar focused, so that you can start typing right away.
+            if Parameters_SearchBar.Settings.GetBoolSetting("AutoFocusMouseBarEnabled", True) is True:
+                child = toolbar.findChild(QLineEdit)
+                child.setFocus()
             return
         # If there is already a toolbar, show it at the cursor or hide it
         if toolbar is not None:
             if toolbar.isVisible() is False:
                 toolbar.parent().parent().move(pos.x()+10, pos.y()-10)
                 toolbar.parent().parent().show()
+                toolbar.show()
             else:
                 toolbar.parent().parent().close()
             return
@@ -85,10 +91,23 @@ class ToolBarAction(QWidgetAction):
             lambda index, groupId: __import__("GetItemGroups").onResultSelected(index, groupId)
         )
         
-        
         toolbar = QToolBar()
         toolbar.setObjectName("SearchBarAtMouse")
         toolbar.addWidget(sea)
+        
+        # Get the style from the main window and use it for this form
+        mw: QMainWindow = Gui.getMainWindow()
+        palette = mw.palette()
+        toolbar.setPalette(palette)
+        Style = mw.style()
+        toolbar.setStyle(Style)
+        
+        # Get the cursor position
+        pos = QCursor.pos()
+        toolbar.move(pos.x()+10, pos.y()-10)
+        toolbar.adjustSize()
+        
+
         self.toolbar = toolbar
         
         layout = QHBoxLayout()
@@ -100,17 +119,52 @@ class ToolBarAction(QWidgetAction):
         return
 
 # Create an event filter to install and detect the shortcut key
-class EventInspector(QObject):
+class EventInspector_SB(QObject):
     
     def __init__(self, parent):
-        super(EventInspector, self).__init__(parent)
+        super(EventInspector_SB, self).__init__(parent)
 
-    def eventFilter(self, obj, event):
+    def eventFilter(self, obj, event):        
         # If there is a key press event, continue
         if event.type() == QEvent.Type.KeyPress:
             # Get the main window and the toolbar
-            mw: QMainWindow = Gui.getMainWindow()
-            toolbar = mw.findChild(QToolBar, "SearchBarAtMouse")
+            mw: QMainWindow = Gui.getMainWindow()            
+            mouseBar = mw.findChild(QToolBar, "SearchBarAtMouse")
+            
+            # if the toolbar is under the mouse cursor, don´t execute the mousebar
+            toolbar = mw.findChild(QToolBar, "SearchBar")
+            if toolbar.underMouse() is True:
+                return False            
+            for i in range(10):
+                toolbar_Parent = toolbar.parent()
+                if toolbar_Parent is mw:
+                    break
+                if toolbar_Parent.underMouse() is True:
+                    return False
+                else:
+                    toolbar_Parent = toolbar_Parent.parent()
+                    
+            # if RibbonUI is installed and the right toolbar is under the mouse cursor, don´t execute the mousebar
+            try:
+                import FCBinding
+
+                dw = mw.findChild(QDockWidget, "Ribbon")
+                Ribbon = dw.findChild(FCBinding.ModernMenu, "Ribbon")
+                toolbar = Ribbon.rightToolBar()
+                if toolbar.underMouse() is True:
+                    return False            
+                for i in range(10):
+                    toolbar_Parent = toolbar.parent()
+                    if toolbar_Parent is mw:
+                        break
+                    if toolbar_Parent.underMouse() is True:
+                        return False
+                    else:
+                        toolbar_Parent = toolbar_Parent.parent()
+            except Exception as e:
+                print(e)
+                pass
+                
             
             # Get the shortcut key
             ShortcutKey = "S"
@@ -136,12 +190,24 @@ class EventInspector(QObject):
                 if event.modifiers() and modifier:
                     if event.key() == key:
                         Gui.runCommand("SearchBar")
+                        # Set the toolbar focused, so that you can start typing right away.
+                        if mouseBar is not None and mouseBar.isVisible():
+                            if Parameters_SearchBar.Settings.GetBoolSetting("AutoFocusMouseBarEnabled", True) is True:
+                                child = mouseBar.findChild(QLineEdit)
+                                child.setFocus()
                         return True
+            
             # If there is only one key, continue here
             else:
                 if event.key() == key:
                     Gui.runCommand("SearchBar")
+                    # Set the toolbar focused, so that you can start typing right away.
+                    if mouseBar is not None and mouseBar.isVisible():
+                        if Parameters_SearchBar.Settings.GetBoolSetting("AutoFocusMouseBarEnabled", True) is True:
+                            child = mouseBar.findChild(QLineEdit)
+                            child.setFocus()
                     return True
+                            
         # If there is a mouse click, check if the toolbar is under the cursor
         # If not, close it
         if (
@@ -150,8 +216,11 @@ class EventInspector(QObject):
             or (event.type() == QEvent.Type.KeyPress and event.key() == Qt.Key.Key_Escape) 
             ):
             try:
-                if toolbar.underMouse() is False:
-                    toolbar.parent().parent().close()
+                # Get the main window and the toolbar
+                mw: QMainWindow = Gui.getMainWindow()
+                mouseBar = mw.findChild(QToolBar, "SearchBarAtMouse")
+                if mouseBar.underMouse() is False:
+                    mouseBar.parent().parent().close()
             except Exception:
                 pass
             return True

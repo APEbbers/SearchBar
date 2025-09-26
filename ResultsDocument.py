@@ -1,3 +1,5 @@
+import Parameters_SearchBar
+import StyleMapping_SearchBar
 from PySide import QtGui
 from PySide import QtCore
 import FreeCAD as App
@@ -50,12 +52,20 @@ class DocumentObjectToolTipWidget(QtGui.QWidget):
         description.setAlignment(QtCore.Qt.AlignTop)
         description.setText(html)
 
+        # When 3D preview is disabled, create the safeviewer always, so that the thumbnails are updated
+        if Parameters_SearchBar.Settings.GetBoolSetting("PreviewEnabled") is False:
+            App._SearchBar3DViewer = SafeViewer.SafeViewer(nfo)
+            App._SearchBar3DViewerB = SafeViewer.SafeViewer(nfo)
+        
+        # Set the searchbox to ignore Focus out. This was previouly only done when there no 3D preview (statement below)
+        # This seems to make the behavior more stable
+        SearchBox.globalIgnoreFocusOut = False
         if App._SearchBar3DViewer is None:
             oldFocus = QtGui.QApplication.focusWidget()
             SearchBox.globalIgnoreFocusOut
             SearchBox.globalIgnoreFocusOut = True
-            App._SearchBar3DViewer = SafeViewer.SafeViewer()
-            App._SearchBar3DViewerB = SafeViewer.SafeViewer()
+            App._SearchBar3DViewer = SafeViewer.SafeViewer(nfo)
+            App._SearchBar3DViewerB = SafeViewer.SafeViewer(nfo)
             oldFocus.setFocus()
             SearchBox.globalIgnoreFocusOut = False
             # Tried setting the preview to a fixed size to prevent it from disappearing when changing its contents, this sets it to a fixed size but doesn't actually pick the size, .resize does that but isn't enough to fix the bug.
@@ -65,7 +75,7 @@ class DocumentObjectToolTipWidget(QtGui.QWidget):
             App._SearchBar3DViewerB,
             App._SearchBar3DViewer,
         )
-
+        
         obj = App.getDocument(str(nfo["toolTip"]["docName"])).getObject(
             str(nfo["toolTip"]["name"])
         )
@@ -90,8 +100,14 @@ class DocumentObjectToolTipWidget(QtGui.QWidget):
         setParent(self)
         # Let the GUI recompute the side of the description based on its horizontal size.
         FreeCADGui.updateGui()
-        siz = description.document().size().toSize()
-        description.setFixedHeight(siz.height() + 5)
+        # siz = description.document().size().toSize()
+        # description.setFixedHeight(siz.height() + 5)
+        
+        # Set a fixed heigth to avoid flickering
+        description.setFixedHeight(80)
+        
+        # SearchBox.globalIgnoreFocusOut = False
+        return
 
     def finalizer(self):
         # self.preview.finalizer()

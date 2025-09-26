@@ -16,6 +16,7 @@ ChangeDialogLoaded = False
 # Define the translation
 translate = App.Qt.translate
 
+PrefLoaded = False
 Gui.addIconPath(Parameters_SearchBar.ICON_LOCATION)
 Gui.addResourcePath(Parameters_SearchBar.ICON_LOCATION)
 PreferenceUI = os.path.join(Parameters_SearchBar.UI_LOCATION, "PreferencesUI_SearchBar.ui")
@@ -26,6 +27,11 @@ def QT_TRANSLATE_NOOP(context, text):
     return text
 
 class SearchBar(Gui.Workbench):
+    # This is needed to avoid crashes
+    def GetClassName(self):
+        # This function is mandatory if this is a full Python workbench
+        # This is not a template, the returned string should be exactly "Gui::PythonWorkbench"
+        return "Gui::PythonWorkbench"
 
     def addToolSearchBox():
         global wax, sea, tbr, ChangeDialogLoaded
@@ -35,7 +41,7 @@ class SearchBar(Gui.Workbench):
         import SearchBox
         import MouseBar
         import LoadChangeDialog_SearchBar
-        from MouseBar import EventInspector
+        from MouseBar import EventInspector_SB
         from PySide.QtWidgets import QToolBar
         import Parameters_SearchBar
         
@@ -55,11 +61,11 @@ class SearchBar(Gui.Workbench):
                 # Activate the searchBar at the pointer module
                 MouseBar.SearchBar_Pointer()
                 
-                mw.installEventFilter(EventInspector(mw))
-                mw.centralWidget().installEventFilter(EventInspector(mw))
-                vp.installEventFilter(EventInspector(mw))
+                mw.installEventFilter(EventInspector_SB(mw))
+                mw.centralWidget().installEventFilter(EventInspector_SB(mw))
+                vp.installEventFilter(EventInspector_SB(mw))
                 for child in vp.children():
-                    child.installEventFilter(EventInspector(mw))
+                    child.installEventFilter(EventInspector_SB(mw))
             
             # if the toolbars are enabled in preferences, load them
             if Parameters_SearchBar.Settings.GetBoolSetting("EnableToolbars", True) is True:          

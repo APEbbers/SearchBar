@@ -5,7 +5,7 @@ import sys
 
 
 from PySide.QtGui import QIcon, QPixmap, QAction, QGuiApplication, QTextDocument, QScreen
-from PySide.QtWidgets import QCheckBox, QMainWindow, QTextEdit
+from PySide.QtWidgets import QCheckBox, QGraphicsOpacityEffect, QMainWindow, QTextEdit, QGraphicsEffect
 from PySide.QtCore import QSize, Qt, QObject, SIGNAL
 
 import StandardFunctions_SearchBar as StandardFunctions
@@ -29,31 +29,39 @@ translate = App.Qt.translate
 class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
     
     # The text for the changelog (markdown)
-    text = ("# New in SearchBar version 1.6.0:  \n"
+    text = ("# New in SearchBar version 1.7.x:  \n"
+        + "###\n"
+        + "## Filter options  \n"
+        + "The results of the searchbar consists of three type of results: Buttons, parameters and open documents with their content.  \n"
+        + "It is now possible to enable or disable one or more of these result types in the preference page.  \n"
+        + f'<img src=\"{os.path.join(pathImages, "FilterOptions.png")}\" width=500/>  \n'
+        + "###\n"
+        + "## 3D Viewer improvements  \n"
+        + "a 3D Previewer can be enabled to for open documents. With this new release the following changes and improvements are made:  \n"
+        + "- The button to enable the 3D previewer permanently is moved from the results dialog to preferences.\n"
+        + f'- <img src=\"{os.path.join(pathImages, "Enable 3D Previewer in preferences.png")}\" width=500/>  \n'
+        + "- The button to enable the 3D Preview only for the current session is removed. The 3D previewer has stability issues without a restart of FreeCAD.\n"
+        + "  The 3D Previewer is more stable when enabled permanent.  \n"
+        + "- a thumbnail will be shown when the 3D previewer is disabled.\n"
+        + "  For this to work, a thumbnail must be present in the document.\n"
+        + "  You can enable this in preferences->General->Documents.  \n"
+        + "- The navigation cube is removed from the 3D preview. The cube was too big and was partially hiding the document.  \n"
+        + "- The 3D preview is set to the default orientation of the document, when it is first shown.\n"
+        + "  For most documents this will be the Isometric view.  \n"
         + "###\n"
         + "## MouseBar  \n"
-        + "With this release, the searchbar can be shown at cursor by pressing a shortcut key. The default shortcut is 'S'.\n"
-        + "To show the searchbar at the cursor, press 'S'. To hide it, press 'S' again.  \n"
-        + f'<img src=\"{os.path.join(pathImages, "SearchBar at pointer.png")}\"/>  \n'
-        + "### Changing the shortcut  \n"
-        + "To change the shortcut, go to Tools->Customize.....  \n"
-        + "The customize menu of FreeCAD will popup. On the keyboard tab look for the category 'SearchBar'. \n"
-        + "The pointer command will be shown. Here you can set your preferred shortcut.  \n"
-        + f'<img src=\"{os.path.join(pathImages, "Change shortcut.png")}\" width=500/>\n'
+        + "When the MouseBar is activated, the MouseBar is focussed so that you can start typing right away. It is best to use Escape to close the MouseBar again.  \n"
+        + "This function can be disabled in the preference menu.  \n"
         + "###\n"
-        + "## Preference page  \n"
-        + "A preference page is added to set the following settings:  \n"
-        + "- Enable or disable the SearchBar toolbars  \n"
-        + "- Enable or disable the MouseBar  \n"
-        + "- Show or hide the 'What's new' dialog at startup  \n"
-        + "###\n"
-        + "## Small improvements and fixes \n" 
-        + "- Fixed a bug were the searchbar was not showing it's icon but a question mark icon instead  \n"
-        + "- The \"Refresh cached results\" has now a refresh icon. (Visible after a refresh  of the cache and a restart)"
+        + "## UI improvements \n"
+        + "When you hover over an command in the list, the corresponding button will be highlighted in the UI. Both the standard Toolbar interface and the Ribbon UI are supported.  \n"
+        + "Only buttons in toolbars and the Ribbon UI are highlighted for the active workbench. Menus are not yet supported and activating workbenches on hover is also (not yet) implemnted.  \n"
+        + "This function also be disabled in the preference menu"
+        + f'<img src=\"{os.path.join(pathImages, "Highlight example.png")}\" width=500/>  \n'
     )
     
     # Enter the version for which the form must show on startup
-    WhatsNewVersion = "1.6"
+    WhatsNewVersion = "1.7"
     
     # Get the main window from FreeCAD
     mw = Gui.getMainWindow()
@@ -95,6 +103,7 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         self.form.textEdit.setReadOnly(True)
         self.form.textEdit.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self.form.textEdit.setStyleSheet("background-color: " + StyleMapping_SearchBar.ReturnStyleItem("Background_Color") + ";")
+        self.form.textEdit.setAcceptRichText(True)
         
         # Set the checkbox
         if Parameters_SearchBar.DO_NOT_SHOW_AGAIN is True:
