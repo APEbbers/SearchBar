@@ -97,3 +97,5 @@ if Settings.GetStringSetting("DoNotShowAgain") is None:
 FILTER_TOOLBARS = Settings.GetBoolSetting("FilterToolbarCommands", True)
 FILTER_PARAMETERS = Settings.GetBoolSetting("FilterParameters", True)
 FILTER_DOCUMENTS = Settings.GetBoolSetting("FilterDocuments", True)
+
+ENABLE_HIGHLIGHT = Settings.GetBoolSetting("EnableHighlight", True)

@@ -519,7 +519,7 @@ class SearchBox(QLineEdit):
             index = deselected[0]
             Dict = ast.literal_eval(self.listView.model().itemData(index.siblingAtColumn(3))[0])
             
-            if 'tool' in Dict:
+            if 'tool' in Dict and Parameters.ENABLE_HIGHLIGHT is True:
                 for btn in mw.findChildren(QToolButton):
                     if btn.text() == Dict['tool']:
                         btn.setStyleSheet("border: none;")
@@ -535,8 +535,8 @@ class SearchBox(QLineEdit):
             if not self.listView.isHidden():
                 self.showExtraInfo()
             
-                # Add a Highlight border
-                if 'tool' in Dict:
+                # Add a Highlight border "EnableHighlight"
+                if 'tool' in Dict and Parameters.ENABLE_HIGHLIGHT is True:
                     for btn in mw.findChildren(QToolButton):
                         if btn.text() == Dict['tool']:
                             btn.setStyleSheet("border: 2px solid red;border-radius: 5px;")
