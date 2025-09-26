@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'PreferencesUI_SearchBarHoIypP.ui'
+## Form generated from reading UI file 'PreferencesUI_SearchBarErsQZN.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.9.2
 ##
@@ -92,7 +92,7 @@ class Ui_Form(object):
         self.ShowChangeLog.setProperty(u"prefEntry", u"ShowChangeDialog")
         self.ShowChangeLog.setProperty(u"prefPath", u"Mod/SearchBar")
 
-        self.gridLayout_2.addWidget(self.ShowChangeLog, 12, 0, 1, 3)
+        self.gridLayout_2.addWidget(self.ShowChangeLog, 11, 0, 1, 3)
 
         self.EnableMouseBar = Gui_PrefCheckBox(self.groupBox)
         self.EnableMouseBar.setObjectName(u"EnableMouseBar")
@@ -105,28 +105,6 @@ class Ui_Form(object):
         self.horizontalSpacer = QSpacerItem(25, 17, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
 
         self.gridLayout_2.addItem(self.horizontalSpacer, 2, 0, 1, 1)
-
-        self.gridLayout_4 = QGridLayout()
-        self.gridLayout_4.setObjectName(u"gridLayout_4")
-        self.horizontalSpacer_5 = QSpacerItem(20, 20, QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Minimum)
-
-        self.gridLayout_4.addItem(self.horizontalSpacer_5, 1, 0, 1, 1)
-
-        self.ActivateWorkbenchOnHighlight = Gui_PrefCheckBox(self.groupBox)
-        self.ActivateWorkbenchOnHighlight.setObjectName(u"ActivateWorkbenchOnHighlight")
-        self.ActivateWorkbenchOnHighlight.setProperty(u"prefEntry", u"ActivateOnHover")
-        self.ActivateWorkbenchOnHighlight.setProperty(u"prefPath", u"Mod/SearchBar")
-
-        self.gridLayout_4.addWidget(self.ActivateWorkbenchOnHighlight, 0, 0, 1, 2)
-
-        self.label_5 = QLabel(self.groupBox)
-        self.label_5.setObjectName(u"label_5")
-        self.label_5.setWordWrap(True)
-
-        self.gridLayout_4.addWidget(self.label_5, 1, 1, 1, 1)
-
-
-        self.gridLayout_2.addLayout(self.gridLayout_4, 10, 1, 1, 1)
 
 
         self.gridLayout_6.addWidget(self.groupBox, 0, 0, 1, 1)
@@ -228,8 +206,6 @@ class Ui_Form(object):
         self.label_4.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:8pt; font-style:italic;\">This sets the focus to the MouseBar when activated. You can start typing immediately. When enabled it is best to use the 'Escape' button to close the MouseBar.</span></p></body></html>", None))
         self.ShowChangeLog.setText(QCoreApplication.translate("Form", u"Show 'What's new' dialog on startup", None))
         self.EnableMouseBar.setText(QCoreApplication.translate("Form", u"Enable the MouseBar", None))
-        self.ActivateWorkbenchOnHighlight.setText(QCoreApplication.translate("Form", u"Automaticlly switch to the workbench the commands belongs to", None))
-        self.label_5.setText(QCoreApplication.translate("Form", u"<html><head/><body><p><span style=\" font-size:8pt; font-style:italic;\">This works only for commands that are only present in one workbench. This can cause to all workbenches to be loaded. Use with caution!</span></p></body></html>", None))
         self.FilterBox.setTitle(QCoreApplication.translate("Form", u"Filter preferences", None))
         self.checkBox.setText(QCoreApplication.translate("Form", u"Include toolbar commands", None))
         self.checkBox_3.setText(QCoreApplication.translate("Form", u"Include open documents and their features", None))

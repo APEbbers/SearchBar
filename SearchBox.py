@@ -531,11 +531,11 @@ class SearchBox(QLineEdit):
             index = selected[0]
             self.setExtraInfo(index)
             Dict = ast.literal_eval(self.listView.model().itemData(index.siblingAtColumn(3))[0])
-            if 'workbenches' in Dict and Parameters.ENABLE_ACTIVATE_WB is True:
-                Workbenches = Dict['workbenches']
-                if len(Workbenches) == 1:
-                    Gui.activateWorkbench(Workbenches[0])
-                    self.listView.show()
+            # if 'workbenches' in Dict and Parameters.ENABLE_ACTIVATE_WB is True:
+            #     Workbenches = Dict['workbenches']
+            #     if len(Workbenches) == 1:
+            #         Gui.activateWorkbench(Workbenches[0])
+            #         self.listView.show()
                 
             # Poor attempt to circumvent a glitch where the extra info pane stays visible after pressing Return
             if not self.listView.isHidden():
