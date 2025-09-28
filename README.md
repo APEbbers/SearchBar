@@ -1,18 +1,15 @@
+![logo](Resources/Icons/Tango-System-search.svg)
 ## FreeCAD SearchBar
 
-This FreeCAD mod adds a search bar for tools, document objects and preferences.
-
-⚠️ Several issues related to the C++ memory management interacting badly with Python's have caused lots of segfaults during development. ⚠️
-
-⚠️️ Most of these should now be solved, but save your work often and proceed with caution while testing this extension. ⚠️
-
-### Extensibility
-
-It can be extended by other mods, by adding a new result provider.
+This FreeCAD mod adds a search bar for tools, document objects and preferences. Each of these types can be included or excluded in the preference menu.
+When hovered over, tools will also be highlighted in the FreeCAD Interface.   
+For documents, the thumbnail will be shown by default. However, it is possible to enable a 3D-previewer. Be aware that this can make the add-on less stable, so use at your own risk.  
+  
+The SearchBar can also be activated as a MouseBar next to the mouse cursor by pressing a shortcut key. By default this is the "S" key but it can be changed.
 
 ### Usage
 
-The search bar appears next to the [`What's this?`](https://wiki.freecad.org/Std_WhatsThis) tool <a href="https://wiki.freecad.org/Std_WhatsThis"><img src="https://user-images.githubusercontent.com/4140247/156215976-5dfadb0c-cac4-44b2-8ad4-b67462a5f7fa.png" alt="drawing" width="20px" height="20px"/></a> in FreeCAD's default File toolbar.
+The search bar appears next to the [`What's this?`](https://wiki.freecad.org/Std_WhatsThis) tool <a href="https://wiki.freecad.org/Std_WhatsThis"><img src="https://user-images.githubusercontent.com/4140247/156215976-5dfadb0c-cac4-44b2-8ad4-b67462a5f7fa.png" alt="drawing" width="20px" height="20px"/></a> in FreeCAD's default File toolbar, or next to the mouse cursor by pressing "S".
 
 ![Screenshot of the search bar, with results in its drop-down menu and extra info about the result in a separate pane](Resources/Images/screenshot.png)
 
@@ -55,10 +52,23 @@ Clone the GIT repository or extract the `.zip` downloaded from GitHub to the fol
 
 </details>
 
+### Extensibility
+
+This addon can be extended by adding a new result provider. This can be done by importing the module `SearchResults` and calling the registration functions.
+See the file `SearchResults.py` for explanation and examples.
+
 ### Development
 
+Development is done under the branch "Develop". With the latest version of the Addom-Manager, you can switch to this branch if you like to test new features.
 * `InitGui.py` adds an instance of `SearchBoxLight` to the GUI.
 * `SearchBoxLight` is a hollowed-out implementation of a search box, it loads everything lazily.
+* `SearchResults.py`is used to extend type of results for this add-on.
+
+### Note:
+
+⚠️ Several issues related to the C++ memory management interacting badly with Python's have caused lots of segfaults during development. ⚠️
+
+⚠️️ Most of these should now be solved, but save your work often and proceed with caution while testing this extension. ⚠️
 
 ### Feedback
 
