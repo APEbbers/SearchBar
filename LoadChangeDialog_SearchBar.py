@@ -32,7 +32,7 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
     text = ("# New in SearchBar version 1.8.x:  \n"
         + "###\n"
         + "## General changes \n"
-        + "- The clearbutton is changed to FreeCAD's cancel icon. This is a red cross which is visible with both light and dark themes  \n"
+        + "- The clear button is changed to FreeCAD's cancel icon. This is a red cross which is visible with both light and dark themes  \n"
         + f'- <img src=\"{os.path.join(pathImages, "New clear button.png")}\" width=500/>  \n'
         + "- When refreshing the cache, the status \"Writing to cache \" is added. This explains the pauze when the progress bar is at its end.  \n"
         + "###\n"
