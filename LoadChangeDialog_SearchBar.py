@@ -33,10 +33,9 @@ class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
         + "###\n"
         + "## General changes \n"
         + "- The clearbutton is changed to FreeCAD's cancel icon. This is a red cross which is visible with both light and dark themes  \n"
-        + f'- <img src=\"{os.path.join(pathImages, "New clear button.png")}\" width=200/>  \n'
+        + f'- <img src=\"{os.path.join(pathImages, "New clear button.png")}\" width=500/>  \n'
         + "- When refreshing the cache, the status \"Writing to chasch \" is added. This explains the pauze when the progress bar is at its end.  \n"
         + "###\n"
-        + "## MouseBar  \n"
         + "## UI improvements \n"
         + "Small UI improvements to add support for FreeCAD's new themes"
     )
