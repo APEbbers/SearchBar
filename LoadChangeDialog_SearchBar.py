@@ -29,39 +29,19 @@ translate = App.Qt.translate
 class LoadDialog(ui_ChangeDialog.Ui_Form, QObject):
     
     # The text for the changelog (markdown)
-    text = ("# New in SearchBar version 1.7.x:  \n"
+    text = ("# New in SearchBar version 1.8.x:  \n"
         + "###\n"
-        + "## Filter options  \n"
-        + "The results of the searchbar consists of three type of results: Buttons, parameters and open documents with their content.  \n"
-        + "It is now possible to enable or disable one or more of these result types in the preference page.  \n"
-        + f'<img src=\"{os.path.join(pathImages, "FilterOptions.png")}\" width=500/>  \n'
-        + "###\n"
-        + "## 3D Viewer improvements  \n"
-        + "a 3D Previewer can be enabled to for open documents. With this new release the following changes and improvements are made:  \n"
-        + "- The button to enable the 3D previewer permanently is moved from the results dialog to preferences.\n"
-        + f'- <img src=\"{os.path.join(pathImages, "Enable 3D Previewer in preferences.png")}\" width=500/>  \n'
-        + "- The button to enable the 3D Preview only for the current session is removed. The 3D previewer has stability issues without a restart of FreeCAD.\n"
-        + "  The 3D Previewer is more stable when enabled permanent.  \n"
-        + "- a thumbnail will be shown when the 3D previewer is disabled.\n"
-        + "  For this to work, a thumbnail must be present in the document.\n"
-        + "  You can enable this in preferences->General->Documents.  \n"
-        + "- The navigation cube is removed from the 3D preview. The cube was too big and was partially hiding the document.  \n"
-        + "- The 3D preview is set to the default orientation of the document, when it is first shown.\n"
-        + "  For most documents this will be the Isometric view.  \n"
-        + "###\n"
-        + "## MouseBar  \n"
-        + "When the MouseBar is activated, the MouseBar is focussed so that you can start typing right away. It is best to use Escape to close the MouseBar again.  \n"
-        + "This function can be disabled in the preference menu.  \n"
+        + "## General changes \n"
+        + "- The clear button is changed to FreeCAD's cancel icon. This is a red cross which is visible with both light and dark themes  \n"
+        + f'- <img src=\"{os.path.join(pathImages, "New clear button.png")}\" width=500/>  \n'
+        + "- When refreshing the cache, the status \"Writing to cache \" is added. This explains the pauze when the progress bar is at its end.  \n"
         + "###\n"
         + "## UI improvements \n"
-        + "When you hover over an command in the list, the corresponding button will be highlighted in the UI. Both the standard Toolbar interface and the Ribbon UI are supported.  \n"
-        + "Only buttons in toolbars and the Ribbon UI are highlighted for the active workbench. Menus are not yet supported and activating workbenches on hover is also (not yet) implemnted.  \n"
-        + "This function also be disabled in the preference menu"
-        + f'<img src=\"{os.path.join(pathImages, "Highlight example.png")}\" width=500/>  \n'
+        + "Small UI improvements are made to add support for FreeCAD's new themes"
     )
     
     # Enter the version for which the form must show on startup
-    WhatsNewVersion = "1.7"
+    WhatsNewVersion = "1.8"
     
     # Get the main window from FreeCAD
     mw = Gui.getMainWindow()
