@@ -137,41 +137,6 @@ def ReturnStyleItem(ControlName, ShowCustomIcon=False, IgnoreOverlay=False):
         return None
 
 
-def GetIconBasedOnTag(ControlName=""):
-    iconSet = {}
-    iconName = ""
-    IsDarkTheme = darkMode
-
-    # if it is a dark theme, get the white icons, else get the black icons
-    if IsDarkTheme is True:
-        iconSet = {
-            "ScrollLeftButton_Tab": "backward_small_default_white.svg",
-            "ScrollRightButton_Tab": "forward_small_default_white.svg",
-            "ScrollLeftButton_Category": "backward_default_white.svg",
-            "ScrollRightButton_Category": "forward_default_white.svg",
-            "OptionButton": "more_default_white.svg",
-            "PinButton_open": "pin-icon-open_white.svg",
-            "PinButton_closed": "pin-icon-default_white.svg",
-        }
-    else:
-        iconSet = {
-            "ScrollLeftButton_Tab": "backward_small_default.svg",
-            "ScrollRightButton_Tab": "forward_small_default.svg",
-            "ScrollLeftButton_Category": "backward_default.svg",
-            "ScrollRightButton_Category": "forward_default.svg",
-            "OptionButton": "more_default.svg",
-            "PinButton_open": "pin-icon-open.svg",
-            "PinButton_closed": "pin-icon-default.svg",
-        }
-
-    # get the icon name for the requested control
-    if ControlName != "":
-        iconName = iconSet[ControlName]
-
-    # return the icon name
-    return iconName
-
-
 def ReturnFontColor():
     fontColor = "#000000"
     IsDarkTheme = darkMode
@@ -191,6 +156,10 @@ StyleMapping_default = {
         "none": {
             "Background_Color": "none",
             "FontColor": ReturnFontColor(),
+        },
+        "FreeCAD.qss": {
+            "Background_Color": "none",
+            "FontColor": "",
         },
         "FreeCAD Dark.qss": {
             "Background_Color": "#333333",
