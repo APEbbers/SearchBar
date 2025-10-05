@@ -1,7 +1,7 @@
 import Parameters_SearchBar
-from PySide6.QtWidgets import QLineEdit
-from PySide6.QtGui import QIcon, QAction
-from PySide6.QtCore import Signal
+from PySide.QtWidgets import QLineEdit
+from PySide.QtGui import QIcon, QAction
+from PySide.QtCore import Signal
 import os
 
 # This is a "light" version of the SearchBox implementation, which loads the actual implementation on first click
