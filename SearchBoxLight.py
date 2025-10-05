@@ -2,9 +2,7 @@ import Parameters_SearchBar
 from PySide6.QtWidgets import QLineEdit
 from PySide6.QtGui import QIcon, QAction
 from PySide6.QtCore import Signal
-import FreeCADGui as Gui
 import os
-import StyleMapping_SearchBar
 
 # This is a "light" version of the SearchBox implementation, which loads the actual implementation on first click
 class SearchBoxLight(QLineEdit):
@@ -26,15 +24,12 @@ class SearchBoxLight(QLineEdit):
         # Connect signals and slots
         self.textChanged.connect(self.filterModel)
         # Thanks to https://saurabhg.com/programming/search-box-using-qlineedit/ for indicating a few useful options
-        # ico = QtGui.QIcon(":/icons/help-browser.svg")
-        ico = QIcon(os.path.join(Parameters_SearchBar.ICON_LOCATION, "Tango-System-search.svg"))
-        # ico = QtGui.QIcon(':/icons/WhatsThis.svg')
-        self.addAction(ico, QLineEdit.ActionPosition.LeadingPosition)
-        
+        self.setClearButtonEnabled(True)   
+        ico = QIcon(os.path.join(Parameters_SearchBar.ICON_LOCATION, "Tango-System-search.svg"))  
         clearIco = QIcon(os.path.join(Parameters_SearchBar.ICON_LOCATION, "Edit_Cancel.svg"))
         self.findChildren(QAction)[0].setIcon(clearIco)
+        self.addAction(ico, QLineEdit.ActionPosition.LeadingPosition)
         
-        self.setClearButtonEnabled(True)        
         self.setPlaceholderText("Search tools, prefs & tree")
         self.setFixedWidth(
             200
