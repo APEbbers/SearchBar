@@ -39,9 +39,6 @@ set(Namespace_SRCS
 )
 
 add_subdirectory(Resources)
-add_subdirectory(Icons)
-add_subdirectory(Images)
-add_subdirectory(ui)
 
 SOURCE_GROUP("" FILES ${Namespace_SRCS})
 
