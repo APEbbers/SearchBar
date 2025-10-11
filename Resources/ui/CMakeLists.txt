@@ -7,10 +7,6 @@ set(Namespace_SRCS
 
 SOURCE_GROUP("" FILES ${UI_SRCS})
 
-ADD_CUSTOM_TARGET(SEARCHBAR ALL
-        SOURCES ${UI_SRCS}
-)
-
 fc_copy_sources(SEARCHBAR "${CMAKE_BINARY_DIR}/Mod/SearchBar/" ${UI_SRCS})
 
 INSTALL(
