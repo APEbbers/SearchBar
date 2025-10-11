@@ -10,3 +10,17 @@ set(Namespace_SRCS
 	SearchBar at pointer.png
 )
 
+SOURCE_GROUP("" FILES ${Namespace_SRCS})
+
+ADD_CUSTOM_TARGET(SEARCHBAR ALL
+        SOURCES ${Namespace_SRCS}
+)
+
+fc_copy_sources(SEARCHBAR "${CMAKE_BINARY_DIR}/Mod/SearchBar" ${Namespace_SRCS})
+
+INSTALL(
+    FILES
+        ${Namespace_SRCS}
+    DESTINATION
+        Mod/SearchBar/Resources/Images
+)
