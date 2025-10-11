@@ -21,6 +21,7 @@ set(Namespace_SRCS
     Serialize_SearchBar.py
     StandardFunctions_SearchBar.py
     StyleMapping_SearchBar.py
+    package.xml
 )
 
 add_subdirectory(Resources)
