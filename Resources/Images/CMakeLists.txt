@@ -1,4 +1,4 @@
-set(Namespace_SRCS
+set(IMAGES_SRCS
 	animAopt.gif
     animB2op.gif
 	Change shortcut.png
@@ -10,17 +10,17 @@ set(Namespace_SRCS
 	SearchBar at pointer.png
 )
 
-SOURCE_GROUP("" FILES ${Namespace_SRCS})
+SOURCE_GROUP("" FILES ${IMAGES_SRCS})
 
 ADD_CUSTOM_TARGET(SEARCHBAR ALL
-        SOURCES ${Namespace_SRCS}
+        SOURCES ${IMAGES_SRCS}
 )
 
-fc_copy_sources(SEARCHBAR "${CMAKE_BINARY_DIR}/Mod/SearchBar" ${Namespace_SRCS})
+fc_copy_sources(SEARCHBAR "${CMAKE_BINARY_DIR}/Mod/SearchBar" ${IMAGES_SRCS})
 
 INSTALL(
     FILES
-        ${Namespace_SRCS}
+        ${IMAGES_SRCS}
     DESTINATION
         Mod/SearchBar/Resources/Images
 )

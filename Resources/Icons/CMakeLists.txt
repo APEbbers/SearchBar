@@ -1,21 +1,21 @@
-set(Namespace_SRCS
+set(ICONS_SRCS
     Tango-System-search.svg
     Tango-Tools-spanner-hammer.svg
 	Edit_Cancel.svg
 	preferences-searchbar.svg
 )
 
-SOURCE_GROUP("" FILES ${Namespace_SRCS})
+SOURCE_GROUP("" FILES ${ICONS_SRCS})
 
 ADD_CUSTOM_TARGET(SEARCHBAR ALL
-        SOURCES ${Namespace_SRCS}
+        SOURCES ${ICONS_SRCS}
 )
 
-fc_copy_sources(SEARCHBAR "${CMAKE_BINARY_DIR}/Mod/SearchBar" ${Namespace_SRCS})
+fc_copy_sources(SEARCHBAR "${CMAKE_BINARY_DIR}/Mod/SearchBar" ${ICONS_SRCS})
 
 INSTALL(
     FILES
-        ${Namespace_SRCS}
+        ${ICONS_SRCS}
     DESTINATION
         Mod/SearchBar/Resources/Icons
 )
