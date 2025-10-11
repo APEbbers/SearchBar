@@ -20,25 +20,28 @@ set(Namespace_SRCS
     Serialize_SearchBar.py
     StandardFunctions_SearchBar.py
     StyleMapping_SearchBar.py
-    ./Resourses/Icons/Tango-System-search.svg
-    ./Resourses/Icons/Tango-Tools-spanner-hammer.svg
-	./Resourses/Icons/Edit_Cancel.svg
-	./Resourses/Images/animAopt.gif
-    ./Resourses/Images/animB2op.gif
-	./Resourses/Images/Change shortcut.png
-	./Resourses/Images/Enable 3D Previewer in preferences.png
-	./Resourses/Images/FilterOptions.png
-	./Resourses/Images/Highlight example.png
-	./Resourses/Images/New clear button.png
-	./Resourses/Images/screenshot.png
-	./Resourses/Images/SearchBar at pointer.png
-	./Resourses/ui/ChangeDialog.ui
-	./Resourses/ui/PreferencesUI_SearchBar.ui
-	./Resourses/ui/ui_ChangeDialog.py
-	./Resourses/ui/ui_PreferencesUI_SearchBar.py
+    Tango-System-search.svg
+    Tango-Tools-spanner-hammer.svg
+	Edit_Cancel.svg
+	animAopt.gif
+    animB2op.gif
+	Change shortcut.png
+	Enable 3D Previewer in preferences.png
+	FilterOptions.png
+	Highlight example.png
+	New clear button.png
+	screenshot.png
+	SearchBar at pointer.png
+	ChangeDialog.ui
+	PreferencesUI_SearchBar.ui
+	ui_ChangeDialog.py
+	ui_PreferencesUI_SearchBar.py
 )
 
-
+add_subdirectory(Resources)
+add_subdirectory(Icons)
+add_subdirectory(Images)
+add_subdirectory(ui)
 
 SOURCE_GROUP("" FILES ${Namespace_SRCS})
 
