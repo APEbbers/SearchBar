@@ -5,13 +5,10 @@ set(ICONS_SRCS
 	preferences-searchbar.svg
 )
 
-SOURCE_GROUP("" FILES ${ICONS_SRCS})
-
-fc_copy_sources(SEARCHBAR "${CMAKE_BINARY_DIR}/Mod/SearchBar" ${ICONS_SRCS})
-
-INSTALL(
-    FILES
-        ${ICONS_SRCS}
-    DESTINATION
-        Mod/SearchBar/Resources/Icons
+ADD_CUSTOM_TARGET(SearchBarIcons ALL
+    SOURCES ${ICONS_SRCS}
 )
+
+fc_copy_sources(SearchBarIcons "${CMAKE_BINARY_DIR}/Mod/SearchBar/Resources/Icons" ${ICONS_SRCS})
+
+INSTALL(FILES ${ICONS_SRCS} DESTINATION Mod/SearchBar/Resources/Icons)
