@@ -1,9 +1,6 @@
 set(Namespace_SRCS
-    animAopt.gif
-    animB2op.gif
     BuiltInSearchResults.py
-    CMakeLists.txt
-	Edit_Cancel.svg
+    CMakeLists.txt	
     GetItemGroups.py
     IndentedItemDelegate.py
     InitGui.py
@@ -21,19 +18,22 @@ set(Namespace_SRCS
     SearchBox.py
     SearchResults.py
     Serialize.py
-    Tango-System-search.svg
-    Tango-Tools-spanner-hammer.svg
-	Change shortcut.png
-	Enable 3D Previewer in preferences.png
-	FilterOptions.png
-	Highlight example.png
-	New clear button.png
-	screenshot.png
-	SearchBar at pointer.png
-	ChangeDialog.ui
-	PreferencesUI_SearchBar.ui
-	ui_ChangeDialog.py
-	ui_PreferencesUI_SearchBar.py
+    ./Resourses/Icons/Tango-System-search.svg
+    ./Resourses/Icons/Tango-Tools-spanner-hammer.svg
+	./Resourses/Icons/Edit_Cancel.svg
+	./Resourses/Images/animAopt.gif
+    ./Resourses/Images/animB2op.gif
+	./Resourses/Images/Change shortcut.png
+	./Resourses/Images/Enable 3D Previewer in preferences.png
+	./Resourses/Images/FilterOptions.png
+	./Resourses/Images/Highlight example.png
+	./Resourses/Images/New clear button.png
+	./Resourses/Images/screenshot.png
+	./Resourses/Images/SearchBar at pointer.png
+	./Resourses/ui/ChangeDialog.ui
+	./Resourses/ui/PreferencesUI_SearchBar.ui
+	./Resourses/ui/ui_ChangeDialog.py
+	./Resourses/ui/ui_PreferencesUI_SearchBar.py
 )
 
 
