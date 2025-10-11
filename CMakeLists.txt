@@ -20,22 +20,6 @@ set(Namespace_SRCS
     Serialize_SearchBar.py
     StandardFunctions_SearchBar.py
     StyleMapping_SearchBar.py
-    Tango-System-search.svg
-    Tango-Tools-spanner-hammer.svg
-	Edit_Cancel.svg
-	animAopt.gif
-    animB2op.gif
-	Change shortcut.png
-	Enable 3D Previewer in preferences.png
-	FilterOptions.png
-	Highlight example.png
-	New clear button.png
-	screenshot.png
-	SearchBar at pointer.png
-	ChangeDialog.ui
-	PreferencesUI_SearchBar.ui
-	ui_ChangeDialog.py
-	ui_PreferencesUI_SearchBar.py
 )
 
 add_subdirectory(Resources)
