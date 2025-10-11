@@ -1,5 +1,21 @@
 <RCC>
   <qresource prefix="/">
     <file>Resources/Icons/preferences-searchbar.svg</file>
+    <file>Resources/Icons/Tango-System-search.svg</file>
+    <file>Resources/Icons/Tango-Tools-spanner-hammer.svg</file>
+	  <file>Resources/Icons/Edit_Cancel.svg</file>
+	  <file>Resources/Images/animAopt.gif</file>
+    <file>Resources/Images/animB2op.gif</file>
+    <file>Resources/Images/Change shortcut.png</file>
+    <file>Resources/Images/Enable 3D Previewer in preferences.png</file>
+    <file>Resources/Images/FilterOptions.png</file>
+    <file>Resources/Images/Highlight example.png</file>
+    <file>Resources/Images/New clear button.png</file>
+    <file>Resources/Images/screenshot.png</file>
+    <file>Resources/Images/SearchBar at pointer.png</file>
+    <file>Resources/ui/ChangeDialog.ui</file>
+    <file>Resources/ui/PreferencesUI_SearchBar.ui</file>
+    <file>Resources/ui/ui_ChangeDialog.py</file>
+    <file>Resources/ui/ui_PreferencesUI_SearchBar.py</file>
   </qresource>
 </RCC>

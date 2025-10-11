@@ -22,8 +22,6 @@ set(Namespace_SRCS
     StyleMapping_SearchBar.py
 )
 
-add_subdirectory(Resources)
-
 SOURCE_GROUP("" FILES ${Namespace_SRCS})
 
 ADD_CUSTOM_TARGET(SEARCHBAR ALL
