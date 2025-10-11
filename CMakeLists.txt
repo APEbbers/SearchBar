@@ -14,7 +14,6 @@ set(Namespace_SRCS
     ResultsRefreshTools.py
     ResultsToolbar.py
     SafeViewer.py
-    screenshot.png
     SearchBoxLight.py
     SearchBox.py
     SearchResults.py
