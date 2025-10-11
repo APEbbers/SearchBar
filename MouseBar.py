@@ -162,7 +162,7 @@ class EventInspector_SB(QObject):
                     else:
                         toolbar_Parent = toolbar_Parent.parent()
             except Exception as e:
-                print(e)
+                # print(e)
                 pass
                 
             
