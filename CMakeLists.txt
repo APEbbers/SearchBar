@@ -7,6 +7,7 @@ set(Namespace_SRCS
     Init.py
 	LoadChangeDialog_SearchBar.py
 	MouseBar.py
+    Parameters_SearchBar.py
     RefreshTools.py
     ResultsDocument.py
     ResultsPreferences.py
@@ -17,7 +18,9 @@ set(Namespace_SRCS
     SearchBoxLight.py
     SearchBox.py
     SearchResults.py
-    Serialize.py
+    Serialize_SearchBar.py
+    StandardFunctions_SearchBar.py
+    StyleMapping_SearchBar.py
     ./Resourses/Icons/Tango-System-search.svg
     ./Resourses/Icons/Tango-Tools-spanner-hammer.svg
 	./Resourses/Icons/Edit_Cancel.svg
