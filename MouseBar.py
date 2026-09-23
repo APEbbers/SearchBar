@@ -133,7 +133,7 @@ class EventInspector_SB(QObject):
             
             # if the toolbar is under the mouse cursor, don´t execute the mousebar
             toolbar = mw.findChild(QToolBar, "SearchBar")
-            if toolbar.underMouse() is True:
+            if toolbar is not None and toolbar.underMouse() is True:
                 return False            
             for i in range(10):
                 toolbar_Parent = toolbar.parent()
@@ -151,7 +151,7 @@ class EventInspector_SB(QObject):
                 dw = mw.findChild(QDockWidget, "Ribbon")
                 Ribbon = dw.findChild(FCBinding.ModernMenu, "Ribbon")
                 toolbar = Ribbon.rightToolBar()
-                if toolbar.underMouse() is True:
+                if toolbar is not None and toolbar.underMouse() is True:
                     return False            
                 for i in range(10):
                     toolbar_Parent = toolbar.parent()
@@ -219,7 +219,7 @@ class EventInspector_SB(QObject):
                 # Get the main window and the toolbar
                 mw: QMainWindow = Gui.getMainWindow()
                 mouseBar = mw.findChild(QToolBar, "SearchBarAtMouse")
-                if mouseBar.underMouse() is False:
+                if mouseBar is not None and mouseBar.underMouse() is False:
                     mouseBar.parent().parent().close()
             except Exception:
                 pass

@@ -1,9 +1,9 @@
 def ReturnXML_Value(
     path: str, ElementName: str, attribKey: str = "", attribValue: str = ""
 ):
-    import xml.etree.ElementTree as ET
+    import defusedxml.ElementTree as ET
     import os
-
+ 
     # Passing the path of the
     # xml document to enable the
     # parsing process
@@ -36,7 +36,7 @@ def ReturnXML_Value_Git(
     host="https://codeberg.org/",
 ):
     import requests_local as requests
-    import xml.etree.ElementTree as ET
+    import defusedxml.ElementTree as ET
 
     result = None
     try:
@@ -107,7 +107,7 @@ def GetGitData(PrintErrors=False):
         line = fd.readlines()[0]
         commit = line.strip()
 
-    # If gitpython is installed, get the list of contributors
+    # If git installed, get the list of contributors
     if GitInstalled is True:
         repo = git.Repo(git_root)
         Git = repo.git
