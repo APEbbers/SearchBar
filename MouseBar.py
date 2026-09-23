@@ -133,25 +133,8 @@ class EventInspector_SB(QObject):
             
             # if the toolbar is under the mouse cursor, don´t execute the mousebar
             toolbar = mw.findChild(QToolBar, "SearchBar")
-            if toolbar is not None and toolbar.underMouse() is True:
-                return False            
-            for i in range(10):
-                toolbar_Parent = toolbar.parent()
-                if toolbar_Parent is mw:
-                    break
-                if toolbar_Parent.underMouse() is True:
-                    return False
-                else:
-                    toolbar_Parent = toolbar_Parent.parent()
-                    
-            # if RibbonUI is installed and the right toolbar is under the mouse cursor, don´t execute the mousebar
-            try:
-                import FCBinding
-
-                dw = mw.findChild(QDockWidget, "Ribbon")
-                Ribbon = dw.findChild(FCBinding.ModernMenu, "Ribbon")
-                toolbar = Ribbon.rightToolBar()
-                if toolbar is not None and toolbar.underMouse() is True:
+            if toolbar is not None:
+                if toolbar.underMouse() is True:
                     return False            
                 for i in range(10):
                     toolbar_Parent = toolbar.parent()
@@ -161,6 +144,25 @@ class EventInspector_SB(QObject):
                         return False
                     else:
                         toolbar_Parent = toolbar_Parent.parent()
+                    
+            # if RibbonUI is installed and the right toolbar is under the mouse cursor, don´t execute the mousebar
+            try:
+                import FCBinding
+
+                dw = mw.findChild(QDockWidget, "Ribbon")
+                Ribbon = dw.findChild(FCBinding.ModernMenu, "Ribbon")
+                toolbar = Ribbon.rightToolBar()
+                if toolbar is not None:
+                    if toolbar.underMouse() is True:
+                        return False            
+                    for i in range(10):
+                        toolbar_Parent = toolbar.parent()
+                        if toolbar_Parent is mw:
+                            break
+                        if toolbar_Parent.underMouse() is True:
+                            return False
+                        else:
+                            toolbar_Parent = toolbar_Parent.parent()
             except Exception as e:
                 # print(e)
                 pass
