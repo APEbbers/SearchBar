@@ -11,6 +11,8 @@
 
   <author>Paul Ebbers</author>
 
+  <maintainer email="business@apebbers.nl">Paul Ebbers</maintainer>
+
   <license file="LICENSE">CCOv1</license>
 
   <url type="repository" branch="main">https://github.com/APEbbers/SearchBar</url>
