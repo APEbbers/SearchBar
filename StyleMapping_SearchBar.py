@@ -40,8 +40,7 @@ from PySide.QtCore import Qt, SIGNAL, Signal, QObject, QThread
 
 
 def DarkMode():
-    import xml.etree.ElementTree as ET
-    import os
+    import defusedxml.ElementTree as ET
 
     # Define the standard result
     IsDarkTheme = False

@@ -114,7 +114,8 @@ def getAllToolbars():
     for wbname, workbench in FreeCADGui.listWorkbenches().items():
         try:
             tbs = workbench.listToolbars()
-        except:
+        except Exception    :  # noqa: BLE001
+            print(f"{workbench.name()} not available")
             continue
         # careful, tbs contains all the toolbars of the workbench, including shared toolbars
         for tb in tbs:
