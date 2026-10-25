@@ -5,6 +5,7 @@ from PySide.QtGui import QShortcut, QKeySequence, QCursor
 from PySide.QtCore import Qt, Signal, QEvent, QObject
 import os
 import Parameters_SearchBar
+from MouseBar import EventInspector_SB
 
 # Avoid garbage collection by storing the action in a global variable
 wax = None
@@ -26,6 +27,20 @@ Gui.addPreferencePage(PreferenceUI, "SearchBar")
 def QT_TRANSLATE_NOOP(context, text):
     return text
 
+# Install the event filters outside the class to avoid being installed on every workbench activation again
+mw: QMainWindow = Gui.getMainWindow()
+cp = mw.centralWidget()
+vp: QWidget = cp.viewport()
+if len(mw.findChildren(EventInspector_SB)) <= 0:
+    mw.installEventFilter(EventInspector_SB(mw))
+if len(mw.centralWidget().findChildren(EventInspector_SB)) <= 0:
+    mw.centralWidget().installEventFilter(EventInspector_SB(mw))
+if len(vp.findChildren(EventInspector_SB)) <= 0:
+    vp.installEventFilter(EventInspector_SB(mw))
+    for child in vp.children():
+        if len(child.findChildren(EventInspector_SB)) <= 0:
+            child.installEventFilter(EventInspector_SB(mw))
+
 class SearchBar(Gui.Workbench):
     # This is needed to avoid crashes
     def GetClassName(self):
@@ -41,7 +56,6 @@ class SearchBar(Gui.Workbench):
         import SearchBox
         import MouseBar
         import LoadChangeDialog_SearchBar
-        from MouseBar import EventInspector_SB
         from PySide.QtWidgets import QToolBar
         import Parameters_SearchBar
         
@@ -60,12 +74,6 @@ class SearchBar(Gui.Workbench):
             if Parameters_SearchBar.Settings.GetBoolSetting("EnableMouseBar", True) is True:
                 # Activate the searchBar at the pointer module
                 MouseBar.SearchBar_Pointer()
-                
-                mw.installEventFilter(EventInspector_SB(mw))
-                mw.centralWidget().installEventFilter(EventInspector_SB(mw))
-                vp.installEventFilter(EventInspector_SB(mw))
-                for child in vp.children():
-                    child.installEventFilter(EventInspector_SB(mw))
             
             # if the toolbars are enabled in preferences, load them
             if Parameters_SearchBar.Settings.GetBoolSetting("EnableToolbars", True) is True:          
@@ -80,7 +88,7 @@ class SearchBar(Gui.Workbench):
                 mw.addToolBar(tbr)
                 tbr.show()
             return   
-
+        
 SearchBar.addToolSearchBox()
 Gui.getMainWindow().workbenchActivated.connect(SearchBar.addToolSearchBox)
 
