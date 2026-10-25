@@ -51,8 +51,7 @@ class SearchBar(Gui.Workbench):
     def addToolSearchBox():
         global wax, sea, tbr, ChangeDialogLoaded
         mw: QMainWindow = Gui.getMainWindow()
-        cp = mw.centralWidget()
-        vp: QWidget = cp.viewport()
+
         import SearchBox
         import MouseBar
         import LoadChangeDialog_SearchBar

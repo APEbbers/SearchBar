@@ -163,8 +163,7 @@ class EventInspector_SB(QObject):
                             return False
                         else:
                             toolbar_Parent = toolbar_Parent.parent()
-            except Exception as e:
-                # print(e)
+            except Exception:  # noqa: BLE001, S110
                 pass
                 
             
@@ -175,6 +174,19 @@ class EventInspector_SB(QObject):
                 )
             if "SearchBar" in CustomShortCuts.GetStrings():
                 ShortcutKey = CustomShortCuts.GetString("SearchBar")
+                
+            if (
+                ShortcutKey.split("+")[0].lower() != "alt" 
+                and ShortcutKey.split("+")[0].lower() != "ctrl" 
+                and ShortcutKey.split("+")[0].lower() != "shift" 
+                and event.key() in (
+                        Qt.Key.Key_Control,
+                        Qt.Key.Key_Shift,
+                        Qt.Key.Key_Alt,
+                        Qt.Key.Key_Meta,
+                    )
+                ):
+                    return False
             # Get a modifier key if there is one
             modifier = None
             key = QKeySequence(ShortcutKey)
@@ -189,12 +201,11 @@ class EventInspector_SB(QObject):
         
             # check if there is a modifier key that matches the modifier key in the shortcut
             if modifier is not None:
-                if event.modifiers() and modifier:
+                if event.modifiers() and modifier:  # noqa: SIM102
                     if event.key() == key:
                         Gui.runCommand("SearchBar")
                         # Set the toolbar focused, so that you can start typing right away.
-                        if mouseBar is not None and mouseBar.isVisible():
-                            if Parameters_SearchBar.Settings.GetBoolSetting("AutoFocusMouseBarEnabled", True) is True:
+                        if mouseBar is not None and mouseBar.isVisible() and Parameters_SearchBar.Settings.GetBoolSetting("AutoFocusMouseBarEnabled", True) is True:
                                 child = mouseBar.findChild(QLineEdit)
                                 child.setFocus()
                         return True
@@ -204,8 +215,7 @@ class EventInspector_SB(QObject):
                 if event.key() == key:
                     Gui.runCommand("SearchBar")
                     # Set the toolbar focused, so that you can start typing right away.
-                    if mouseBar is not None and mouseBar.isVisible():
-                        if Parameters_SearchBar.Settings.GetBoolSetting("AutoFocusMouseBarEnabled", True) is True:
+                    if mouseBar is not None and mouseBar.isVisible() and Parameters_SearchBar.Settings.GetBoolSetting("AutoFocusMouseBarEnabled", True) is True:
                             child = mouseBar.findChild(QLineEdit)
                             child.setFocus()
                     return True
@@ -223,7 +233,7 @@ class EventInspector_SB(QObject):
                 mouseBar = mw.findChild(QToolBar, "SearchBarAtMouse")
                 if mouseBar is not None and mouseBar.underMouse() is False:
                     mouseBar.parent().parent().close()
-            except Exception:
+            except Exception:  # noqa: BLE001, S110
                 pass
             return True
         return False
